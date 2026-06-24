@@ -31,15 +31,11 @@ _exclude:
   - "{% if analysis_stack != 'python' %}pyproject.toml{% endif %}"
   - "{% if analysis_stack != 'python' %}tests/test_smoke.py{% endif %}"
 
-# Run once in the freshly generated project. Idempotent / safe on re-run.
-_tasks:
-  - "git init -q -b main || true"
-
 _message_after_copy: |
   ✅ Project '{{ project_name }}' generated.
 
   Next steps (see README.md):
-    1. cd into the project — Claude Code auto-loads CLAUDE.md + .claude/.
+    1. cd into the project and run `git init -b main` (Code auto-loads CLAUDE.md + .claude/).
     2. Install the companion plugin (one-time, machine-global):
          /plugin marketplace add psotob91/psotobverse-utils
          /plugin install psotobverse-utils@psotobverse-utils
