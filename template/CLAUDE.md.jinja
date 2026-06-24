@@ -1,0 +1,50 @@
+# {{ project_name }}
+
+A reproducible, governed analysis project run with Claude Code (and Cowork as a thin client).
+
+## Read first, in order
+
+Read these before acting. Stop after each and load only what the task needs.
+
+1. `.claude/constitution.md` — the charter (non-negotiable rules).
+2. `.claude/policies/00-index.md` — atomic policies with explicit precedence.
+3. `.claude/knowledge-map.md` — the router: task type to the one file to open.
+4. `PROJECT_BRIEF.md` — what this specific project is about.
+
+## Do NOT run /init
+
+A curated `CLAUDE.md` is already provided. Running `/init` inflates this file
+with auto-discovered noise and rots context over time. Edit this file by hand.
+
+## Companion plugin
+
+Guardrails are NOT defined here. Skills, hooks, and subagents come from the
+companion plugin `psotobverse-utils` (orthogonal layer, separate repo). Install it once:
+
+```
+/plugin marketplace add ./.claude-plugin
+/plugin install psotobverse-utils
+```
+
+The template only references the plugin; it never duplicates its skills, hooks,
+or subagents.
+
+## Overlay: generic gate to this project's command
+
+When a workflow expects a generic capability, use the project-specific command below.
+
+| Generic gate            | This project's command            |
+|-------------------------|-----------------------------------|
+| Tests                   | `make test`                       |
+| Linter / format         | `make lint`                       |
+| Doc hygiene / index     | `/index` or `/tidy`               |
+| Outputs index           | `make reindex`                    |
+| Decisions               | `docs/adr/`                       |
+| Learning                | `learning/PLAYBOOK.md`            |
+| Reproduce env           | `make setup`                      |
+
+## Cowork
+
+Cowork does NOT auto-read this `CLAUDE.md`. Generate `.claude/COWORK_INSTRUCTIONS.md`
+with `/sync-cowork` after the first Code session, then paste its block into the
+Cowork project's Instructions field.

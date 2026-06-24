@@ -1,0 +1,14 @@
+# gitleaks configuration — extends the bundled default rule set.
+# Docs: https://github.com/gitleaks/gitleaks#configuration
+title = "gitleaks config"
+
+[extend]
+# Inherit all of gitleaks' built-in rules, then layer the allowlist below.
+useDefault = true
+
+[allowlist]
+description = "Project-level allowlist"
+# .env.example ships placeholder values on purpose — never flag it.
+paths = [
+  '''\.env\.example$''',
+]

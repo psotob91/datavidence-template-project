@@ -1,0 +1,2 @@
+# Keep this directory under version control even when empty.
+# context/ holds read-only prior domain material (see README.md).

@@ -1,0 +1,51 @@
+# {{ project_name }}
+
+A reproducible analysis project generated from the DATAVIDENCE template
+(Claude-only: Claude Code + Cowork). Governance, context, and tooling are
+wired up so you can focus on the analysis.
+
+## Getting started
+
+1. Open the project folder in Claude Code — it auto-loads `CLAUDE.md` and the
+   `.claude/` governance layer. Do **not** run `/init`; a curated `CLAUDE.md`
+   already ships with the project.
+2. Install the companion plugin (one-time, machine-global):
+
+   ```text
+   /plugin marketplace add ./.claude-plugin
+   /plugin install psotobverse-utils
+   ```
+
+3. Set up the environment:
+
+   ```sh
+   make setup
+   ```
+
+   This restores the analysis stack. Lockfiles (e.g. `renv.lock`, `uv.lock`)
+   are generated locally and not committed by the template.
+
+## Governance
+
+Before working, read the governance layer in order:
+
+1. `.claude/constitution.md` — the project charter (binding principles).
+2. `.claude/policies/00-index.md` — atomic policies with precedence.
+3. `.claude/knowledge-map.md` — a small router to the rest of the repo.
+4. `PROJECT_BRIEF.md` — what this specific project is about.
+
+Do **not** run `/init`. The governance and `CLAUDE.md` are authored, not
+auto-discovered.
+
+## Cowork
+
+To use this project from Cowork:
+
+1. In a Claude Code session, run `/sync-cowork` to generate
+   `.claude/COWORK_INSTRUCTIONS.md`.
+2. Open Cowork: **Projects > + > Use an existing folder** and select this
+   project's folder.
+3. Paste the contents of `.claude/COWORK_INSTRUCTIONS.md` into the Cowork
+   project's Instructions field.
+
+Re-run `/sync-cowork` whenever the constitution or policies change.

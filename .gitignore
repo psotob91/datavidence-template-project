@@ -1,0 +1,6 @@
+# Template-repo hygiene (the child project's .gitignore lives in template/.gitignore)
+**/__pycache__/
+*.pyc
+# copier render-test scratch
+/.render-test/
+/tmp-render*/

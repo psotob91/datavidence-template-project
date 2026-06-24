@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  anti-placeholder:
+    name: Anti-placeholder scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check for unfilled template placeholders
+        run: python scripts/check_placeholders.py
+
+  gitleaks:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ '{{' }} secrets.GITHUB_TOKEN {{ '}}' }}
+{% if analysis_stack == 'r' %}
+  r-checks:
+    name: R lint + pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-renv@v2
+      - name: Lint
+        run: Rscript -e 'lintr::lint_dir()'
+      - name: Run pipeline / tests
+        run: Rscript -e 'if (requireNamespace("targets", quietly = TRUE) && file.exists("_targets.R")) targets::tar_make() else testthat::test_dir("tests/testthat")'
+{% elif analysis_stack == 'python' %}
+  python-checks:
+    name: Python lint + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - name: Sync environment
+        run: uv sync --frozen
+      - name: Lint
+        run: uv run ruff check .
+      - name: Test
+        run: uv run pytest
+{% endif %}

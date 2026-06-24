@@ -1,0 +1,22 @@
+{
+  "$comment": "Read by the companion plugin PreToolUse hook via $CLAUDE_PROJECT_DIR. If absent/unreadable the hook FAILS OPEN.",
+  "allow_write": [
+    "R/**",
+    "src/**",
+    "tests/**",
+    "docs/**",
+    "outputs/**",
+    "context/**",
+    "analysis/**",
+    "learning/**",
+    "tmp/**",
+    "scripts/**"
+  ],
+  "protect": [
+    ".env",
+    ".env.*",
+    "**/*.pem",
+    "**/*.key",
+    "**/id_*"
+  ]
+}

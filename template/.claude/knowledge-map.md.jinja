@@ -1,0 +1,47 @@
+# Knowledge map — {{ project_name }}
+
+A router, not a corpus. It tells you the single file to open for a task. Open
+that file and nothing else.
+
+## Read-first order
+
+1. `.claude/constitution.md`
+2. `.claude/policies/00-index.md`
+3. this map
+4. `PROJECT_BRIEF.md`
+
+## Task type to consult
+
+| Task type                       | Consult                                                       |
+|---------------------------------|---------------------------------------------------------------|
+| Orientation / where do I start  | `PROJECT_BRIEF.md`, then this map                             |
+| Design a risky change           | run `/deliberate`                                             |
+| Audit coherence across the repo | run `/reconcile`                                              |
+| Directed execution toward a goal| run `/goal`                                                   |
+| Messy repo / rebuild the index  | run `/index` or `/tidy`                                       |
+| Record a decision               | `docs/adr/`                                                   |
+| Where do outputs go             | `outputs/OUTPUT_LAYOUT.md` + `.claude/policy/paths.allow.json`|
+| A recurring lesson              | `learning/PLAYBOOK.md`                                        |
+| Prior material / source corpus  | `context/`                                                    |
+
+{% if knowledge_retrieval != 'none' %}
+> **Scientific-corpus retrieval is coupled** (`knowledge_retrieval = {{ knowledge_retrieval }}`).
+> For questions over the ingested article corpus (equations / figures / tables),
+> query the RAG module via its MCP tools — do not hand-read the whole corpus.
+> See `docs/adr/0003-knowledge-retrieval-coupling.md`.
+
+{% endif %}
+## Lazy-loading rule
+
+Open only the target of the matching row. Do not preload the corpus, `context/`,
+or sibling rows "just in case". One row, one file.
+
+## Regeneration recipe
+
+Indexes are derived artifacts and are NOT committed: `llms.txt` and any RAG
+index regenerate from source. The recipe (`scripts/reindex.py`) IS committed.
+Rebuild with:
+
+```
+make reindex
+```

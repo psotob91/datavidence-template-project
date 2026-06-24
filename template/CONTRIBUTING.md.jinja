@@ -1,0 +1,52 @@
+# Contributing to {{ project_name }}
+
+Thanks for contributing. This project follows a light, reproducible workflow.
+
+## Commit messages
+
+Use [Conventional Commits](https://www.conventionalcommits.org/). The changelog
+is generated from commit history, so the type prefix matters:
+
+- `feat:` a new capability
+- `fix:` a bug fix
+- `docs:` documentation only
+- `refactor:` code change that neither fixes a bug nor adds a feature
+- `test:` adding or correcting tests
+- `chore:` tooling, deps, or housekeeping
+
+## Architecture decisions (ADRs)
+
+Record any decision that changes how the project works as an ADR under
+`docs/adr/`. Copy the existing template, give it the next number, and link it
+from the relevant policy or the knowledge map. If a change reverses or
+supersedes an earlier decision, note that in the new ADR.
+
+## Do not run `/init`
+
+A curated `CLAUDE.md` and `.claude/` governance layer already ship with the
+project. Running `/init` would overwrite authored guidance. Edit the existing
+files instead.
+
+## Local checks
+
+Run the same checks CI runs before opening a pull request:
+
+```sh
+make lint     # static analysis / style
+make test     # the test or pipeline target
+make check    # lint + test + placeholder scan
+```
+
+Fix any findings before pushing.
+
+## Pulling template updates (optional)
+
+This project was generated with [copier](https://copier.readthedocs.io). To pull
+later improvements from the template:
+
+```sh
+copier update
+```
+
+Review the diff, re-run `make check`, and re-run `/sync-cowork` if the
+constitution or policies changed.

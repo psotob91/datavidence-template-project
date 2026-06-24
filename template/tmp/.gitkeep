@@ -1,0 +1,2 @@
+# Keep this directory under version control even when empty.
+# tmp/ is ephemeral scratch space and is gitignored — never store deliverables here.

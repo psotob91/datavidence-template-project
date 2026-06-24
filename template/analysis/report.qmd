@@ -1,0 +1,35 @@
+---
+title: "Analysis Report"
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+---
+
+## Overview
+
+This is a minimal, runnable Quarto report. Render it with `quarto render
+analysis/report.qmd` (or via the `tar_quarto()` target in `_targets.R`).
+Replace this prose with the project's narrative.
+
+## Results from the pipeline
+
+The chunk below reads a target produced by the `{targets}` pipeline. Run
+`targets::tar_make()` first so the target store exists.
+
+```{r}
+#| label: read-target
+# Reads the `doubled` target defined in _targets.R.
+doubled <- targets::tar_read(doubled)
+doubled
+```
+
+The value of `doubled` is `r doubled`.
+
+## Next steps
+
+- TODO: replace the example target with real analysis outputs.
+- TODO: add figures and tables sourced from pipeline targets.

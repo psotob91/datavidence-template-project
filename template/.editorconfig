@@ -1,0 +1,41 @@
+# EditorConfig — https://editorconfig.org
+# Top-most EditorConfig file; stop searching parent directories.
+root = true
+
+# Defaults for every file.
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Markup / config files: 2-space indent.
+[*.{yml,yaml,json,md}]
+indent_style = space
+indent_size = 2
+
+# R convention: 2-space indent.
+[*.{R,r}]
+indent_style = space
+indent_size = 2
+
+# R Markdown / Quarto sources.
+[*.{Rmd,rmd,qmd}]
+indent_style = space
+indent_size = 2
+
+# Python convention (PEP 8): 4-space indent.
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Makefiles require real tabs in recipes.
+[Makefile]
+indent_style = tab
+
+# Do not enforce trailing-whitespace trimming on Markdown line breaks may matter,
+# but keep final newline everywhere.
+[*.md]
+trim_trailing_whitespace = false

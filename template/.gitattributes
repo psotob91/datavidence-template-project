@@ -1,0 +1,28 @@
+# .gitattributes — normalize line endings and mark binaries.
+# https://git-scm.com/docs/gitattributes
+
+# Auto-detect text files and normalize to LF in the repository.
+* text=auto
+
+# --- Shell / scripting: enforce platform-correct endings -------------------
+*.sh   text eol=lf
+*.ps1  text eol=crlf
+*.bat  text eol=crlf
+
+# --- R / analysis sources --------------------------------------------------
+*.R    text eol=lf
+*.r    text eol=lf
+*.Rmd  text
+*.rmd  text
+*.qmd  text
+
+# --- Binary assets (never diff, never normalize) ---------------------------
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.pdf  binary
+*.rds  binary
+*.RData binary
+*.xlsx binary
+*.parquet binary

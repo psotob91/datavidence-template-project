@@ -1,0 +1,66 @@
+# Template CI — render-test.
+#
+# This workflow does NOT test a generated project. It tests THIS template repo:
+# it renders the template once per analysis_stack into a temp directory, then
+# runs the project's own placeholder guard (scripts/check_placeholders.py)
+# against each rendered output. The build fails if any render fails or if
+# check_placeholders.py reports leaked / unrendered Copier placeholders.
+#
+# NOTE (verify in Phase 4): the exact non-interactive Copier invocation used
+# below — `copier copy --defaults --data key=value <src> <dest>` — should be
+# re-confirmed against the pinned Copier version. `--defaults` accepts defaults
+# for all unasked questions and `--data` overrides individual answers; flag
+# names/behavior have shifted across Copier major versions.
+
+name: template-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  render-test:
+    name: Render template for each analysis stack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install Copier (as a uv tool)
+        run: uv tool install copier
+
+      - name: Render R stack
+        run: >-
+          copier copy --defaults
+          --data project_name=Smoke
+          --data analysis_stack=r
+          . /tmp/out-r
+
+      - name: Render Python stack
+        run: >-
+          copier copy --defaults
+          --data project_name=Smoke
+          --data analysis_stack=python
+          . /tmp/out-python
+
+      - name: Render none stack
+        run: >-
+          copier copy --defaults
+          --data project_name=Smoke
+          --data analysis_stack=none
+          . /tmp/out-none
+
+      - name: Check placeholders (R stack)
+        run: python /tmp/out-r/scripts/check_placeholders.py
+
+      - name: Check placeholders (Python stack)
+        run: python /tmp/out-python/scripts/check_placeholders.py
+
+      - name: Check placeholders (none stack)
+        run: python /tmp/out-none/scripts/check_placeholders.py

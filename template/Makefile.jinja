@@ -1,0 +1,51 @@
+# Makefile for {{ project_name }}
+# Portable developer entry points. Recipes use real tabs (Make requirement).
+
+.DEFAULT_GOAL := help
+.PHONY: help setup lint test reindex placeholders check
+
+help: ## Show this help.
+	@echo "Targets:"
+	@echo "  setup        Restore the analysis environment"
+	@echo "  lint         Run static analysis / style checks"
+	@echo "  test         Run tests / the analysis pipeline"
+	@echo "  reindex      Rebuild context indices (scripts/reindex.py)"
+	@echo "  placeholders Scan for unfilled template placeholders"
+	@echo "  check        lint + test + placeholders"
+
+{% if analysis_stack == 'r' %}
+setup: ## Restore the renv library (initialize if needed).
+	Rscript -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv"); if (file.exists("renv.lock")) renv::restore(prompt = FALSE) else renv::init()'
+
+lint: ## Lint all R sources with lintr.
+	Rscript -e 'lintr::lint_dir()'
+
+test: ## Run the targets pipeline (falls back to testthat).
+	Rscript -e 'if (requireNamespace("targets", quietly = TRUE) && file.exists("_targets.R")) targets::tar_make() else testthat::test_dir("tests/testthat")'
+{% elif analysis_stack == 'python' %}
+setup: ## Sync the project environment with uv.
+	uv sync
+
+lint: ## Lint with ruff.
+	uv run ruff check .
+
+test: ## Run the test suite with pytest.
+	uv run pytest
+{% else %}
+setup: ## No analysis stack — nothing to restore.
+	@echo "No analysis stack selected; nothing to set up."
+
+lint: ## No analysis stack — nothing to lint.
+	@echo "No analysis stack selected; nothing to lint."
+
+test: ## No analysis stack — nothing to test.
+	@echo "No analysis stack selected; nothing to test."
+{% endif %}
+
+reindex: ## Rebuild derived context indices.
+	python scripts/reindex.py
+
+placeholders: ## Fail if any unfilled template placeholders remain.
+	python scripts/check_placeholders.py
+
+check: lint test placeholders ## Run all checks (lint + test + placeholders).

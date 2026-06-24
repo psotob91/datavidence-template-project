@@ -1,0 +1,51 @@
+# .dockerignore — mirror .gitignore plus VCS metadata and rendered docs.
+# Keeps the build context small and free of secrets / derived artifacts.
+
+# --- VCS metadata ----------------------------------------------------------
+.git
+.gitignore
+.gitattributes
+
+# --- Python environments / caches ------------------------------------------
+.venv/
+__pycache__/
+*.pyc
+
+# --- R / RStudio / renv ----------------------------------------------------
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+renv/library/
+renv/local/
+renv/cellar/
+renv/staging/
+
+# --- Secrets ---------------------------------------------------------------
+.env
+.env.*
+
+# --- Scratch / temporary work ----------------------------------------------
+tmp/
+
+# --- Derived outputs -------------------------------------------------------
+outputs/
+
+# --- RAG / context indices -------------------------------------------------
+llms.txt
+.rag/
+*.index
+*.faiss
+
+# --- Logs ------------------------------------------------------------------
+*.log
+
+# --- Node / Quarto tooling -------------------------------------------------
+node_modules/
+.quarto/
+
+# --- Rendered docs (rebuilt inside the image, never copied in) -------------
+docs/_site/
+docs/_book/
+docs/*.html
+_site/

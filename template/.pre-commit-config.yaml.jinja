@@ -1,0 +1,36 @@
+# Pre-commit hooks for {{ project_name }}.
+# Install once:   pre-commit install
+# Run on all files: pre-commit run --all-files
+# Docs: https://pre-commit.com
+---
+repos:
+  # --- Secret scanning (always on) -----------------------------------------
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+
+  # --- Baseline file hygiene -----------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=5000"]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+{% if analysis_stack == 'r' %}
+  # --- R linting + styling --------------------------------------------------
+  - repo: https://github.com/lorenzwalthert/precommit
+    rev: v0.4.3
+    hooks:
+      - id: lintr
+      - id: style-files
+{% elif analysis_stack == 'python' %}
+  # --- Python linting + formatting -----------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+{% endif %}

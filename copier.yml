@@ -1,0 +1,106 @@
+# =============================================================================
+# copier.yml — questionnaire + settings for the __project_name__ template.
+# Usage:  uv tool install copier   (once)
+#         copier copy gh:psotob91/datavidence-template-project <destination>
+#         copier update            (later, to pull template improvements)
+# Docs:   https://copier.readthedocs.io
+# NOTE:   This is a Claude-only template (Claude Code + Cowork). Do NOT add
+#         AGENTS.md. Do NOT run /init in generated projects (see CLAUDE.md).
+# =============================================================================
+
+# --- engine settings ---------------------------------------------------------
+_subdirectory: template          # everything rendered into the child lives under template/
+_templates_suffix: .jinja        # ONLY *.jinja files are rendered; everything else copied verbatim
+_answers_file: .copier-answers.yml   # written into the child → enables `copier update`
+
+# Skip the non-selected analysis stack's files (Jinja is evaluated against the answers).
+_exclude:
+  - "copier.yml"
+  - "~*"
+  - "*.pyc"
+  - "__pycache__"
+  - ".git"
+  # --- R stack (kept only when analysis_stack == 'r') ---
+  - "{% if analysis_stack != 'r' %}DESCRIPTION.jinja{% endif %}"
+  - "{% if analysis_stack != 'r' %}.Rprofile{% endif %}"
+  - "{% if analysis_stack != 'r' %}_targets.R{% endif %}"
+  - "{% if analysis_stack != 'r' %}R{% endif %}"
+  - "{% if analysis_stack != 'r' %}analysis{% endif %}"
+  - "{% if analysis_stack != 'r' %}tests/testthat{% endif %}"
+  # --- Python stack (kept only when analysis_stack == 'python') ---
+  - "{% if analysis_stack != 'python' %}pyproject.toml.jinja{% endif %}"
+  - "{% if analysis_stack != 'python' %}tests/test_smoke.py{% endif %}"
+
+# Run once in the freshly generated project. Idempotent / safe on re-run.
+_tasks:
+  - "git init -q -b main || true"
+
+_message_after_copy: |
+  ✅ Project '{{ project_name }}' generated.
+
+  Next steps (see README.md):
+    1. cd into the project — Claude Code auto-loads CLAUDE.md + .claude/.
+    2. Install the companion plugin (one-time, machine-global):
+         /plugin marketplace add ./.claude-plugin
+         /plugin install psotobverse-utils
+    3. Set up the environment:   make setup
+    4. After your first Code session, generate the Cowork bridge:
+         /sync-cowork           # writes .claude/COWORK_INSTRUCTIONS.md
+       then paste that file into the Cowork project Instructions field.
+    5. Do NOT run /init — a curated CLAUDE.md is already provided.
+
+_message_after_update: |
+  ✅ Template update applied to '{{ project_name }}'.
+  Review changes, run `make check`, and re-run `/sync-cowork` if the
+  constitution or overlay changed.
+
+# --- questions ---------------------------------------------------------------
+project_name:
+  type: str
+  help: "Human-readable project name (e.g. 'DATAVIDENCE Survival Analysis')"
+
+project_slug:
+  type: str
+  help: "Machine slug: package / directory / import name (lowercase)"
+  default: "{{ project_name | lower | replace(' ', '-') | replace('_', '-') }}"
+  validator: >-
+    {% if not (project_slug | regex_search('^[a-z][a-z0-9]*([._-][a-z0-9]+)*$')) %}
+    project_slug must be lowercase, start with a letter, and use only
+    letters, digits and . _ - as separators (valid as an R/Python package name).
+    {% endif %}
+
+author:
+  type: str
+  help: "Author / owner (name or 'Name <email>')"
+  default: "Percy Soto-Becerra"
+
+year:
+  type: str
+  help: "Copyright year"
+  default: "2026"
+
+license:
+  type: str
+  help: "License for the generated project"
+  choices:
+    MIT: MIT
+    Apache-2.0: Apache-2.0
+  default: MIT
+
+analysis_stack:
+  type: str
+  help: "Analysis / reproducibility stack (the tooling layer is always Python-stdlib regardless)"
+  choices:
+    "R  — renv + {targets} + Quarto (biostatistics default)": r
+    "Python  — uv + ruff + pytest": python
+    "None  — docs / web only (no analysis layer)": none
+  default: r
+
+knowledge_retrieval:
+  type: str
+  help: "Scientific-corpus retrieval to couple (engine lives in a separate repo, attached via MCP; 'none' = directed reading only)"
+  choices:
+    "None — directed reading via the knowledge-map only (default)": none
+    "Hybrid — BM25 + dense over an ingested corpus": hybrid
+    "Graph — hybrid + concept graph (LazyGraphRAG) for multi-hop": graph
+  default: none
