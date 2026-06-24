@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-"""Fail if any unrendered template placeholders remain in the tree.
+"""Fail if any unrendered copier placeholders remain in the tree.
 
 Used as a guard after `copier copy` / `copier update` and in CI: a generated
-project must not contain the template's literal placeholder name or any
-un-rendered Jinja markup. Walks the WHOLE tree (including dot-directories such
+project must not contain the template's literal placeholder name or an
+un-rendered copier variable. Walks the WHOLE tree (including dot-directories such
 as .claude and .github) but skips VCS/dependency/build dirs.
+
+IMPORTANT: this does NOT flag every `{{ ... }}` / `{% ... %}`. Files such as
+`cliff.toml` (git-cliff Tera templates) and GitHub Actions workflows
+(`${{ secrets.* }}`) legitimately contain brace syntax that MUST survive into the
+generated project. We flag only the literal sentinel and unrendered *copier*
+variables. If `copier.yml` gains a new question, add it to COPIER_VARS.
 
 Usage:
     python scripts/check_placeholders.py [ROOT]   # default ROOT = "."
@@ -18,16 +24,25 @@ Standard library only — no third-party dependencies.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
 # Directories never worth scanning (VCS, virtualenvs, caches, deps).
 EXCLUDED_DIRS = {".git", ".venv", "venv", "renv", "node_modules", "__pycache__"}
 
-# Literal needles that indicate an unrendered template.
+# Literal sentinel: the canonical template placeholder name.
 LITERAL_NEEDLES = ("__project_name__",)
-# Jinja markers that must never survive into a rendered project.
-JINJA_NEEDLES = ("{{", "}}", "{%")
+
+# Copier questions declared in copier.yml. An unrendered copier variable means a
+# file was templated wrong (e.g. a verbatim .md that should have been .jinja).
+COPIER_VARS = (
+    "project_name", "project_slug", "author", "year", "license",
+    "analysis_stack", "knowledge_retrieval",
+)
+# Match a {{ ... }} or {% ... %} construct that contains a copier variable.
+# This deliberately ignores git-cliff / GitHub-Actions braces (no copier var).
+COPIER_VAR_RE = re.compile(r"{[{%][^}]*\b(?:" + "|".join(COPIER_VARS) + r")\b")
 
 # This script itself legitimately mentions the needles above; skip it.
 SELF_NAME = Path(__file__).name
@@ -43,9 +58,8 @@ def is_probably_text(path: Path) -> bool:
 
 
 def iter_files(root: Path):
-    """Yield files under root, pruning EXCLUDED_DIRS in place."""
+    """Yield files under root, pruning EXCLUDED_DIRS."""
     for path in root.rglob("*"):
-        # Skip anything living inside an excluded directory.
         if any(part in EXCLUDED_DIRS for part in path.parts):
             continue
         if path.is_file():
@@ -53,16 +67,19 @@ def iter_files(root: Path):
 
 
 def scan_file(path: Path) -> list[tuple[int, str]]:
-    """Return [(lineno, needle), ...] for every offending line in path."""
+    """Return [(lineno, offending_text), ...] for every offending line in path."""
     hits: list[tuple[int, str]] = []
     try:
         text = path.read_text(encoding="utf-8", errors="replace")
     except OSError:
         return hits
     for lineno, line in enumerate(text.splitlines(), start=1):
-        for needle in (*LITERAL_NEEDLES, *JINJA_NEEDLES):
+        for needle in LITERAL_NEEDLES:
             if needle in line:
                 hits.append((lineno, needle))
+        m = COPIER_VAR_RE.search(line)
+        if m:
+            hits.append((lineno, m.group(0)))
     return hits
 
 
@@ -78,18 +95,15 @@ def main(argv: list[str]) -> int:
             continue
         if not is_probably_text(path):
             continue
-        for lineno, needle in scan_file(path):
+        for lineno, offending in scan_file(path):
             found = True
             rel = path.relative_to(root) if path.is_relative_to(root) else path
-            print(f"{rel}:{lineno}: unrendered placeholder {needle!r}", file=sys.stderr)
+            print(f"{rel}:{lineno}: unrendered placeholder {offending!r}", file=sys.stderr)
 
     if found:
-        print(
-            "\ncheck_placeholders: FAILED — unrendered placeholders above.",
-            file=sys.stderr,
-        )
+        print("\ncheck_placeholders: FAILED - unrendered placeholders above.", file=sys.stderr)
         return 1
-    print("check_placeholders: OK — no unrendered placeholders found.")
+    print("check_placeholders: OK - no unrendered placeholders found.")
     return 0
 
 

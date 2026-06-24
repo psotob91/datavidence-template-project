@@ -21,14 +21,14 @@ _exclude:
   - "__pycache__"
   - ".git"
   # --- R stack (kept only when analysis_stack == 'r') ---
-  - "{% if analysis_stack != 'r' %}DESCRIPTION.jinja{% endif %}"
+  - "{% if analysis_stack != 'r' %}DESCRIPTION{% endif %}"
   - "{% if analysis_stack != 'r' %}.Rprofile{% endif %}"
   - "{% if analysis_stack != 'r' %}_targets.R{% endif %}"
   - "{% if analysis_stack != 'r' %}R{% endif %}"
   - "{% if analysis_stack != 'r' %}analysis{% endif %}"
   - "{% if analysis_stack != 'r' %}tests/testthat{% endif %}"
   # --- Python stack (kept only when analysis_stack == 'python') ---
-  - "{% if analysis_stack != 'python' %}pyproject.toml.jinja{% endif %}"
+  - "{% if analysis_stack != 'python' %}pyproject.toml{% endif %}"
   - "{% if analysis_stack != 'python' %}tests/test_smoke.py{% endif %}"
 
 # Run once in the freshly generated project. Idempotent / safe on re-run.
