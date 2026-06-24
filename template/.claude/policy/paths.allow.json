@@ -1,6 +1,8 @@
 {
-  "$comment": "Read by the companion plugin PreToolUse hook via $CLAUDE_PROJECT_DIR. If absent/unreadable the hook FAILS OPEN.",
+  "$comment": "Read by the companion plugin's nothing_loose PreToolUse hook via $CLAUDE_PROJECT_DIR (the hook FAILS OPEN if this file is absent/unreadable). allow_write = globs where the agent may Write/Edit; anything else (e.g. a NEW loose file at the repo root) is denied — that is the 'nothing loose' guard. Secret files (.env, *.pem, *.key, id_*) are blocked separately by the env_protect hook. Add a path here if your project needs a new top-level location.",
   "allow_write": [
+    ".claude/**",
+    ".github/**",
     "R/**",
     "src/**",
     "tests/**",
@@ -9,14 +11,28 @@
     "context/**",
     "analysis/**",
     "learning/**",
+    "scripts/**",
     "tmp/**",
-    "scripts/**"
-  ],
-  "protect": [
-    ".env",
-    ".env.*",
-    "**/*.pem",
-    "**/*.key",
-    "**/id_*"
+    "CLAUDE.md",
+    "README.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "PROJECT_BRIEF.md",
+    "LICENSE",
+    "Makefile",
+    "DESCRIPTION",
+    "pyproject.toml",
+    "_targets.R",
+    ".Rprofile",
+    ".copier-answers.yml",
+    "llms.txt",
+    ".gitignore",
+    ".gitattributes",
+    ".editorconfig",
+    ".dockerignore",
+    ".env.example",
+    ".gitleaks.toml",
+    "cliff.toml",
+    ".pre-commit-config.yaml"
   ]
 }
