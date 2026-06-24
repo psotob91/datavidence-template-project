@@ -59,7 +59,7 @@ not from this repo. In Claude Code:
 Cowork does **not** auto-read `CLAUDE.md`/`.claude/`. In a Code session, run:
 
 ```text
-/sync-cowork
+/psotobverse-utils:sync-cowork
 ```
 
 It writes `.claude/COWORK_INSTRUCTIONS.md` (the constitution + read-order +
@@ -76,4 +76,4 @@ overlay as a paste block) and prints its path. Open that file and copy the
 5. Run the one-time **`docs/cowork-verification-checklist.md`** to confirm the
    plugin's hooks fire and `$CLAUDE_PROJECT_DIR` resolves in Cowork.
 
-Re-run `/sync-cowork` whenever the constitution or policies change, and re-paste.
+Re-run `/psotobverse-utils:sync-cowork` whenever the constitution or policies change, and re-paste.

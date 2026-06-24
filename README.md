@@ -70,14 +70,14 @@ Running `/init` would overwrite curated rules with an auto-discovered dump.
 ## Cowork (GUI) flow
 
 Each project generates a Cowork bridge file during its first Code session
-(`/sync-cowork` writes `.claude/COWORK_INSTRUCTIONS.md`). To use it in Cowork:
+(`/psotobverse-utils:sync-cowork` writes `.claude/COWORK_INSTRUCTIONS.md`). To use it in Cowork:
 
 1. Open **Cowork → Projects → +**.
 2. Choose **Use an existing folder** and select the generated project.
 3. Paste the contents of `.claude/COWORK_INSTRUCTIONS.md` into the project
    Instructions field.
 
-Re-run `/sync-cowork` whenever the constitution or governance overlay changes,
+Re-run `/psotobverse-utils:sync-cowork` whenever the constitution or governance overlay changes,
 then re-paste.
 
 ## Keep projects up to date
@@ -91,7 +91,7 @@ copier update
 
 Copier uses the `.copier-answers.yml` written at generation time to re-render
 without re-asking the questionnaire. Review the diff, run `make check`, and
-re-run `/sync-cowork` if governance changed.
+re-run `/psotobverse-utils:sync-cowork` if governance changed.
 
 ## Companion plugin: `psotobverse-utils`
 

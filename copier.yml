@@ -45,13 +45,13 @@ _message_after_copy: |
          /plugin install psotobverse-utils@psotobverse-utils
     3. Set up the environment:   make setup
     4. After your first Code session, generate the Cowork bridge:
-         /sync-cowork           # writes .claude/COWORK_INSTRUCTIONS.md
+         /psotobverse-utils:sync-cowork           # writes .claude/COWORK_INSTRUCTIONS.md
        then paste that file into the Cowork project Instructions field.
     5. Do NOT run /init — a curated CLAUDE.md is already provided.
 
 _message_after_update: |
   ✅ Template update applied to '{{ project_name }}'.
-  Review changes, run `make check`, and re-run `/sync-cowork` if the
+  Review changes, run `make check`, and re-run `/psotobverse-utils:sync-cowork` if the
   constitution or overlay changed.
 
 # --- questions ---------------------------------------------------------------

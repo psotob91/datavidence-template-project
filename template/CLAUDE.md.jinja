@@ -29,6 +29,11 @@ companion plugin `psotobverse-utils` (orthogonal layer, separate repo). Install 
 The template only references the plugin; it never duplicates its skills, hooks,
 or subagents.
 
+**Invoking them:** plugin skills/commands are **namespaced**. Skills auto-invoke
+by their description (just describe the task — no slash needed). To call one
+explicitly, prefix the plugin name: `/psotobverse-utils:sync-cowork`,
+`/psotobverse-utils:tidy`, etc. A bare `/sync-cowork` is an unknown command.
+
 ## Overlay: generic gate to this project's command
 
 When a workflow expects a generic capability, use the project-specific command below.
@@ -46,5 +51,5 @@ When a workflow expects a generic capability, use the project-specific command b
 ## Cowork
 
 Cowork does NOT auto-read this `CLAUDE.md`. Generate `.claude/COWORK_INSTRUCTIONS.md`
-with `/sync-cowork` after the first Code session, then paste its block into the
+with `/psotobverse-utils:sync-cowork` after the first Code session, then paste its block into the
 Cowork project's Instructions field.

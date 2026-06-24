@@ -17,7 +17,7 @@ Run this once after installing the plugin in Cowork. Record the outcome in
 
 1. Claude Desktop → **Cowork → Customize → Plugins** → add marketplace
    `psotob91/psotobverse-utils` → install **psotobverse-utils** (machine-global).
-2. In a Claude **Code** session in this project, run `/sync-cowork` to generate
+2. In a Claude **Code** session in this project, run `/psotobverse-utils:sync-cowork` to generate
    `.claude/COWORK_INSTRUCTIONS.md`.
 3. Cowork → **Projects → + → Use an existing folder** → select this project.
    Paste `.claude/COWORK_INSTRUCTIONS.md` into the project **Instructions**, and
