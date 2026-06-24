@@ -1,0 +1,79 @@
+# Activating {{ project_name }} with Claude Code and Cowork
+
+This project was generated from the DATAVIDENCE template. Creating/renaming the
+project is already done (via `copier copy`). This guide covers the **first run**:
+how to inject context in Claude Code, generate the Cowork bridge, and start in
+Cowork. Do **not** run `/init` — a curated `CLAUDE.md` already ships here.
+
+## 1. First run in Claude Code — inject context from the start
+
+`cd` into this folder and start `claude`. It auto-loads `CLAUDE.md` + `.claude/`.
+Paste the **startup prompt** below as your first message. Fill the
+`[ADDITIONAL_CONTEXT]` block with whatever describes this project (goal, data,
+audience, constraints, deadlines). The prompt makes the agent read the rules
+first and then adapt the *contextualizable* artifacts to your project.
+
+```text
+Read these files first, in this exact order, before doing anything else:
+  1. .claude/constitution.md
+  2. .claude/policies/00-index.md  (then the specific policy a task needs)
+  3. .claude/knowledge-map.md
+  4. CLAUDE.md  (note the overlay table)
+  5. PROJECT_BRIEF.md
+
+Project context to apply:
+[ADDITIONAL_CONTEXT]
+<!-- Paste here: what this project is, goals, constraints, data sources,
+     audience, success criteria, deadlines, out-of-scope. -->
+
+Then, using only that context and what is in this repo:
+- Adapt the CONTEXTUALIZABLE artifacts to this project, and PROPOSE the diffs
+  (apply only after I confirm):
+    • PROJECT_BRIEF.md  — goal, constraints, glossary, success criteria, out-of-scope
+    • CLAUDE.md overlay — map each generic gate to this project's real command
+    • .claude/knowledge-map.md — add rows for this project's own documents
+- Do NOT invent facts, data, or citations. If it is not in the context or the
+  repo, say "unknown" and ask me.
+- Mark uncertainty explicitly; separate fact / inference / hypothesis / recommendation.
+- Ask before any irreversible or outward-facing action.
+- Write all outputs under outputs/.
+- Do NOT run /init.
+```
+
+The ORTHOGONAL layer (constitution, policies, hooks, the plugin, hygiene, CI) is
+identical across projects and is **not** edited per project — only the
+contextualizable artifacts above change.
+
+## 2. Install the companion plugin (one-time, machine-global)
+
+Guardrails (skills, hooks, subagents) come from the `psotobverse-utils` plugin,
+not from this repo. In Claude Code:
+
+```text
+/plugin marketplace add psotob91/psotobverse-utils
+/plugin install psotobverse-utils@psotobverse-utils
+```
+
+## 3. Generate the Cowork bridge (right after Code setup)
+
+Cowork does **not** auto-read `CLAUDE.md`/`.claude/`. In a Code session, run:
+
+```text
+/sync-cowork
+```
+
+It writes `.claude/COWORK_INSTRUCTIONS.md` (the constitution + read-order +
+overlay as a paste block) and prints its path. Open that file and copy the
+`[PASTE FROM HERE] … [END]` block.
+
+## 4. First time in Cowork (GUI — there is no Cowork CLI)
+
+1. Claude Desktop → **Cowork → Customize → Plugins** → add marketplace
+   `psotob91/psotobverse-utils` and install **psotobverse-utils** (once per machine).
+2. **Cowork → Projects → + → Use an existing folder** → select this project's folder.
+3. Paste `.claude/COWORK_INSTRUCTIONS.md` into the project **Instructions** field.
+4. Add the `context/` folder as the project **Context**.
+5. Run the one-time **`docs/cowork-verification-checklist.md`** to confirm the
+   plugin's hooks fire and `$CLAUDE_PROJECT_DIR` resolves in Cowork.
+
+Re-run `/sync-cowork` whenever the constitution or policies change, and re-paste.
