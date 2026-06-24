@@ -41,8 +41,8 @@ _message_after_copy: |
   Next steps (see README.md):
     1. cd into the project — Claude Code auto-loads CLAUDE.md + .claude/.
     2. Install the companion plugin (one-time, machine-global):
-         /plugin marketplace add ./.claude-plugin
-         /plugin install psotobverse-utils
+         /plugin marketplace add psotob91/psotobverse-utils
+         /plugin install psotobverse-utils@psotobverse-utils
     3. Set up the environment:   make setup
     4. After your first Code session, generate the Cowork bridge:
          /sync-cowork           # writes .claude/COWORK_INSTRUCTIONS.md
