@@ -60,7 +60,7 @@ project_slug:
   help: "Machine slug: package / directory / import name (lowercase)"
   default: "{{ project_name | lower | replace(' ', '-') | replace('_', '-') }}"
   validator: >-
-    {% if not (project_slug | regex_search('^[a-z][a-z0-9]*([._-][a-z0-9]+)*$')) %}
+    {% if project_slug and not (project_slug | regex_search('^[a-z][a-z0-9]*([._-][a-z0-9]+)*$')) %}
     project_slug must be lowercase, start with a letter, and use only
     letters, digits and . _ - as separators (valid as an R/Python package name).
     {% endif %}
