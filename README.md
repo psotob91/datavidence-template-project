@@ -10,6 +10,11 @@ This is a **Claude-only** template: it assumes you drive the project with Claude
 Code (terminal) and Cowork (GUI). It deliberately ships **no `AGENTS.md`** —
 `CLAUDE.md` is the single source of prose rules.
 
+> ## 🚀 New here? Start with **[QUICKSTART.md](QUICKSTART.md)**
+> A 5-minute, copy-paste recipe with a real worked example: install the plugin,
+> generate a **named** project, and paste a start prompt that makes Claude Code
+> orient you and tell you the minimum to fill in before you begin.
+
 ## What you get
 
 - **Governance, not vibes.** A short charter (`.claude/constitution.md`), atomic

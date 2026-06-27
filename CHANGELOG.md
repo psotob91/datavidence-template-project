@@ -7,6 +7,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning: [S
 ## [Unreleased]
 
 ### Added
+- `QUICKSTART.md` — a 5-minute, recipe-style guide with a real worked example
+  (*Anemia Infantil Puno*), plugin install, and a paste-ready **start prompt**
+  that makes Claude Code give a panorama and ask for the minimum needed to begin.
+  Linked prominently at the top of `README.md`.
 - `requirements-ci.txt` — pins Copier for the render-test (single source of truth).
 - `.github/dependabot.yml` — monthly bumps for pip (Copier) and GitHub Actions;
   the render-test gates every bump PR.
