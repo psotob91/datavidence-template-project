@@ -57,12 +57,15 @@ When a workflow expects a generic capability, use the project-specific command b
 ## Meta-learner (the learning loop is a WRITE trigger, not just a read)
 
 This project captures lessons automatically and reviews them deliberately. The
-MECHANISM comes from the `psotobverse-utils` plugin (≥ v1.4.0); this project OPTS
+MECHANISM comes from the `psotobverse-utils` plugin (≥ v1.5.0); this project OPTS
 IN via `.claude/meta-learner.json` (its presence activates the plugin's session
 hooks here and carries this project's methodological signal patterns):
 
 - **`SessionStart`** injects `SESSION_STATE.md` + the last handoff so you resume
-  cheaply, and **detects an unclean exit** (crash) via a dirty-bit.
+  cheaply, **detects an unclean exit** (crash) via a dirty-bit, and runs a
+  **once-per-machine environment probe** (shell + available CLIs + OS quirks,
+  cached at `~/.claude/environment.json`) so the agent knows what this machine has
+  (and what to avoid, e.g. PowerShell `&&`) without re-checking each session.
 - **`UserPromptSubmit`** appends **correction** and **methodological** signals to
   `learning/queue/signals.jsonl` (cheap, crash-safe, never blocks).
 - **`SessionEnd`** writes a forward-looking handoff to `learning/sessions/`.

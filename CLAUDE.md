@@ -39,17 +39,20 @@ re-render; the render matrix in `.github/workflows/template-ci.yml` guards it.
 
 ## Meta-learner (this factory dog-foods what it ships)
 
-The learning-loop MECHANISM lives in the `psotobverse-utils` plugin (≥ v1.4.0),
+The learning-loop MECHANISM lives in the `psotobverse-utils` plugin (≥ v1.5.0),
 versioned and DRY; this repo OPTS IN via [`.claude/meta-learner.json`](.claude/meta-learner.json)
 (its presence activates the plugin's session hooks here; absent ⇒ they no-op).
 That config also holds this repo's domain signal patterns (agent-building terms)
 and routes durable consensus signals to `learning/STANDARDS_WATCH.md`.
 
 - **`SessionStart`** — injects `SESSION_STATE.md` + the last handoff so you resume
-  cheaply, and **detects an unclean exit** via a dirty-bit
-  (`.claude/state/session.json`): it arms `status=active`; `SessionEnd` flips it to
-  `clean_exit`. An `active` bit at the next start ⇒ the previous session crashed,
-  and you are warned to reconcile `SESSION_STATE.md` against `git status`.
+  cheaply, **detects an unclean exit** via a dirty-bit (`.claude/state/session.json`:
+  arms `status=active`; `SessionEnd` flips it to `clean_exit`; an `active` bit at
+  the next start ⇒ the previous session crashed), and runs a **once-per-machine
+  environment probe** (shell + available CLIs + OS quirks → cached at
+  `~/.claude/environment.json` / `.md`) whose summary it injects every session, so
+  you know what this machine has — and what to avoid (e.g. PowerShell 5.1 `&&`) —
+  without re-checking.
 - **`UserPromptSubmit`** — cheap, crash-safe, append-only capture of **correction**
   and **consensus/standards** signals to `learning/queue/signals.jsonl`.
 - **`SessionEnd`** — writes one deterministic, forward-looking **handoff** to
