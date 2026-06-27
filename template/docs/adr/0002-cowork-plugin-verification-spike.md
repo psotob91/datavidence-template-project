@@ -4,7 +4,8 @@ Date: 2026-01-01
 
 ## Status
 
-Accepted (fail-open mandate). Cowork full-enforcement re-test pending — see Spike result.
+Accepted (fail-open mandate). Cowork full-enforcement re-test **parked** — blocked on
+Anthropic-side Cowork plugin sync, not on us (see Update 2026-06-27).
 
 ## Spike result (2026-06-27)
 
@@ -27,6 +28,32 @@ Ran the GUI checklist in a generated project (see
   process env var (even though it does not shell-expand it)? If yes, enforcement
   now works in Cowork; if no, the guard degrades to fail-open (safe, no
   enforcement). Re-run the checklist in Cowork to decide, then supersede this ADR.
+
+## Update (2026-06-27) — re-test parked, blocked on Anthropic
+
+We could not get v1.3.1 into Cowork to run the re-test, for reasons external to
+this project:
+
+- **Cowork uses a server-side marketplace sync, separate from the Claude Code
+  CLI** (`~/.claude`). It compares the repo's latest commit to its last-synced
+  commit and skips if unchanged. After pushing v1.3.1 and re-adding the
+  marketplace via the CLI, Cowork still served **1.3.0**: its server had not
+  re-scanned the repo, and a full Desktop restart did not force a re-scan (it did
+  not even rebuild its per-space plugin cache).
+- **Third-party/personal marketplaces do not auto-update in Cowork** (only the
+  official Anthropic marketplace does), and Cowork's Personal tab has known open
+  limitations: cannot add custom marketplaces by URL (anthropics/claude-code
+  #66184), personal-marketplace installs lost on restart (#40600).
+- Net: getting a custom plugin update into Cowork is currently gated on
+  Anthropic's server re-scan cadence / the Cowork plugin preview maturing — not
+  on anything in this repo or the companion plugin.
+
+**Decision:** park Cowork enforcement validation. The fix is **shipped and
+verified in terminal Claude Code** (where `${CLAUDE_PLUGIN_ROOT}` resolves and
+hooks enforce). In Cowork, the guard is now fail-open (safe) rather than
+fail-closed. Treat Claude Code as the runtime of record for governed work; revisit
+Cowork enforcement when its plugin sync is GA. (A local cache patch can force the
+fix into Cowork for an ad-hoc test, but it is not a durable mechanism.)
 
 ## Context
 
