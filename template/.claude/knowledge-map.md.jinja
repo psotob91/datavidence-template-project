@@ -28,28 +28,28 @@ _Plugin skills auto-invoke by description; to call one explicitly use `/psotobve
 {% if analysis_stack == 'r' %}
 ### Data-analysis routing (R stack)
 
-_These domain verbs live in the **datavidence-healthdata** plugin (install separately; to call one
-explicitly use `/datavidence-healthdata:<name>`). The project still works without it — routing then
+_These domain verbs live in the **datavidence-healthanalysis** plugin (install separately; to call one
+explicitly use `/datavidence-healthanalysis:<name>`). The project still works without it — routing then
 falls back to doing the step by hand._
 
 | Task type                                  | Consult / run                                               |
 |--------------------------------------------|-------------------------------------------------------------|
-| Onboard / connect raw data                 | run `/datavidence-healthdata:onboard-data` (`data/README.md`, `config.example.yml`) |
-| Data schema / validation / contract        | `contracts/`, then `/datavidence-healthdata:data-contract`  |
-| Numeric claim / percentages / table totals | run `/datavidence-healthdata:numeric-check`                  |
-| Missing data (detect / handle)             | run `/datavidence-healthdata:missingness-report`            |
-| Initial data analysis / EDA                | run `/datavidence-healthdata:eda`                            |
-| Model assumptions                          | run `/datavidence-healthdata:validate-assumptions`          |
-| Big / on-disk data                         | run `/datavidence-healthdata:big-data-triage`              |
-| Descriptive table (Table 1)                | run `/datavidence-healthdata:table1`                        |
-| Process / method diagram                   | run `/datavidence-healthdata:process-diagram`               |
+| Onboard / connect raw data                 | run `/datavidence-healthanalysis:onboard-data` (`data/README.md`, `config.example.yml`) |
+| Data schema / validation / contract        | `contracts/`, then `/datavidence-healthanalysis:data-contract`  |
+| Numeric claim / percentages / table totals | run `/datavidence-healthanalysis:numeric-check`                  |
+| Missing data (detect / handle)             | run `/datavidence-healthanalysis:missingness-report`            |
+| Initial data analysis / EDA                | run `/datavidence-healthanalysis:eda`                            |
+| Model assumptions                          | run `/datavidence-healthanalysis:validate-assumptions`          |
+| Big / on-disk data                         | run `/datavidence-healthanalysis:big-data-triage`              |
+| Descriptive table (Table 1)                | run `/datavidence-healthanalysis:table1`                        |
+| Process / method diagram                   | run `/datavidence-healthanalysis:process-diagram`               |
 | Analysis pipeline (the flow)               | `analysis/` (ordered 01→05, run via `{targets}`)            |
 | Data taxonomy (input vs derived)           | `data/README.md`                                            |
 | Human-neutral metadata / dictionaries      | `metadata/`                                                 |
 | Methods notation (LaTeX)                   | `docs/analysis/notation.md`                                 |
 | Open items to verify / watchlist           | `learning/WATCHLIST.md`                                     |
 | Unfamiliar R package                       | consult docs / `r-btw` MCP / `/r-package-skill <pkg>`      |
-{% if project_profile == 'health-data' %}| Participant / cohort flow (CONSORT/STROBE) | run `/datavidence-healthdata:cohort-flow`                   |
+{% if project_profile == 'health-data' %}| Participant / cohort flow (CONSORT/STROBE) | run `/datavidence-healthanalysis:cohort-flow`                   |
 | Reporting checklist (EQUATOR)              | `docs/analysis/` (STROBE / CONSORT / TRIPOD)               |
 {% endif %}
 {% endif %}

@@ -7,7 +7,7 @@ Methods are written alongside the analysis, not reconstructed at the end.
 - **Write as you go**, linked to the pseudocode-first flow.
 - **Notation registry.** Keep `docs/analysis/notation.md` with the mathematical
   notation in **LaTeX**; do not break it. The `notation-check` hook (from the
-  `datavidence-healthdata` plugin) flags methods text whose symbols are absent
+  `datavidence-healthanalysis` plugin) flags methods text whose symbols are absent
   from the registry — add the symbol, don't drop the check.
 - **Journal style, extended.** Methods in top biostatistics-journal language
   (fluent statistical prose, **not** code), at methodological-appendix length,

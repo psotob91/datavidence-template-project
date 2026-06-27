@@ -1,7 +1,7 @@
 # Data onboarding
 
 How source data and its documentation enter the project. Pairs with `data/`,
-`config.example.yml`, and the `/datavidence-healthdata:onboard-data` skill.
+`config.example.yml`, and the `/datavidence-healthanalysis:onboard-data` skill.
 
 ## Rules
 

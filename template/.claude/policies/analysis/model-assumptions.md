@@ -2,7 +2,7 @@
 
 Diagnose every model's assumptions, prefer graphics over tests, and explain the
 verdict — including when a violation does not actually matter. Pairs with the
-`/datavidence-healthdata:validate-assumptions` skill.
+`/datavidence-healthanalysis:validate-assumptions` skill.
 
 ## Rules
 
