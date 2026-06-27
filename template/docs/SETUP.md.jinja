@@ -1,0 +1,78 @@
+# Setup card — {{ project_name }}
+
+The **short, ordered** checklist. Do it top to bottom. Full detail (startup
+prompt, context injection) is in [`ACTIVATION.md`](ACTIVATION.md); Cowork hook
+verification is in [`cowork-verification-checklist.md`](cowork-verification-checklist.md).
+
+> Golden rule: **DO NOT run `/init`.** A curated `CLAUDE.md` already ships here;
+> `/init` would clobber the governance setup.
+
+## Order: Claude Code FIRST, then Cowork
+
+Set up Claude Code before Cowork. Cowork's rules are generated from a Code session.
+
+### Step 1 — Install the companion plugin (once per machine)
+
+In a terminal `claude` session (any folder):
+
+```text
+/plugin marketplace add psotob91/psotobverse-utils
+/plugin install psotobverse-utils@psotobverse-utils
+```
+
+- **DO** verify: `claude plugin list` shows `psotobverse-utils  ✔ enabled`.
+- **DO NOT** redo this per project — it is machine-global.
+
+### Step 2 — Open this project in Claude Code
+
+```text
+cd <this project folder>
+claude
+```
+
+- Claude Code auto-loads `CLAUDE.md` + `.claude/`. Nothing to paste.
+- **DO** (first run) paste the startup prompt from [`ACTIVATION.md`](ACTIVATION.md)
+  §1 to inject your project context and adapt `PROJECT_BRIEF.md`.
+- **DO NOT** run `/init`.
+
+### Step 3 — Restore the analysis environment
+
+```text
+make setup
+```
+
+{% if analysis_stack == 'r' -%}
+Restores the `renv` library. Run `make test` for the `{targets}` pipeline.
+{%- elif analysis_stack == 'python' -%}
+Syncs the `uv` environment. Run `make test` for pytest.
+{%- else -%}
+No analysis stack selected — nothing to restore.
+{%- endif %}
+
+### Step 4 — Generate the Cowork bridge (only if you will use Cowork)
+
+In the Claude Code session for this project:
+
+```text
+/psotobverse-utils:sync-cowork
+```
+
+- Writes `.claude/COWORK_INSTRUCTIONS.md`. **DO** approve the `.claude/` write prompt.
+- **DO NOT** hand-write this file. (If you skip this step, the shipped stub still works.)
+
+### Step 5 — First time in Cowork (GUI; no Cowork CLI)
+
+1. Claude Desktop → **Cowork → Customize → Plugins** → install/Update
+   **psotobverse-utils** (once per machine).
+2. **Cowork → Projects → + → Use an existing folder** → select this project.
+3. Paste `.claude/COWORK_INSTRUCTIONS.md` into the project **Instructions**.
+4. Leave the whole project folder as **Context**. **DO NOT** narrow it to only
+   `context/` (the hooks need `.claude/policy/` at the root).
+5. **DO** run [`cowork-verification-checklist.md`](cowork-verification-checklist.md)
+   once to confirm the plugin's hooks enforce (or fail open) in Cowork.
+
+---
+
+**When the constitution or policies change:** re-run `/psotobverse-utils:sync-cowork`
+in Claude Code and re-paste into Cowork. Everything else (plugin, hooks, hygiene,
+CI) is identical across projects — you do not reconfigure it per study.

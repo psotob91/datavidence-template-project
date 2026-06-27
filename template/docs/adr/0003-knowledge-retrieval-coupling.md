@@ -4,9 +4,10 @@ Date: 2026-06 (template authoring date)
 
 ## Status
 
-Proposed. The coupling point (this ADR + the `knowledge_retrieval` flag + a
-knowledge-map row) ships now; the retrieval engine itself is built later in its
-own repository.
+Accepted. The coupling point (this ADR + the `knowledge_retrieval` flag + a
+knowledge-map row) ships now; the retrieval engine itself is under active
+development in its own repository and is coupled per project once available. The
+coupling is intentionally temporary/per-project — see Decision.
 
 ## Context
 

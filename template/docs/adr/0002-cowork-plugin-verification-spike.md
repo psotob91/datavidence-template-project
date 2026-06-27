@@ -4,7 +4,29 @@ Date: 2026-01-01
 
 ## Status
 
-Proposed
+Accepted (fail-open mandate). Cowork full-enforcement re-test pending — see Spike result.
+
+## Spike result (2026-06-27)
+
+Ran the GUI checklist in a generated project (see
+`docs/cowork-verification-checklist.md`):
+
+- **Assumption 1 (hooks fire in Cowork): CONFIRMED.** Plugin PreToolUse hooks
+  executed — writes were intercepted, so hooks are not silently skipped.
+- **Assumption 2 (`${CLAUDE_PLUGIN_ROOT}` resolves): REFUTED for shell
+  expansion.** Cowork did not shell-expand `${CLAUDE_PLUGIN_ROOT}`; the literal
+  string reached python, the hook script was not found, python exited 2, and
+  Cowork treated exit-2 as a hard block. The guard therefore failed-CLOSED,
+  directly violating the fail-open mandate below.
+- **Fix applied (`psotobverse-utils` `hooks/hooks.json`):** stop relying on the
+  shell to expand `${...}`. Each hook command is now a `python -c` bootstrapper
+  that reads `CLAUDE_PLUGIN_ROOT` BY NAME from `os.environ` and `runpy`s the real
+  hook; if the env var is absent or the script is missing it exits 0 (FAIL-OPEN).
+  Verified locally: enforces when the var is set, fails open when unset.
+- **Remaining open question:** does Cowork expose `CLAUDE_PLUGIN_ROOT` as a
+  process env var (even though it does not shell-expand it)? If yes, enforcement
+  now works in Cowork; if no, the guard degrades to fail-open (safe, no
+  enforcement). Re-run the checklist in Cowork to decide, then supersede this ADR.
 
 ## Context
 

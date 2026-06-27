@@ -6,11 +6,11 @@
 # against each rendered output. The build fails if any render fails or if
 # check_placeholders.py reports leaked / unrendered Copier placeholders.
 #
-# NOTE (verify in Phase 4): the exact non-interactive Copier invocation used
-# below — `copier copy --defaults --data key=value <src> <dest>` — should be
-# re-confirmed against the pinned Copier version. `--defaults` accepts defaults
-# for all unasked questions and `--data` overrides individual answers; flag
-# names/behavior have shifted across Copier major versions.
+# Copier is PINNED via requirements-ci.txt (single source of truth) so a new
+# Copier major can't silently change `copier copy --defaults --data key=value`
+# behavior and break this build. Dependabot (.github/dependabot.yml) opens a PR
+# when a newer Copier is released; this same render-test gates that PR, so a
+# breaking flag change surfaces as a failing check instead of a surprise.
 
 name: template-ci
 
@@ -32,8 +32,8 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
 
-      - name: Install Copier (as a uv tool)
-        run: uv tool install copier
+      - name: Install Copier (pinned via requirements-ci.txt)
+        run: uv pip install --system -r requirements-ci.txt
 
       - name: Render R stack
         run: >-
@@ -57,10 +57,10 @@ jobs:
           . /tmp/out-none
 
       - name: Check placeholders (R stack)
-        run: python /tmp/out-r/scripts/check_placeholders.py
+        run: python /tmp/out-r/scripts/check_placeholders.py /tmp/out-r
 
       - name: Check placeholders (Python stack)
-        run: python /tmp/out-python/scripts/check_placeholders.py
+        run: python /tmp/out-python/scripts/check_placeholders.py /tmp/out-python
 
       - name: Check placeholders (none stack)
-        run: python /tmp/out-none/scripts/check_placeholders.py
+        run: python /tmp/out-none/scripts/check_placeholders.py /tmp/out-none

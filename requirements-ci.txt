@@ -1,0 +1,4 @@
+# CI-only dependencies for the TEMPLATE repo's render-test (.github/workflows/template-ci.yml).
+# NOT shipped into generated projects. Pinned so a Copier major can't silently
+# change `copier copy` flag behavior; Dependabot bumps this and the render-test gates the PR.
+copier==9.16.0

@@ -1,5 +1,5 @@
 # _targets.R — {targets} pipeline definition.
-# Run with:  targets::tar_make()        (or `make pipeline`)
+# Run with:  targets::tar_make()        (or `make test`)
 # Inspect:   targets::tar_read(<name>)   /  targets::tar_visnetwork()
 # Docs:      https://books.ropensci.org/targets/
 
