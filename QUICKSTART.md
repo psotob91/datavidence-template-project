@@ -46,6 +46,8 @@ Answer like this (our example):
 | `year`           | *(press Enter)* → `2026`           |                                        |
 | `license`        | *(press Enter)* → `MIT`            |                                        |
 | `analysis_stack` | `r`                                | R + {targets} + Quarto                 |
+| `project_profile` | `health-data`                     | adds EQUATOR reporting + clinical tables/flows (use `standard` for non-clinical) |
+| `modules`         | *(optional)* e.g. `causal`         | task packs (space to select); leave empty if unsure |
 | `knowledge_retrieval` | `none`                        | leave as none unless you need RAG      |
 
 Then turn it into a git repo:

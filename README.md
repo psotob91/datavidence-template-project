@@ -58,13 +58,17 @@ Copier asks a short questionnaire:
 | `year`           | Copyright year                                                 | `2026`                          |
 | `license`        | `MIT` or `Apache-2.0`                                          | `MIT`                           |
 | `analysis_stack` | `r` (renv + {targets} + Quarto), `python` (uv + ruff + pytest), or `none` | `r`              |
+| `project_profile`| (R) `standard`, or `health-data` — adds EQUATOR reporting standards (STROBE/RECORD/CONSORT/TRIPOD/PRISMA), clinical tables, and study-flow diagrams | `standard` |
+| `modules`        | (R) optional task packs to enable: `causal`, `prediction`, `survey`, `spatial`, `synthesis` | none |
 
 The tooling layer is always Python-stdlib regardless of which analysis stack you
-pick.
+pick. The **R stack** ships task-aware statistical governance (`.claude/policies/`);
+the `health-data` profile and `modules` stay out of standard/non-R projects.
 
 After generation, follow the on-screen next steps: install the companion plugin,
-run `make setup` (this generates `renv.lock` / `uv.lock` locally — the template
-intentionally does **not** commit lockfiles), and start a Claude Code session.
+run `make setup` to restore the environment, and start a Claude Code session. (For the
+R stack, `renv.lock` is committed for absolute reproducibility; other lockfiles
+regenerate locally.)
 
 ### Do NOT run `/init` in generated projects
 
