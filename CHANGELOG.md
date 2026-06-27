@@ -25,6 +25,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning: [S
   `make pipeline` reference to `make test`; corrected the Cowork hook note.
 - `.github/workflows/template-ci.yml`: install Copier from the pinned
   `requirements-ci.txt`; removed the stale "verify in Phase 4" note.
+- Bumped JavaScript GitHub Actions off the deprecated Node 20 runtime:
+  `actions/checkout` v4→v7, `astral-sh/setup-uv` v5/v3→v8,
+  `actions/setup-python` v5→v6 (template CI and the shipped child CI). Docker
+  actions (`gitleaks`, `git-cliff`) and `r-lib/actions@v2` left as-is — they
+  don't use Node 20.
 
 ### Fixed
 - CI render-test: `check_placeholders.py` is now passed the rendered project
