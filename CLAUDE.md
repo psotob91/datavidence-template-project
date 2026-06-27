@@ -62,8 +62,19 @@ and routes durable consensus signals to `learning/STANDARDS_WATCH.md`.
 - **`/psotobverse-utils:audit-report`** — structures multi-agent audit output as a
   small indexed `docs/audits/<date>-<slug>/` instead of a context-blowing blob.
 
-> Requires the plugin at **≥ 1.4.0**. If only 1.3.x is installed, the session
-> hooks and these two skills are absent (the repo still works); run `/plugin update`.
+> Requires the plugin at **≥ 1.5.0**. If only 1.3.x is installed, the session
+> hooks and these two skills are absent (the repo still works); update with
+> `claude plugin marketplace update psotobverse-utils` then
+> `claude plugin update psotobverse-utils@psotobverse-utils` (restart to apply).
+
+### Terminal tooling on this machine
+The `SessionStart` env probe caches this machine's shell + CLIs at
+`~/.claude/environment.md` — read it instead of re-checking. Notes:
+- Prefer the **Grep tool** over raw `rg` (Claude Code already wraps ripgrep).
+- This repo's own work is **copier + python + git/gh** (no `make`). When you
+  **test a generated child's pipeline**, the R/Quarto/`make` idioms — and the
+  make-less equivalents to use when `make` is absent — live in
+  [`template/docs/running-from-terminal.md.jinja`](template/docs/running-from-terminal.md.jinja).
 
 ### The learning ritual (WRITE triggers, not just reads)
 At a natural checkpoint, or when `SessionStart` reports queued signals, **run

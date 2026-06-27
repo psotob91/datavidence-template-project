@@ -1,0 +1,64 @@
+# Running things from the terminal — {{ project_name }}
+
+Canonical entry points are the **`make` targets** (defined in `Makefile`). They
+wrap the underlying commands so you don't have to remember them. But `make` is
+not installed on every machine (Windows often lacks it) — so this file also lists
+the **make-less equivalents** to run the exact same commands directly.
+
+> Check `~/.claude/environment.md` (auto-probed once per machine) to see whether
+> `make`, `rg`, `Rscript`, `quarto`, … are present **on this machine** before you
+> reach for them. Don't re-verify each session — read the cache.
+
+## Entry points (prefer these)
+
+| Goal | With `make` | Make-less equivalent (same command) |
+|---|---|---|
+{% if analysis_stack == 'r' -%}
+| Restore env | `make setup` | `Rscript -e 'if (file.exists("renv.lock")) renv::restore(prompt = FALSE) else renv::init()'` |
+| Lint | `make lint` | `Rscript -e 'lintr::lint_dir()'` |
+| Run pipeline | `make test` / `make all` | `Rscript -e 'targets::tar_make()'` |
+| Rebuild from zero | `make reset` then `make all` | `Rscript -e 'targets::tar_destroy(ask = FALSE)'` then `tar_make()` |
+{% elif analysis_stack == 'python' -%}
+| Sync env | `make setup` | `uv sync` |
+| Lint | `make lint` | `uv run ruff check .` |
+| Test | `make test` | `uv run pytest` |
+{% else -%}
+| (no analysis stack selected — nothing to build) | | |
+{% endif -%}
+| Check placeholders | `make placeholders` | `python scripts/check_placeholders.py` |
+| Rebuild indices | `make reindex` | `python scripts/reindex.py` |
+
+{% if analysis_stack == 'r' %}
+## R from the terminal (non-interactive)
+
+- **One-off expression:** `Rscript -e 'expr'` (this is how every `make` target
+  above invokes R). Quote with single quotes; on Windows PowerShell prefer the
+  Bash tool for these one-liners.
+- **A script file:** `Rscript path/to/script.R` (add `--vanilla` for a clean,
+  reproducible run — no saved workspace, no `.Rprofile`/`.Renviron`, no restored
+  history; this is what most R tooling uses).
+- **Never depend on interactive prompts.** Pass inputs as command-line args or a
+  config file. Anything you want to *see* must be `print()`ed or written to a file
+  under `outputs/` — a figure/table created in a script is invisible otherwise.
+- **The pipeline is `targets`:** `targets::tar_make()` builds only what changed;
+  `targets::tar_destroy(ask = FALSE)` wipes the store for a from-zero rebuild.
+  Inspect with `tar_visnetwork()` / `tar_outdated()`.
+
+## Quarto from the terminal
+
+- **One document:** `quarto render report.qmd` (optionally `--to html` / `--to pdf`
+  / `--toc`). Rendering a single file (or subdirectory) **always executes** its
+  code.
+- **The whole project:** run `quarto render` inside the project dir — it respects
+  `freeze` (only re-runs changed computational docs). Use `--no-cache` /
+  `--cache-refresh` to control caching.
+- Quarto **calls R/Python itself** (via knitr/jupyter) — don't pipe a `.qmd`
+  through `Rscript`; let `quarto render` drive the engine.
+{% endif %}
+
+## Searching code
+
+Prefer Claude Code's **Grep tool** for content search — it already wraps ripgrep
+(`rg`) and integrates with the permission UI. Raw `rg` on the command line is fine
+for shell scripts or your own use, but you don't need it installed just to let the
+agent search.
