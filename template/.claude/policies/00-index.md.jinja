@@ -1,0 +1,74 @@
+# Policies index
+
+Atomic, actionable policies that refine the constitution. Each is short and
+self-contained. Open only the one the current task needs.
+
+## Universal policies
+
+| Policy                  | One-line scope                                                        |
+|-------------------------|-----------------------------------------------------------------------|
+| `anti-hallucination.md` | Sentinel values, claim-to-evidence anchoring, no fabricated citations |
+| `anti-bias.md`          | Named cognitive biases and concrete counter-moves                     |
+| `anti-drift.md`         | Stay anchored to the charter; document hierarchy; size hygiene        |
+| `token-efficiency.md`   | Reason expensively, execute cheaply; cascade-first; narrow reads      |
+| `verification-effort.md`| Match verification rigor to stakes; gate the heavy adversarial harness |
+| `writing-style.md`      | Direct, concrete, scannable, honest, present tense, US English        |
+
+## Precedence (on conflict)
+
+When two policies pull in different directions, the higher one wins:
+
+```
+anti-hallucination  >  anti-bias  >  anti-drift  >  verification-effort  >  token-efficiency  >  writing-style
+```
+
+Truthfulness outranks everything: never trade accuracy for brevity, style, or a
+smaller token bill. The constitution still outranks all policies. When a real
+conflict forces a trade-off, stop and name it rather than silently picking one.
+{% if analysis_stack == 'r' %}
+## Data-analysis policies (R stack)
+
+Base rigor for reproducible, auditable analysis. Each lives under `analysis/`.
+Open only the one the task needs.
+
+| Policy                                | One-line scope                                                      |
+|---------------------------------------|--------------------------------------------------------------------|
+| `analysis/numeric-computation.md`     | Numbers are claims — compute by code/tool, never in your head       |
+| `analysis/data-protection.md`         | No identifiable data (PII/PHI) in git, outputs, context, or prompt  |
+| `analysis/data-integrity.md`          | Raw immutable; verify join cardinality; explicit types; range checks|
+| `analysis/data-contracts.md`          | Validate raw + analysis-ready data at the gates; block on failure   |
+| `analysis/data-onboarding.md`         | Copy light / connect heavy data; portable config; minimal human docs|
+| `analysis/pre-specification.md`       | Define estimand/outcome before seeing results; flag post-hoc        |
+| `analysis/initial-data-analysis.md`   | Structured IDA before modeling (STRATOS); distinct from EDA         |
+| `analysis/missingness.md`             | Account for every row; mechanism-aware handling; no silent deletion |
+| `analysis/outliers.md`                | Detect→inspect→document; never silent removal; sensitivity          |
+| `analysis/model-assumptions.md`       | Check the assumptions each model needs; act on violations           |
+| `analysis/sensitivity-analysis.md`    | Pre-specify; reuse the pipeline; report alongside the primary       |
+| `analysis/reproducibility.md`         | Seeds via targets; renv.lock committed; locale/TZ; sessioninfo; stamp|
+| `analysis/regenerables.md`            | Only input+code to git; everything regenerates; `make reset`        |
+| `analysis/computational-efficiency.md`| Vectorize; data.table/DuckDB by size; cache/freeze long runs        |
+| `analysis/reporting.md`               | Labels-first; always CIs; no p in descriptive tables; rounding      |
+| `analysis/results-writing.md`         | Objective; every number & data-dependent word via inline code       |
+| `analysis/figures.md`                 | Colorblind-safe palettes; grayscale test; vector + ≥300 dpi; journal sizes |
+| `analysis/diagrams.md`                | flowchart (sketch-first) for results; mermaid + ISO 5807 for process|
+| `analysis/methods-documentation.md`   | Write methods continuously; LaTeX notation registry; supplement     |
+| `analysis/pseudocode-first.md`        | Pseudocode in its own file → validate → code → test                 |
+| `analysis/incremental-functions.md`   | Abstract only when scaling; demo without→with; STOP-and-confirm gate |
+| `analysis/code-style.md`              | Tutorial-readable analysis code; comment the why; tests apart       |
+
+### Precedence within the analysis layer
+
+Truth and safety first; the constitution and `anti-hallucination.md` still outrank
+everything below:
+
+```
+numeric-computation  >  data-protection  >  data-integrity / data-contracts / data-onboarding
+  >  (methodology: pre-specification, initial-data-analysis, missingness, outliers,
+      model-assumptions, sensitivity-analysis)
+  >  reproducibility / regenerables / computational-efficiency
+  >  (reporting: reporting, results-writing, figures, diagrams)
+  >  (workflow: methods-documentation, pseudocode-first, incremental-functions, code-style)
+```
+
+Most of these never conflict. When they do, stop and name the trade-off.
+{% endif %}

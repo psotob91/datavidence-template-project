@@ -31,6 +31,7 @@ _exclude:
   - "{% if analysis_stack != 'python' %}pyproject.toml{% endif %}"
   - "{% if analysis_stack != 'python' %}tests/test_smoke.py{% endif %}"
   # --- base data-analysis rigor (R stack only) ---
+  - "{% if analysis_stack != 'r' %}.claude/policies/analysis{% endif %}"
   - "{% if analysis_stack != 'r' %}data{% endif %}"
   - "{% if analysis_stack != 'r' %}metadata{% endif %}"
   - "{% if analysis_stack != 'r' %}contracts{% endif %}"
