@@ -7,13 +7,13 @@
 
 - **Updated:** 2026-06-28
 - **Branch (git local):** `main` — everything integrated here.
-- **Status:** R-rigor expansion + meta-learner fully merged to `main`; plugin v1.4.0 live. Done & tested.
+- **Status:** R-rigor + meta-learner merged to `main`; plugin **v1.5.0** live (adds once-per-machine environment probe). Done & tested. **Restart Claude to load the new session hooks.**
 
 ## Done (this milestone)
-- Merged the git branch `feat/r-rigor-expansion` (stages 1–5: R analysis governance) into `main` — no conflicts.
-- Completed the meta-learner wiring on `main` (constitution rule 9, CLAUDE.md.jinja Meta-learner section, REFLECTOR consensus lane) — the earlier partial commit's stashed edits.
-- Tested: Copier renders **A** (R/standard) and **B** (R/health-data/all modules) both PASS `check_placeholders`; meta-learner + R-rigor coexist; gating correct.
-- `psotobverse-utils` **v1.4.0**: pushed to GitHub remote, marketplace refreshed, installed pointer flipped to 1.4.0 (verified via `claude plugin list/details`). **Restart Claude for the session hooks to load in this repo.**
+- Merged the git branch `feat/r-rigor-expansion` (stages 1–5: R analysis governance) into `main` — no conflicts; completed the meta-learner wiring (constitution rule 9, CLAUDE.md.jinja section, REFLECTOR lane).
+- Tested: Copier renders **A** (R/standard) and **B** (R/health-data/all modules) both PASS `check_placeholders`.
+- `psotobverse-utils` → **v1.4.0** (meta-learner) → **v1.5.0** (environment probe in SessionStart). Pushed to GitHub; updated via the correct flow (`marketplace update` → `claude plugin update <plugin>@<marketplace>`). Env cache at `~/.claude/environment.json` (this PC: Win10/PS5.1, missing `make`+`rg`).
+- Learned + memorized: the plugin-update procedure (was using `install`, idempotent) and the environment-probe system.
 
 ## Next steps (pending, lower priority)
 1. Resolve `temporal-expansion-ideas/` (untracked, superseded): prose-ify the two Gemini briefs into `docs/research/` or archive + `.gitignore`; finish `routinely-collected-data.md` stub.
