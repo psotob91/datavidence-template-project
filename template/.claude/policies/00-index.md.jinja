@@ -40,6 +40,9 @@ Open only the one the task needs.
 | `analysis/data-onboarding.md`         | Copy light / connect heavy data; portable config; minimal human docs|
 | `analysis/pre-specification.md`       | Define estimand/outcome before seeing results; flag post-hoc        |
 | `analysis/initial-data-analysis.md`   | Structured IDA before modeling (STRATOS); distinct from EDA         |
+| `analysis/longitudinal-data.md`       | STRATOS longitudinal IDA (5 domains) + repeated-measures analysis   |
+| `analysis/statistical-reporting.md`   | Match methods+reporting to the TASK (SAMBR/CHAMP); general + by-task |
+| `analysis/regression-modeling.md`     | No dichotomizing; splines for non-linearity; no stepwise (STRATOS)  |
 | `analysis/missingness.md`             | Account for every row; mechanism-aware handling; no silent deletion |
 | `analysis/outliers.md`                | Detect→inspect→document; never silent removal; sensitivity          |
 | `analysis/model-assumptions.md`       | Graphics over tests; right residual per model; a violation ≠ invalid           |
@@ -63,10 +66,10 @@ everything below:
 
 ```
 numeric-computation  >  data-protection  >  data-integrity / data-contracts / data-onboarding
-  >  (methodology: pre-specification, initial-data-analysis, missingness, outliers,
-      model-assumptions, sensitivity-analysis)
+  >  (methodology: pre-specification, initial-data-analysis, longitudinal-data, missingness,
+      outliers, model-assumptions, regression-modeling, sensitivity-analysis)
   >  reproducibility / regenerables / computational-efficiency
-  >  (reporting: reporting, results-writing, figures, diagrams)
+  >  (reporting: statistical-reporting, reporting, results-writing, figures, diagrams)
   >  (workflow: methods-documentation, pseudocode-first, incremental-functions, code-style)
 ```
 
