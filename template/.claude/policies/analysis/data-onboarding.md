@@ -18,3 +18,6 @@ How source data and its documentation enter the project. Pairs with `data/`,
   `_agent_cache/` — never the source of truth.
 - **Record provenance.** Source, date, and checksum for every raw input in
   `metadata/`.
+- **Classify what you onboarded** by the `regenerables.md` taxonomy: data you
+  provide or curate as a reference is an **input** (committed); data derived from
+  heavy/external sources is **intermediate** (git-ignored, rebuilt).

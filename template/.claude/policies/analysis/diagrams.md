@@ -5,9 +5,10 @@ Harmonized, readable diagrams for methods and results.
 ## Rules
 
 - **Result / participant flow (CONSORT / cohort).** Build with the `flowchart`
-  package (from the dataframe, reproducible). **Sketch first:** a text/line mock
-  with the box words and connections only — **no numbers** — agree it, then code
-  the real counts.
+  package (from the dataframe, reproducible). **Sketch first (approval gate):**
+  write a plain-text mock (in `docs/analysis/` or the script header) with box
+  words and connections only — **no numbers** — and **get the user's OK**; only
+  then code the real counts.
 - **Process / method flowcharts → mermaid with ISO 5807 nomenclature.**
   process = rectangle, decision = diamond, data = parallelogram, **database =
   cylinder `[( )]`**, terminator = stadium, predefined process/subroutine =

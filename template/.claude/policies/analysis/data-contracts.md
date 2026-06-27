@@ -1,7 +1,9 @@
 # Data contracts
 
 Prerequisites a dataset must meet to enter the pipeline. Pairs with `contracts/`
-and the `/datavidence-healthdata:data-contract` skill.
+and the `/datavidence-healthdata:data-contract` skill. See also `data-integrity.md`:
+contracts validate **at the gates**; integrity guards **in-pipeline** joins and
+transforms.
 
 ## Rules
 

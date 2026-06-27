@@ -9,6 +9,9 @@ What reaches the reader is paper-ready and honest about uncertainty.
   labels. What prints is legible paper labels, **never code/variable names**.
 - **Always report uncertainty.** Estimates with confidence intervals — not bare
   point estimates or p-values alone.
-- **No p-values in descriptive ("Table 1") comparisons** — a common bad practice.
+- **Prefer standardized differences (SMD) over p-values for baseline balance.**
+  p-values in descriptive ("Table 1") comparisons are usually inappropriate (they
+  test a hypothesis you don't have) — omit them in RCTs and use with caution
+  elsewhere.
 - **Consistent rounding / significant figures** across the whole report; record
   the rule once and apply it everywhere.
