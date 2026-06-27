@@ -16,6 +16,20 @@ verdict — including when a violation does not actually matter. Pairs with the
     or non-normal responses.
   - Mixed / multilevel: simulation-based scaled residuals via **`DHARMa`**.
   - Cox: proportional hazards — inspect **Schoenfeld residuals**, then `cox.zph`.
+- **Bayesian models are checked differently — convergence/approximation is a
+  prerequisite, not a robustifiable assumption:**
+  - MCMC (Stan / `brms` / JAGS): require **R-hat < 1.01** (≥4 chains), **bulk- and
+    tail-ESS ≳ 400**, **zero divergent transitions** (HMC/NUTS; also watch
+    E-BFMI / treedepth), clean trace plots; then **posterior predictive checks**
+    (`pp_check`), **prior-sensitivity**, and LOO/WAIC with **Pareto-k** for influence.
+  - INLA (latent Gaussian models): check **PIT** (≈ uniform) and **CPO** (+ its
+    failure flags / `inla.cpo`), the **KLD** column for Laplace-approximation
+    validity, and prior sensitivity (prefer **PC priors**).
+  - **No escape hatch here.** Unlike a robust-SE patch, you cannot "robustify" a
+    non-converged chain or an invalid approximation. Fix the model — non-centered
+    parameterization, better priors, more iterations / higher `adapt_delta`, or a
+    different likelihood (for INLA: change strategy or switch to MCMC). **Never
+    report a posterior from a non-converged fit.**
 - **Always check linearity of continuous predictors, outliers, and influential
   points** (e.g., Cook's distance, dfbeta) — pick the best plot for each model
   type. These matter.

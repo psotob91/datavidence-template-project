@@ -16,5 +16,12 @@ it.
 - **Before uploading non-open data, warn me and propose light anonymization of the
   exported copy only** (never the source): e.g., randomly shift the index date,
   jitter precise latitude/longitude. If the data is already open, skip it.
+- **Document any perturbation you add — so modeling can recover precision.** When
+  you anonymize by adding noise (e.g., lat/long jitter ~ Normal(0, SD); random
+  date shift), record the mechanism and parameters (distribution, SD, bounds) in a
+  **shared, human-readable doc**. Downstream modeling can then account for the
+  known error (errors-in-variables / measurement-error / SIMEX / Bayesian latent
+  variable) and regain accuracy — **provided disclosing those parameters does not
+  itself enable re-identification.**
 - **Secrets are separate.** `.env` / keys are blocked by the plugin's
   `env_protect` hook; this policy is about datasets.
