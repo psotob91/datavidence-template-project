@@ -51,7 +51,12 @@ falls back to doing the step by hand._
 | Open items to verify / watchlist           | `learning/WATCHLIST.md`                                     |
 | Unfamiliar R package                       | consult docs / `r-btw` MCP / `/r-package-skill <pkg>`      |
 {% if project_profile == 'health-data' %}| Participant / cohort flow (CONSORT/STROBE) | run `/datavidence-healthanalysis:cohort-flow`                   |
-| Reporting checklist (EQUATOR)              | `docs/analysis/` (STROBE / CONSORT / TRIPOD)               |
+| Reporting checklist (EQUATOR)              | `docs/analysis/reporting-checklist.md`                     |
+{% endif %}{% if 'causal' in modules %}| Causal / target-trial emulation            | `docs/analysis/modules/causal.md` (+ `/datavidence-healthanalysis:dag-causal`) |
+{% endif %}{% if 'prediction' in modules %}| Prediction model (TRIPOD/PROBAST)          | `docs/analysis/modules/prediction.md` (+ `/datavidence-healthanalysis:prediction-validation`) |
+{% endif %}{% if 'survey' in modules %}| Complex survey design (ENDES/DHS)          | `docs/analysis/modules/survey.md` (+ `/datavidence-healthanalysis:survey-design`) |
+{% endif %}{% if 'spatial' in modules %}| Spatial data                               | `docs/analysis/modules/spatial.md` (+ `/datavidence-healthanalysis:spatial`) |
+{% endif %}{% if 'synthesis' in modules %}| Evidence synthesis / meta-analysis         | `docs/analysis/modules/synthesis.md`                        |
 {% endif %}
 {% endif %}
 

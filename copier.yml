@@ -40,6 +40,12 @@ _exclude:
   # --- health-data profile (only when project_profile == 'health-data') ---
   - "{% if project_profile != 'health-data' %}.claude/policies/health{% endif %}"
   - "{% if project_profile != 'health-data' %}docs/analysis/reporting-checklist.md{% endif %}"
+  # --- opt-in task modules (only the selected ones) ---
+  - "{% if 'causal' not in modules %}docs/analysis/modules/causal.md{% endif %}"
+  - "{% if 'prediction' not in modules %}docs/analysis/modules/prediction.md{% endif %}"
+  - "{% if 'survey' not in modules %}docs/analysis/modules/survey.md{% endif %}"
+  - "{% if 'spatial' not in modules %}docs/analysis/modules/spatial.md{% endif %}"
+  - "{% if 'synthesis' not in modules %}docs/analysis/modules/synthesis.md{% endif %}"
 
 _message_after_copy: |
   ✅ Project '{{ project_name }}' generated.
@@ -120,6 +126,7 @@ modules:
     "Complex survey design (survey/srvyr — ENDES/DHS)": survey
     "Prediction-model validation (rms/pmsampsize, TRIPOD)": prediction
     "Spatial objects (sf/terra/stars)": spatial
+    "Evidence synthesis / meta-analysis (PRISMA, meta/metafor, robvis)": synthesis
   default: []
   when: "{{ analysis_stack == 'r' }}"
 
