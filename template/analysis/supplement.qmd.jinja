@@ -1,0 +1,28 @@
+---
+title: "{{ project_name }} — Methods & processing supplement"
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  eval: false
+---
+
+> The extended methodological appendix, written **continuously** alongside the
+> analysis. Governance: `.claude/policies/analysis/methods-documentation.md`.
+
+## Statistical methods (journal style, extended)
+
+Write the methods in fluent biostatistics-journal language (not code), at
+appendix length, with LaTeX equations where needed. Use only notation declared in
+`../docs/analysis/notation.md` (the `notation-check` hook enforces this). Example:
+
+$$
+\operatorname{logit}\,\Pr(Y_i = 1 \mid X_i) = \beta_0 + \beta_1 X_i .
+$$
+
+## Data processing (biomedical-informatics style)
+
+A detailed account of processing: pseudocode (see `../docs/analysis/`), the
+validation checks run (contracts, join cardinality, missingness/outlier
+handling), and the iterations performed. Keep it reproducible and auditable.

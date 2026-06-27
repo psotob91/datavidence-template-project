@@ -7,6 +7,20 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning: [S
 ## [Unreleased]
 
 ### Added
+- **R data-analysis rigor expansion** (branch `feat/r-rigor-expansion`, layered):
+  - Base-rigor folders (R stack): `data/{raw,derived}`, `metadata/`, `contracts/`,
+    `docs/analysis/` (with `notation.md`), `config.example.yml` (portable data
+    connection); `copier.yml` flags `project_profile` + `modules`.
+  - 22 atomic policies under `.claude/policies/analysis/` (R-gated) covering numeric
+    rigor, data integrity/quality, contracts, onboarding, reproducibility,
+    regenerables, reporting (STROBE), figures, diagrams, model assumptions
+    (frequentist + Bayesian MCMC/INLA), methods documentation, pseudocode-first,
+    incremental-functions gate, and more; conditional `00-index`.
+  - Stack: ordered tutorial notebooks `analysis/01_ingest…05_report` + `supplement`,
+    `_targets.R` with deterministic seed, `Makefile` `all`/`reset`,
+    `scripts/sysinfo.py` (capacity probe). `renv.lock` is committed (absolute repro).
+  - Routes to the companion **`datavidence-healthanalysis`** plugin (frozen
+    interface); the project still works without it.
 - `QUICKSTART.md` — a 5-minute, recipe-style guide with a real worked example
   (*Anemia Infantil Puno*), plugin install, and a paste-ready **start prompt**
   that makes Claude Code give a panorama and ask for the minimum needed to begin.

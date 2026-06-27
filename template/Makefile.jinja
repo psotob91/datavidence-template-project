@@ -2,13 +2,15 @@
 # Portable developer entry points. Recipes use real tabs (Make requirement).
 
 .DEFAULT_GOAL := help
-.PHONY: help setup lint test reindex placeholders check
+.PHONY: help setup lint test all reset reindex placeholders check
 
 help: ## Show this help.
 	@echo "Targets:"
 	@echo "  setup        Restore the analysis environment"
 	@echo "  lint         Run static analysis / style checks"
 	@echo "  test         Run tests / the analysis pipeline"
+	@echo "  all          Full reproducible build (setup + pipeline)"
+	@echo "  reset        Destroy derived artifacts (rebuild from zero)"
 	@echo "  reindex      Rebuild context indices (scripts/reindex.py)"
 	@echo "  placeholders Scan for unfilled template placeholders"
 	@echo "  check        lint + test + placeholders"
@@ -22,6 +24,12 @@ lint: ## Lint all R sources with lintr.
 
 test: ## Run the targets pipeline (falls back to testthat).
 	Rscript -e 'if (requireNamespace("targets", quietly = TRUE) && file.exists("_targets.R")) targets::tar_make() else testthat::test_dir("tests/testthat")'
+
+all: setup ## Full reproducible build from inputs + code.
+	Rscript -e 'targets::tar_make()'
+
+reset: ## Destroy the targets store + derived data (then `make all` rebuilds from zero).
+	Rscript -e 'if (requireNamespace("targets", quietly = TRUE)) targets::tar_destroy(ask = FALSE); d <- list.files("data/derived", full.names = TRUE); unlink(setdiff(d, "data/derived/.gitkeep"), recursive = TRUE)'
 {% elif analysis_stack == 'python' %}
 setup: ## Sync the project environment with uv.
 	uv sync
@@ -31,6 +39,11 @@ lint: ## Lint with ruff.
 
 test: ## Run the test suite with pytest.
 	uv run pytest
+
+all: setup test ## Full build: sync environment then run tests.
+
+reset: ## Remove Python caches (rebuilt on next run).
+	python -c "import shutil,glob;[shutil.rmtree(p,ignore_errors=True) for p in glob.glob('**/__pycache__',recursive=True)+['.pytest_cache','.ruff_cache']]"
 {% else %}
 setup: ## No analysis stack — nothing to restore.
 	@echo "No analysis stack selected; nothing to set up."
@@ -40,6 +53,12 @@ lint: ## No analysis stack — nothing to lint.
 
 test: ## No analysis stack — nothing to test.
 	@echo "No analysis stack selected; nothing to test."
+
+all: ## No analysis stack — nothing to build.
+	@echo "No analysis stack selected; nothing to build."
+
+reset: ## No analysis stack — nothing to reset.
+	@echo "No analysis stack selected; nothing to reset."
 {% endif %}
 
 reindex: ## Rebuild derived context indices.

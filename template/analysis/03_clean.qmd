@@ -1,0 +1,24 @@
+---
+title: "03 · Validate & clean"
+format: html
+execute:
+  eval: false
+---
+
+> Phase 3 — tutorial style. Governance:
+> `.claude/policies/analysis/data-contracts.md`, `data-integrity.md`,
+> `missingness.md`, `outliers.md`.
+
+Validate at the gates (raw before cleaning, analysis-ready before modeling),
+verify join cardinality, handle missingness (mechanism-aware) and outliers
+(detect → inspect → document) — then write the analysis-ready table to
+`data/derived/` (regenerable; never committed).
+
+```{r}
+#| label: validate-clean
+# Contract on raw data BEFORE cleaning (block on failure).
+# pointblank::create_agent(raw) |> ... |> pointblank::interrogate()
+
+# Verify a join's expected cardinality (1:1 / 1:m) and row counts before/after.
+# Account for every dropped row (see missingness.md).
+```
