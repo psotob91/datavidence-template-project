@@ -37,6 +37,9 @@ _exclude:
   - "{% if analysis_stack != 'r' %}contracts{% endif %}"
   - "{% if analysis_stack != 'r' %}docs/analysis{% endif %}"
   - "{% if analysis_stack != 'r' %}config.example.yml{% endif %}"
+  # --- health-data profile (only when project_profile == 'health-data') ---
+  - "{% if project_profile != 'health-data' %}.claude/policies/health{% endif %}"
+  - "{% if project_profile != 'health-data' %}docs/analysis/reporting-checklist.md{% endif %}"
 
 _message_after_copy: |
   ✅ Project '{{ project_name }}' generated.

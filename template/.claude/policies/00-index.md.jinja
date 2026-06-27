@@ -78,4 +78,22 @@ by workflow, not by rank. **Across layers:** the constitution outranks the
 universal precedence, which outranks this analysis-layer precedence. When the
 `health-data` profile adds policies, they carry their own precedence and overlay
 this chain. Most of these never conflict; when they do, stop and name the trade-off.
+{% if project_profile == 'health-data' %}
+## Health-data policies (clinical / epi profile)
+
+Clinical reporting standards + routinely-collected-data handling. Under `health/`;
+open only the one the task needs.
+
+| Policy                                 | One-line scope                                                       |
+|----------------------------------------|---------------------------------------------------------------------|
+| `health/reporting-standards.md`        | Pick the EQUATOR guideline by design/task; fill its checklist        |
+| `health/secondary-data.md`             | RECORD: data-source table, code lists, selection-from-DB flow        |
+| `health/routinely-collected-data.md`   | Safe/efficient EHR/claims/registry handling + indicators (windows, num/den) |
+| `health/clinical-tables.md`            | Table 1/2 with gtsummary; no p in comparisons; SMD; missingness      |
+| `health/study-flow.md`                 | CONSORT / cohort / RECORD / PRISMA flow; sketch-first                |
+
+Precedence: `data-protection` and data integrity still lead; these clinical-reporting
+policies sit alongside the analysis reporting group; `numeric-computation` and the
+constitution still outrank.
+{% endif %}
 {% endif %}
