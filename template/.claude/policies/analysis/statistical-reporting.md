@@ -36,8 +36,16 @@ in common study types (design-specific methods are SAMBR Part C):
 
 ## Self-appraisal lens
 
-- **CHAMP** (CHecklist for statistical Assessment of Medical Papers; Mansournia 2021) is a
-  30-item statistical-quality checklist for **medical papers across designs**, built for
-  editors/reviewers — use it to self-appraise. It does **not** cover study-specific issues;
-  for those use the design's own tool (PROBAST for prediction-model bias, AMSTAR-2/ROBIS
-  for reviews, the descriptive-epi framework for descriptive work).
+- **CHAMP** (CHecklist for statistical Assessment of Medical Papers; Mansournia 2021,
+  30 items) is built around the **analytic association / etiologic-causal** paradigm
+  (exposure–outcome contrasts, confounding, effect estimates) — its centrepiece (DAG-based
+  confounder selection) is causal-analytic, **not** general. Use it as the **primary
+  statistical self-appraisal lens for analytic observational studies (cohort / case-control
+  / cross-sectional) and RCTs**.
+- It is **not** a true all-designs tool (the authors concede each design "has specific
+  issues … not covered"). Scope it by task:
+  - **Descriptive-only** (no comparison group): apply only CHAMP's task-agnostic items, plus
+    the descriptive-epidemiology framework (sampling validity, standardization).
+  - **Prediction model** → **TRIPOD** (+ PROBAST); CHAMP's confounder-selection logic
+    misleads for predictor selection and it has no calibration/discrimination/validation items.
+  - **Diagnostic accuracy** → **STARD** (+ QUADAS-2). **Synthesis** → **PRISMA** + AMSTAR-2/ROBIS.
