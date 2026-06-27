@@ -6,22 +6,22 @@
 > only "where we are right now + what's next".
 
 - **Updated:** 2026-06-28
-- **Branch:** `feat/r-rigor-expansion`
-- **Status:** meta-learner refactored to the plugin (v1.4.0) + factory/template slimmed to opt-in config; all render- and lifecycle-tested. **Uncommitted in 2 repos, pending user OK to commit + push.**
+- **Branch (git local):** `main` — everything integrated here.
+- **Status:** R-rigor expansion + meta-learner fully merged to `main`; plugin v1.4.0 live. Done & tested.
 
-## Done this session
-- Advanced 11-agent audit (13/13 claims confirmed) → `docs/audits/2026-06-28-repo-audit/`.
-- Built the meta-learner, then **refactored the generic mechanism INTO the plugin** `psotobverse-utils` **v1.4.0** (session hooks + `/reflect` + `/audit-report`), OPT-IN per project via `.claude/meta-learner.json`. Tested: no-op without config, active with config, crash-detect, handoff, render.
-- Factory + template now carry only **config + data + routing** (`.claude/meta-learner.json`, `learning/*`, radars, `SESSION_STATE`, constitution rule 9, CLAUDE.md routing). Duplicated hook scripts removed.
-- Closed parity gaps: factory CLAUDE.md plugin-routing; `template/SESSION_STATE.md.jinja` seed.
+## Done (this milestone)
+- Merged the git branch `feat/r-rigor-expansion` (stages 1–5: R analysis governance) into `main` — no conflicts.
+- Completed the meta-learner wiring on `main` (constitution rule 9, CLAUDE.md.jinja Meta-learner section, REFLECTOR consensus lane) — the earlier partial commit's stashed edits.
+- Tested: Copier renders **A** (R/standard) and **B** (R/health-data/all modules) both PASS `check_placeholders`; meta-learner + R-rigor coexist; gating correct.
+- `psotobverse-utils` **v1.4.0**: pushed to GitHub remote, marketplace refreshed, installed pointer flipped to 1.4.0 (verified via `claude plugin list/details`). **Restart Claude for the session hooks to load in this repo.**
 
-## Next steps (in priority order)
-1. **Plugin release:** push `C:/workspace/psotobverse-utils` (v1.4.0) to GitHub, then `/plugin marketplace update psotobverse-utils` + `/plugin update psotobverse-utils`. Until then the session hooks/skills are absent (repos still work). **Needs user OK (push is outward-facing).**
-2. Commit the datavidence changes (this repo) — branch `feat/r-rigor-expansion` or a new `feat/meta-learner`.
-3. Resolve `temporal-expansion-ideas/` (untracked, superseded): prose-ify briefs into `docs/research/` or archive + gitignore; finish `routinely-collected-data.md` stub.
-4. Fix the `datavidence-healthanalysis` plugin reference (not installed): ship / repoint / mark planned.
-5. Root `llms.txt` for the factory; CI render-and-validate; optional factory `paths.allow.json`.
+## Next steps (pending, lower priority)
+1. Resolve `temporal-expansion-ideas/` (untracked, superseded): prose-ify the two Gemini briefs into `docs/research/` or archive + `.gitignore`; finish `routinely-collected-data.md` stub.
+2. Fix the `datavidence-healthanalysis` plugin reference (routed to from `data-onboarding.md` + modules but not installed): ship / repoint / mark planned.
+3. Root `llms.txt` for the factory; extend CI to render-and-validate (not just check_placeholders).
+4. Optional: factory `.claude/policy/paths.allow.json` to activate the `nothing_loose` write-guard.
+5. Push `main` (datavidence) to its GitHub remote when ready.
 
 ## Uncommitted
-- **datavidence** (this repo): `.claude/meta-learner.json`, `CLAUDE.md`, `SESSION_STATE.md`, `learning/`, `docs/audits/`, `.gitignore`, `CHANGELOG`; `template/.claude/{meta-learner.json,constitution.md}`, `template/CLAUDE.md.jinja`, `template/learning/CONSENSUS_WATCH.md`, `template/SESSION_STATE.md.jinja`, `template/.gitignore`, `template/learning/REFLECTOR.md`, `template/docs/audits/`; pre-existing `template/docs/analysis/modules/causal.md`.
-- **psotobverse-utils** (`C:/workspace/psotobverse-utils`): `hooks/{meta_util,session_start,capture_signal,session_end}.py`, `hooks/hooks.json`, `skills/{reflect,audit-report}/SKILL.md`, `plugin.json` (v1.4.0), `CHANGELOG.md`.
+- `temporal-expansion-ideas/` (untracked roadmap — see step 1).
+- Backup left at `~/.claude/plugins/installed_plugins.json.bak` (safe to delete).
