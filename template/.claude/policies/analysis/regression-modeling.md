@@ -1,7 +1,9 @@
 # Regression modeling (without regrets)
 
-Avoid the common regression "regrets". Basis: STRATOS TG2 (Sauerbrei, Heinze,
-Perperoglou et al.; "regression without regrets").
+Avoid the common regression "regrets". Basis: Heinze, Baillie, Lusa, Sauerbrei, Schmidt,
+Harrell & Huebner, *Regression without regrets — initial data analysis is a prerequisite
+for multivariable regression* (BMC Med Res Methodol 2024;24:178, STRATOS TG2/TG3), plus
+TG2 guidance on variable & functional-form selection.
 
 ## Rules
 

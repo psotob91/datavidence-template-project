@@ -18,13 +18,16 @@ verdict — including when a violation does not actually matter. Pairs with the
   - Cox: proportional hazards — inspect **Schoenfeld residuals**, then `cox.zph`.
 - **Bayesian models are checked differently — convergence/approximation is a
   prerequisite, not a robustifiable assumption:**
-  - MCMC (Stan / `brms` / JAGS): require **R-hat < 1.01** (≥4 chains), **bulk- and
-    tail-ESS ≳ 400**, **zero divergent transitions** (HMC/NUTS; also watch
-    E-BFMI / treedepth), clean trace plots; then **posterior predictive checks**
-    (`pp_check`), **prior-sensitivity**, and LOO/WAIC with **Pareto-k** for influence.
+  - MCMC: require **R-hat < 1.01** (≥4 chains), **bulk- and tail-ESS ≳ 400**, and clean
+    trace plots. **HMC/NUTS (Stan/`brms`)** additionally: investigate and ideally
+    eliminate **divergent transitions** (raise `adapt_delta` / reparameterize) and watch
+    **E-BFMI / treedepth** (Gibbs samplers like JAGS have no such diagnostics). Then
+    **posterior predictive checks** (`pp_check`), **prior-sensitivity**, and LOO/WAIC with
+    **Pareto-k** for influence.
   - INLA (latent Gaussian models): check **PIT** (≈ uniform) and **CPO** (+ its
-    failure flags / `inla.cpo`), the **KLD** column for Laplace-approximation
-    validity, and prior sensitivity (prefer **PC priors**).
+    failure flags / `inla.cpo`), the **KLD** column for Laplace-approximation validity;
+    use **PC priors** as the principled default, and run prior sensitivity by comparing
+    against alternative priors.
   - **No escape hatch here.** Unlike a robust-SE patch, you cannot "robustify" a
     non-converged chain or an invalid approximation. Fix the model — non-centered
     parameterization, better priors, more iterations / higher `adapt_delta`, or a
