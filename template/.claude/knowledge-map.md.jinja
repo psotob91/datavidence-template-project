@@ -25,6 +25,40 @@ _Plugin skills auto-invoke by description; to call one explicitly use `/psotobve
 | Where do outputs go             | `outputs/OUTPUT_LAYOUT.md` + `.claude/policy/paths.allow.json`|
 | A recurring lesson              | `learning/PLAYBOOK.md`                                        |
 | Prior material / source corpus  | `context/`                                                    |
+{% if analysis_stack == 'r' %}
+### Data-analysis routing (R stack)
+
+_These domain verbs live in the **datavidence-healthanalysis** plugin (install separately; to call one
+explicitly use `/datavidence-healthanalysis:<name>`). The project still works without it — routing then
+falls back to doing the step by hand._
+
+| Task type                                  | Consult / run                                               |
+|--------------------------------------------|-------------------------------------------------------------|
+| Onboard / connect raw data                 | run `/datavidence-healthanalysis:onboard-data` (`data/README.md`, `config.example.yml`) |
+| Data schema / validation / contract        | `contracts/`, then `/datavidence-healthanalysis:data-contract`  |
+| Numeric claim / percentages / table totals | run `/datavidence-healthanalysis:numeric-check`                  |
+| Missing data (detect / handle)             | run `/datavidence-healthanalysis:missingness-report`            |
+| Initial data analysis / EDA                | run `/datavidence-healthanalysis:eda`                            |
+| Model assumptions                          | run `/datavidence-healthanalysis:validate-assumptions`          |
+| Big / on-disk data                         | run `/datavidence-healthanalysis:big-data-triage`              |
+| Descriptive table (Table 1)                | run `/datavidence-healthanalysis:table1`                        |
+| Process / method diagram                   | run `/datavidence-healthanalysis:process-diagram`               |
+| Audit the analysis itself (methods, not results) | run `/datavidence-healthanalysis:method-audit`            |
+| Analysis pipeline (the flow)               | `analysis/` (ordered 01→05, run via `{targets}`)            |
+| Data taxonomy (input vs derived)           | `data/README.md`                                            |
+| Human-neutral metadata / dictionaries      | `metadata/`                                                 |
+| Methods notation (LaTeX)                   | `docs/analysis/notation.md`                                 |
+| Open items to verify / watchlist           | `learning/WATCHLIST.md`                                     |
+| Unfamiliar R package                       | consult docs / `r-btw` MCP / `/r-package-skill <pkg>`      |
+{% if project_profile == 'health-data' %}| Participant / cohort flow (CONSORT/STROBE) | run `/datavidence-healthanalysis:cohort-flow`                   |
+| Reporting checklist (EQUATOR)              | `docs/analysis/reporting-checklist.md`                     |
+{% endif %}{% if 'causal' in modules %}| Causal / target-trial emulation            | `docs/analysis/modules/causal.md` (+ `/datavidence-healthanalysis:dag-causal`) |
+{% endif %}{% if 'prediction' in modules %}| Prediction model (TRIPOD/PROBAST)          | `docs/analysis/modules/prediction.md` (+ `/datavidence-healthanalysis:prediction-validation`) |
+{% endif %}{% if 'survey' in modules %}| Complex survey design (ENDES/DHS)          | `docs/analysis/modules/survey.md` (+ `/datavidence-healthanalysis:survey-design`) |
+{% endif %}{% if 'spatial' in modules %}| Spatial data                               | `docs/analysis/modules/spatial.md` (+ `/datavidence-healthanalysis:spatial`) |
+{% endif %}{% if 'synthesis' in modules %}| Evidence synthesis / meta-analysis         | `docs/analysis/modules/synthesis.md`                        |
+{% endif %}
+{% endif %}
 
 {% if knowledge_retrieval != 'none' %}
 > **Scientific-corpus retrieval is coupled** (`knowledge_retrieval = {{ knowledge_retrieval }}`).

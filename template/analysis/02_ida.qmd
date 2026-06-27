@@ -1,0 +1,19 @@
+---
+title: "02 · Initial data analysis (IDA)"
+format: html
+execute:
+  eval: false
+---
+
+> Phase 2 — tutorial style. Governance:
+> `.claude/policies/analysis/initial-data-analysis.md`.
+
+**IDA, not EDA.** Check the data is fit for purpose *before* modeling — integrity,
+structure, missingness, distributions — **without** peeking at the exposure–outcome
+association. A didactic human codebook helps here (distinct from the machine
+`metadata/data_dictionary.csv`).
+
+```{r}
+#| label: ida
+summarytools::dfSummary(raw)   # didactic structure/codebook view
+```

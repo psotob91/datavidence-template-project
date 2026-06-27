@@ -1,0 +1,23 @@
+---
+title: "01 · Ingest & connect data"
+format: html
+execute:
+  eval: false
+---
+
+> Phase 1 — tutorial style, step by step. Governance:
+> `.claude/policies/analysis/data-onboarding.md`, `data-integrity.md`,
+> `data-protection.md`.
+
+Onboard the data **without leaving anything floating**. Light data → copy into
+`data/raw/` (committed). Heavy / private / external → **connect, don't import**
+via `config.yml` (see `../config.example.yml`); the project stays portable.
+Record provenance (source, date, checksum) in `../metadata/`. Never edit raw in
+place — every change is code downstream.
+
+```{r}
+#| label: connect
+# Read locations from config (portable); resolve internal paths with {here}.
+cfg <- yaml::read_yaml(here::here("config.yml"))
+raw <- rio::import(cfg$data_sources$example_dataset$path)   # rio opens anything
+```

@@ -59,6 +59,11 @@ jobs:
           --data analysis_stack=none
           . /tmp/out-none
 
+      - name: Render R + health-data profile + all modules
+        run: |
+          printf 'project_name: Smoke HD\nanalysis_stack: r\nproject_profile: health-data\nmodules: [causal, prediction, survey, spatial, synthesis]\n' > /tmp/hd.yml
+          copier copy --defaults --data-file /tmp/hd.yml . /tmp/out-hd
+
       - name: Check placeholders (R stack)
         run: python /tmp/out-r/scripts/check_placeholders.py /tmp/out-r
 
@@ -67,3 +72,6 @@ jobs:
 
       - name: Check placeholders (none stack)
         run: python /tmp/out-none/scripts/check_placeholders.py /tmp/out-none
+
+      - name: Check placeholders (R + health-data + modules)
+        run: python /tmp/out-hd/scripts/check_placeholders.py /tmp/out-hd

@@ -1,0 +1,24 @@
+---
+title: "04 · Model & diagnostics"
+format: html
+execute:
+  eval: false
+---
+
+> Phase 4 — tutorial style. Governance:
+> `.claude/policies/analysis/pre-specification.md`, `model-assumptions.md`,
+> `sensitivity-analysis.md`.
+
+Fit the **pre-specified** model (estimand defined before seeing results). Diagnose
+assumptions with the **right residual** (randomized quantile residuals for
+GLM/GAM via `statmod`/`DHARMa`; Schoenfeld for Cox; convergence checks for
+Bayesian — R-hat/ESS or INLA PIT/CPO). Prefer plots to tests; a violation does
+not automatically invalidate the model — comment on robustness and remedies, and
+run sensitivity analyses.
+
+```{r}
+#| label: model
+# fit  <- survival::coxph(...)            # example
+# performance::check_model(fit)           # graphical diagnostics
+# survival::cox.zph(fit)                  # PH test (after Schoenfeld plots)
+```

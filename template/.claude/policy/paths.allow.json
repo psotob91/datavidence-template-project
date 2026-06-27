@@ -9,6 +9,9 @@
     "docs/**",
     "outputs/**",
     "context/**",
+    "data/**",
+    "metadata/**",
+    "contracts/**",
     "analysis/**",
     "learning/**",
     "scripts/**",
@@ -31,6 +34,8 @@
     ".editorconfig",
     ".dockerignore",
     ".env.example",
+    "config.example.yml",
+    "config.yml",
     ".gitleaks.toml",
     "cliff.toml",
     ".pre-commit-config.yaml"
