@@ -7,6 +7,31 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning: [S
 ## [Unreleased]
 
 ### Added
+- **Meta-learner + maintainer `CLAUDE.md`** (the master/builder repo now dog-foods
+  what it ships). The learning-loop MECHANISM was hoisted into the
+  `psotobverse-utils` plugin (≥ v1.4.0) — versioned and DRY — and each repo OPTS IN
+  via a `.claude/meta-learner.json` config (presence activates the plugin's session
+  hooks here; absent ⇒ they no-op, so unrelated repos are untouched). That config
+  carries the repo's domain signal patterns and the consensus-radar filename.
+  - Factory: root `CLAUDE.md` (factory-vs-child map + fast-resume recipe + plugin
+    routing), `.claude/meta-learner.json` (agent-building patterns →
+    `learning/STANDARDS_WATCH.md`), `learning/` scaffold, `SESSION_STATE.md`.
+  - Template (children get a *working* loop, not an inert scaffold):
+    `template/.claude/meta-learner.json` (methodological patterns →
+    `template/learning/CONSENSUS_WATCH.md`), `CONSENSUS_WATCH.md` (EQUATOR/GRADE/
+    Cochrane/regulators with explicit epistemic caveats — consensus lag, Table-2
+    fallacy, confounder≠prognostic, MCID/Bayesian as *contested*; non-dogmatic,
+    ask-the-user gate), constitution **rule 9** ("Close the learning loop"), a
+    WRITE-trigger section in `CLAUDE.md.jinja`, a REFLECTOR consensus lane, and a
+    `SESSION_STATE.md.jinja` seed.
+  - The loop (`SessionStart` crash-detect + fast resume, `UserPromptSubmit` signal
+    capture, `SessionEnd` handoff) + `/psotobverse-utils:reflect` and
+    `/psotobverse-utils:audit-report` skills now ship from the plugin. Tested
+    end-to-end (opt-in gate, lifecycle, crash detection) and via a Copier render.
+- **`docs/audits/` convention** (factory + template) + the `/audit-report` skill:
+  multi-agent audits write a small indexed `00-summary.md` with raw maps as
+  referenced sidecars — never an unindexed mega-blob that blows context. The
+  2026-06-28 factory audit is preserved under `docs/audits/`.
 - **R data-analysis rigor expansion** (branch `feat/r-rigor-expansion`, layered):
   - Base-rigor folders (R stack): `data/{raw,derived}`, `metadata/`, `contracts/`,
     `docs/analysis/` (with `notation.md`), `config.example.yml` (portable data

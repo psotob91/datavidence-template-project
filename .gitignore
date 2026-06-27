@@ -4,3 +4,7 @@
 # copier render-test scratch
 /.render-test/
 /tmp-render*/
+# factory meta-learner: machine-local dirty-bit + transient signal buffer
+# (durable handoffs in learning/sessions/ and the learning/*.md files ARE committed)
+/.claude/state/
+/learning/queue/

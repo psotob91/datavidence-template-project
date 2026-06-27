@@ -18,8 +18,12 @@ with auto-discovered noise and rots context over time. Edit this file by hand.
 
 ## Companion plugin
 
-Guardrails are NOT defined here. Skills, hooks, and subagents come from the
-companion plugin `psotobverse-utils` (orthogonal layer, separate repo). Install it once:
+Generic **guardrails** are NOT defined here. The write-guard, `.env` protection,
+doc-hygiene and stop-reminder hooks, the thin-verb skills, and the subagents come
+from the companion plugin `psotobverse-utils` (orthogonal layer, separate repo).
+The **project-coupled learning loop** (session hooks + `/reflect`) is the one
+exception — it ships *with* the project because it writes to this project's own
+`learning/` files (see **Meta-learner** below). Install the plugin once:
 
 ```
 /plugin marketplace add psotob91/psotobverse-utils
@@ -45,8 +49,41 @@ When a workflow expects a generic capability, use the project-specific command b
 | Doc hygiene / index     | `/index` or `/tidy`               |
 | Outputs index           | `make reindex`                    |
 | Decisions               | `docs/adr/`                       |
-| Learning                | `learning/PLAYBOOK.md`            |
+| Learning (read)         | `learning/PLAYBOOK.md`            |
+| Learning (write)        | `/psotobverse-utils:reflect`      |
+| Organize audit output   | `/psotobverse-utils:audit-report` |
 | Reproduce env           | `make setup`                      |
+
+## Meta-learner (the learning loop is a WRITE trigger, not just a read)
+
+This project captures lessons automatically and reviews them deliberately. The
+MECHANISM comes from the `psotobverse-utils` plugin (≥ v1.4.0); this project OPTS
+IN via `.claude/meta-learner.json` (its presence activates the plugin's session
+hooks here and carries this project's methodological signal patterns):
+
+- **`SessionStart`** injects `SESSION_STATE.md` + the last handoff so you resume
+  cheaply, and **detects an unclean exit** (crash) via a dirty-bit.
+- **`UserPromptSubmit`** appends **correction** and **methodological** signals to
+  `learning/queue/signals.jsonl` (cheap, crash-safe, never blocks).
+- **`SessionEnd`** writes a forward-looking handoff to `learning/sessions/`.
+
+**The ritual:** at a checkpoint, or when `SessionStart` reports queued signals,
+**run `/psotobverse-utils:reflect`**. It proposes (human-gated) diffs that route each signal:
+
+| File | Holds |
+|---|---|
+| `learning/LEARNING_LOG.md` | append-only dated facts ("what happened") |
+| `learning/PLAYBOOK.md` | distilled, proven-reusable lessons |
+| `learning/REFLECTOR.md` | triage board (Now / Defer+TRIGGER / Optional / Discard) |
+| `learning/WATCHLIST.md` | open TODOs / anomalies (prune on resolution) |
+| `learning/CONSENSUS_WATCH.md` | methodological standards & controversies — dated, sourced, **non-dogmatic** |
+
+`CONSENSUS_WATCH.md` tracks reporting standards / frameworks (EQUATOR, GRADE,
+Cochrane, regulators) **and** their lags, contested points, and known traps. Its
+rule: when a consensus seems to be shifting or violated, **flag it, ask the user,
+and recommend validation** — never silently adopt it or change an analysis decision.
+Persist anything that must survive `/compact` or a crash to disk (this file,
+`learning/`, `SESSION_STATE.md`, or git) — never to the conversation only.
 
 ## Cowork
 

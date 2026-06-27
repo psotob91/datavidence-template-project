@@ -27,6 +27,11 @@ data/derived/*
 _agent_cache/
 _agent_private/
 
+# --- Meta-learner transient state (machine-local; the durable learning/*.md
+#     files and learning/sessions/ handoffs ARE committed) --------------------
+.claude/state/
+learning/queue/
+
 # --- Local data-connection config (keep the committed example) -------------
 config.yml
 !config.example.yml

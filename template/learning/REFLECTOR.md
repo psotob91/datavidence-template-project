@@ -1,11 +1,25 @@
 # Reflector
 
 **Triage candidate improvements.** Raw ideas, frictions, and "we should
-maybe..." land here first. Each gets sorted into one of four lanes. Promote
+maybe..." land here first. Each gets sorted into one of the lanes below. Promote
 durable conclusions into `PLAYBOOK.md`; record what actually happened in
-`LEARNING_LOG.md`.
+`LEARNING_LOG.md`; route methodological standards/controversies to
+`CONSENSUS_WATCH.md`.
 
-Review this board at the end of a work session.
+Review this board at the end of a work session (the `/reflect` skill proposes
+additions from the captured signal queue — it never auto-edits).
+
+## Consensus & method signals — escalate, don't decide
+
+Methodological observations the agent flagged: a possible new/shifting consensus,
+a controversy, or a suspected bad practice (e.g. Table 2 fallacy, confounder
+treated as prognostic factor, adjusting for a mediator/collider, immortal-time
+bias). **These are surfaced to the user with a recommended validation, never
+acted on unilaterally.** Durable ones graduate to `CONSENSUS_WATCH.md`.
+
+- (none yet) — _example: "User says the guideline we cited for X was superseded —
+  TRIGGER: confirm against the primary EQUATOR/GRADE source, then update
+  CONSENSUS_WATCH and ask before changing the analysis."_
 
 ## Now — act on this session
 

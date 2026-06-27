@@ -41,6 +41,14 @@ Atomic policies in `policies/` refine these rules; on conflict, this charter win
    reports, datasets) belong under `outputs/`. Source and analysis code live
    elsewhere; do not scatter deliverables across the tree.
 
+9. **Close the learning loop.** At a checkpoint or session end, run
+   `/psotobverse-utils:reflect` to triage captured signals into the `learning/`
+   files (log, playbook, reflector, watchlist, consensus-watch). When you detect a methodological consensus that is
+   shifting, contested, or being violated, **flag it and ask the user with a
+   recommended validation** — do not silently adopt it or change an analysis
+   decision on your own. Persist anything that must survive `/compact` or a crash
+   to disk, never to the conversation only.
+
 ## Cowork
 
 Cowork does not auto-read this file. These same rules are mirrored into
