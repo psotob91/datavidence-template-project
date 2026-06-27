@@ -1,15 +1,20 @@
 # Data protection
 
-Keep identifiable data out of everything that travels or is shared.
+Simple rule: the data stays put, and nothing identifiable leaves the project
+unless you ask. No modeling around the data, no altering the source to "protect"
+it.
 
 ## Rules
 
-- **No identifiable data in git, `outputs/`, `context/`, or the prompt.** Connect
-  private/PII/PHI data via `config.yml` (git-ignored); do not copy it into the
-  repo or paste it into a message.
-- **Avoid re-identification.** Do not export tables/figures that could
-  re-identify individuals (e.g., very small cells). Disclosure-control thresholds
-  and methods are project-specific — clinical specifics come with the health-data
-  profile.
+- **Data lives on your machine; the agent may read it.** Do not copy or transform
+  the source for protection's sake.
+- **Nothing leaves unless you explicitly ask.** Never push data to git,
+  `outputs/`, an upload, or an external service unless you request it (e.g., open
+  data you ask to publish).
+- **No real identifier columns in anything exported.** Drop them, or replace with
+  an anonymized key (add one if rows need an identifier). Nothing more elaborate.
+- **Before uploading non-open data, warn me and propose light anonymization of the
+  exported copy only** (never the source): e.g., randomly shift the index date,
+  jitter precise latitude/longitude. If the data is already open, skip it.
 - **Secrets are separate.** `.env` / keys are blocked by the plugin's
-  `env_protect` hook; this policy is about **datasets**.
+  `env_protect` hook; this policy is about datasets.

@@ -34,7 +34,7 @@ Open only the one the task needs.
 | Policy                                | One-line scope                                                      |
 |---------------------------------------|--------------------------------------------------------------------|
 | `analysis/numeric-computation.md`     | Numbers are claims — compute by code/tool, never in your head       |
-| `analysis/data-protection.md`         | No identifiable data (PII/PHI) in git, outputs, context, or prompt  |
+| `analysis/data-protection.md`         | Data stays local; nothing identifiable leaves unless you ask  |
 | `analysis/data-integrity.md`          | Raw immutable; verify join cardinality; explicit types; range checks|
 | `analysis/data-contracts.md`          | Validate raw + analysis-ready data at the gates; block on failure   |
 | `analysis/data-onboarding.md`         | Copy light / connect heavy data; portable config; minimal human docs|
@@ -42,12 +42,12 @@ Open only the one the task needs.
 | `analysis/initial-data-analysis.md`   | Structured IDA before modeling (STRATOS); distinct from EDA         |
 | `analysis/missingness.md`             | Account for every row; mechanism-aware handling; no silent deletion |
 | `analysis/outliers.md`                | Detect→inspect→document; never silent removal; sensitivity          |
-| `analysis/model-assumptions.md`       | Check the assumptions each model needs; act on violations           |
+| `analysis/model-assumptions.md`       | Graphics over tests; right residual per model; a violation ≠ invalid           |
 | `analysis/sensitivity-analysis.md`    | Pre-specify; reuse the pipeline; report alongside the primary       |
 | `analysis/reproducibility.md`         | Seeds via targets; renv.lock committed; locale/TZ; sessioninfo; stamp|
 | `analysis/regenerables.md`            | Only input+code to git; everything regenerates; `make reset`        |
 | `analysis/computational-efficiency.md`| Vectorize; data.table/DuckDB by size; cache/freeze long runs        |
-| `analysis/reporting.md`               | Labels-first; always CIs; no p in descriptive tables; rounding      |
+| `analysis/reporting.md`               | Labels-first; always CIs; no p in comparison tables (STROBE); rounding      |
 | `analysis/results-writing.md`         | Objective; every number & data-dependent word via inline code       |
 | `analysis/figures.md`                 | Colorblind-safe palettes; grayscale test; vector + ≥300 dpi; journal sizes |
 | `analysis/diagrams.md`                | flowchart (sketch-first) for results; mermaid + ISO 5807 for process|
