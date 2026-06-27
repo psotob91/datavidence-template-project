@@ -1,0 +1,21 @@
+# config.example.yml — committed template for the project's local configuration.
+#
+# Copy this to `config.yml` (which is git-ignored) and fill in machine-specific
+# values. This indirection keeps the project PORTABLE: move it to another PC or
+# server, point `config.yml` at the new data location, and everything reruns.
+# NEVER hardcode absolute paths in code — read them from here (e.g. via {config}
+# or yaml::read_yaml("config.yml")) and resolve internal paths with {here}.
+
+# --- Data sources -----------------------------------------------------------
+# For each external/private dataset that is NOT copied into data/raw/, point to
+# its origin here. Light datasets can instead live in data/raw/ and be committed.
+data_sources:
+  example_dataset:
+    path: "C:/path/to/private/data/example.parquet"   # absolute path OR network/mount
+    description: "What this dataset is; who owns it."
+    # checksum is recorded in metadata/data_sources.yml after onboarding.
+
+# --- Optional runtime settings ---------------------------------------------
+options:
+  tz: "UTC"            # fix timezone for reproducible date handling
+  locale: "C"          # fix collation/locale so sorting is deterministic

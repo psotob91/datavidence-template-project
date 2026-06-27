@@ -30,6 +30,12 @@ _exclude:
   # --- Python stack (kept only when analysis_stack == 'python') ---
   - "{% if analysis_stack != 'python' %}pyproject.toml{% endif %}"
   - "{% if analysis_stack != 'python' %}tests/test_smoke.py{% endif %}"
+  # --- base data-analysis rigor (R stack only) ---
+  - "{% if analysis_stack != 'r' %}data{% endif %}"
+  - "{% if analysis_stack != 'r' %}metadata{% endif %}"
+  - "{% if analysis_stack != 'r' %}contracts{% endif %}"
+  - "{% if analysis_stack != 'r' %}docs/analysis{% endif %}"
+  - "{% if analysis_stack != 'r' %}config.example.yml{% endif %}"
 
 _message_after_copy: |
   ✅ Project '{{ project_name }}' generated.
@@ -91,6 +97,27 @@ analysis_stack:
     "Python  — uv + ruff + pytest": python
     "None  — docs / web only (no analysis layer)": none
   default: r
+
+project_profile:
+  type: str
+  help: "Analysis profile (R stack). 'standard' = general rigorous data analysis; 'health-data' adds clinical/epi reporting overlays (STROBE/CONSORT/TRIPOD, Table 1 conventions, EQUATOR checklists)."
+  choices:
+    "Standard — general rigorous data analysis": standard
+    "Health-data — adds clinical/epi reporting (STROBE/CONSORT/TRIPOD)": health-data
+  default: standard
+  when: "{{ analysis_stack == 'r' }}"
+
+modules:
+  type: str
+  help: "Optional domain modules to enable (affects skill routing + optional scaffolding). Enable only what the project needs."
+  multiselect: true
+  choices:
+    "Causal DAGs (dagitty/ggdag)": causal
+    "Complex survey design (survey/srvyr — ENDES/DHS)": survey
+    "Prediction-model validation (rms/pmsampsize, TRIPOD)": prediction
+    "Spatial objects (sf/terra/stars)": spatial
+  default: []
+  when: "{{ analysis_stack == 'r' }}"
 
 knowledge_retrieval:
   type: str

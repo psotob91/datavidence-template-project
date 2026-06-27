@@ -16,6 +16,20 @@ renv/library/
 renv/local/
 renv/cellar/
 renv/staging/
+# renv.lock IS committed (absolute reproducibility): it is intentionally NOT ignored.
+
+# --- targets store + derived data (regenerable; rebuilt by `make reset`) ----
+_targets/
+data/derived/*
+!data/derived/.gitkeep
+
+# --- Agent-only caches (derived, disposable) -------------------------------
+_agent_cache/
+_agent_private/
+
+# --- Local data-connection config (keep the committed example) -------------
+config.yml
+!config.example.yml
 
 # --- Secrets ---------------------------------------------------------------
 .env
