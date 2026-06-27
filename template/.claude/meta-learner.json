@@ -1,0 +1,24 @@
+{
+  "_comment": "Opt-in config for the psotobverse-utils meta-learner (>= v1.4.0). Its PRESENCE activates the SessionStart/UserPromptSubmit/SessionEnd hooks for this project; absent => the plugin's hooks no-op. Domain = data analysis / biostatistics, so consensus signals track methodological standards & controversies and route to CONSENSUS_WATCH.md. 'label' is omitted so it defaults to the project's directory name.",
+  "enabled": true,
+  "radar": "learning/CONSENSUS_WATCH.md",
+  "correction_patterns": [
+    "\\bno,", "no es así", "no era", "en realidad", "\\bactually\\b",
+    "that'?s (wrong|not right|incorrect|not)", "incorrect", "te equivocas",
+    "estás? mal", "eso está mal", "mal hecho", "equivocad", "deberías", "debías",
+    "should(n'?t)? have", "en vez de", "instead of", "fix this", "no deberías"
+  ],
+  "consensus_patterns": [
+    "equator", "strobe", "consort", "spirit", "tripod", "probast", "stard", "remark",
+    "prisma", "\\bmoose\\b", "\\bgrade\\b", "cochrane", "guideline", "gu[ií]a",
+    "consensus", "consenso", "controvers", "best practice", "mala práctica",
+    "bad practice", "standard", "est[aá]ndar", "\\bfda\\b", "\\bema\\b", "\\bich\\b",
+    "estimand", "intercurrent", "confound", "collider", "colision", "mediator",
+    "mediador", "table 2 fallacy", "prognostic", "prognóstic", "effect modif",
+    "interaction", "\\bmcid\\b", "minimal(ly)? (clinically )?important",
+    "clinically important difference", "bayesian", "bayesiano", "frequentist",
+    "frecuentista", "p-?value", "valor p", "significan", "\\bdag\\b", "causal",
+    "immortal time", "selection bias", "sesgo de selección", "deprecat",
+    "new (consensus|standard)"
+  ]
+}
