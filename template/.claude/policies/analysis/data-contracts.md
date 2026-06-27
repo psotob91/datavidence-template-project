@@ -13,5 +13,6 @@ transforms.
 - **Block on failure.** A failed contract stops the analysis unless the exception
   is explicitly documented and accepted in `docs/adr/`.
 - **Contracts state prerequisites, not methods.** Keys, types, allowed values,
-  required-non-missing, join cardinality — yes. Methodological choices belong in
+  required-non-missing, join cardinality, **referential integrity**, and **temporal
+  plausibility** (dates within valid windows) — yes. Methodological choices belong in
   `docs/analysis/`, not here.

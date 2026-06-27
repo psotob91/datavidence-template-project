@@ -28,9 +28,11 @@ in common study types (design-specific methods are SAMBR Part C):
   PROGRESS-2.
 - **Causal / etiologic**: estimand first; target trial emulation + DAGs. Report with
   **STROBE/RECORD** (general observational reporting) **+ TARGET** (the causal/TTE one).
-- **Predictive model**: report with **TRIPOD**; risk of bias with **PROBAST**. (PROGRESS-3
-  is the methodological strategy for prognostic-model research, **not** a reporting guideline.)
-- **Diagnostic accuracy**: report with **STARD**; risk of bias with **QUADAS-2**.
+- **Predictive model**: report with **TRIPOD+AI (2024)**; risk of bias with **PROBAST+AI
+  (2025)**. (PROGRESS-3 is the methodological strategy for prognostic-model research,
+  **not** a reporting guideline.)
+- **Diagnostic accuracy**: report with **STARD** (STARD-AI for AI-based tests); risk of
+  bias with **QUADAS-2**.
 - **Evidence synthesis**: report with **PRISMA**; appraise with **AMSTAR-2** (methodological
   quality) / **ROBIS** (risk of bias). *(module `synthesis`)*
 

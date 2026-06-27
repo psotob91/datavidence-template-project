@@ -15,13 +15,15 @@ verdict — including when a violation does not actually matter. Pairs with the
     `statmod::qresid`) — raw / Pearson / deviance residuals mislead for discrete
     or non-normal responses.
   - Mixed / multilevel: simulation-based scaled residuals via **`DHARMa`**.
-  - Cox: proportional hazards — inspect **Schoenfeld residuals**, then `cox.zph`.
+  - Cox: proportional hazards — inspect **Schoenfeld residuals**, then `cox.zph`; if
+    violated, use a **time-varying coefficient, stratified Cox, or landmark analysis**.
 - **Bayesian models are checked differently — convergence/approximation is a
   prerequisite, not a robustifiable assumption:**
   - MCMC: require **R-hat < 1.01** (≥4 chains), **bulk- and tail-ESS ≳ 400**, and clean
     trace plots. **HMC/NUTS (Stan/`brms`)** additionally: investigate and ideally
-    eliminate **divergent transitions** (raise `adapt_delta` / reparameterize) and watch
-    **E-BFMI / treedepth** (Gibbs samplers like JAGS have no such diagnostics). Then
+    eliminate **divergent transitions** — aim for zero (raise `adapt_delta`,
+    reparameterize, or revise the model); never report a posterior with unresolved
+    divergences. Watch **E-BFMI / treedepth** (Gibbs samplers like JAGS have none). Then
     **posterior predictive checks** (`pp_check`), **prior-sensitivity**, and LOO/WAIC with
     **Pareto-k** for influence.
   - INLA (latent Gaussian models): check **PIT** (≈ uniform) and **CPO** (+ its
@@ -34,8 +36,9 @@ verdict — including when a violation does not actually matter. Pairs with the
     different likelihood (for INLA: change strategy or switch to MCMC). **Never
     report a posterior from a non-converged fit.**
 - **Always check linearity of continuous predictors, outliers, and influential
-  points** (e.g., Cook's distance, dfbeta) — pick the best plot for each model
-  type. These matter.
+  points** (e.g., Cook's distance, dfbeta). On non-linearity, **model it (restricted
+  cubic splines / fractional polynomials) — never dichotomize** (see
+  `regression-modeling.md`). Pick the best plot for each model type.
 - **A violated assumption does NOT invalidate the model.** Many models are robust
   to some deviations — say so, with a comment, when that is reasonable. **Educate
   the user every time**; never assume they know why it does or doesn't matter.

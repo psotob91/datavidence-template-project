@@ -4,7 +4,7 @@ A reproducible participant/selection flow, generated from data, with reconciled 
 
 ## By design
 
-- **RCT**: CONSORT flow — `consort` or `flowchart`.
+- **RCT**: CONSORT 2025 flow (per-timepoint counts; analysis populations) — `consort` / `flowchart`.
 - **Cohort / observational selection**: participant flow — **`flowchart`** (bruigtp),
   built from the dataframe.
 - **Routinely-collected / secondary data**: a RECORD-style **selection-from-database**

@@ -11,10 +11,13 @@ TG2 guidance on variable & functional-form selection.
   information and can mislead. Keep them continuous and model the shape.
 - **Model non-linearity explicitly** (restricted cubic splines or fractional
   polynomials), pre-specifying the flexibility — do not assume linearity by default.
-- **Avoid data-driven / stepwise selection** for explanatory models; pre-specify
-  predictors and functional forms from subject knowledge. (Variable selection is a
-  *task* decision — it differs for causal vs predictive; see `statistical-reporting.md`.)
-- **Respect sample size**: check events-per-variable / required sample size
-  (`pmsampsize` for prediction models); do not overfit.
+- **Avoid stepwise / data-driven selection in *any* regression** (it inflates false
+  positives and biases estimates); pre-specify predictors and functional forms from
+  subject knowledge. When data-adaptive selection is unavoidable, use **penalized
+  regression (LASSO / elastic net, CV-tuned)** — not stepwise; if backward elimination is
+  unavoidable, use α ≈ 0.157 (AIC-equivalent), not 0.05.
+- **Respect sample size**: the simple "10 EPV" rule is outdated — use the Riley criteria
+  (`pmsampsize`) for prediction models, and apply **shrinkage / penalization** when
+  events-per-variable is low. Do not overfit.
 - **Report functional forms and interactions** (pre-specified), with effect estimates
   + confidence intervals.

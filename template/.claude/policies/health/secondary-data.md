@@ -17,7 +17,12 @@ surveillance), report per **RECORD** (an extension of STROBE; pharmacoepidemiolo
 
 ## Rules
 
-- Validate the extracted data against a contract before use (`data-contracts.md`).
+- Validate the extracted data against a contract before use (`data-contracts.md`),
+  covering conformance, completeness, and plausibility (Kahn framework / OHDSI DQD for
+  OMOP-structured data).
+- **Missingness is informative** here (a missing encounter ≠ missing at random) — declare
+  the mechanism and handle per `missingness.md`.
+- If the study **emulates a target trial**, also report per **TARGET** (see `reporting-standards.md`).
 - Every analysis variable's definition traces to its code list / algorithm.
 - Safe, efficient handling of **longitudinal** routinely-collected data (windows,
   numerators/denominators) lives in `routinely-collected-data.md`.

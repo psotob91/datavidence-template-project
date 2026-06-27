@@ -14,5 +14,8 @@ you cannot anchor is not assertable.
   number is `unverified` — mark it, do not assert it.
 - **Subagents delegate math.** A subagent reasons about *what* to compute, then
   calls a tool to compute it and cites the result. Reasoning ≠ computing.
+- **Stochastic numbers need a seed.** A value from a bootstrap / MCMC / imputation / CV
+  counts as verified only if its seed is set and recorded (see `reproducibility.md`);
+  otherwise treat it like mental arithmetic — `unverified`.
 - **Reconcile across surfaces.** A number in prose must equal the same number in
   the table or figure it refers to.

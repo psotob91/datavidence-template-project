@@ -18,8 +18,10 @@ longitudinal IDA (Lusa et al., STRATOS TG3, PLOS ONE 2024, `pone.0295726`).
 
 ## Analysis
 
-- Use a method that respects the correlation structure (mixed models / GEE / etc.)
-  matched to the task; **pre-specify** it. Account for the dropout/missingness mechanism.
+- Use a method that respects the correlation structure, matched to the task;
+  **pre-specify** it and **declare the missingness mechanism** (MCAR/MAR/MNAR). For
+  **continuous endpoints, MMRM** handles MAR dropout without explicit imputation; GEE for
+  population-average (binary/count) targets. See `missingness.md`.
 - Keep reshaping/derivation (long↔wide, windows) in `R/`+`targets`, reproducible (see
   `regenerables.md`). For routinely-collected longitudinal sources (EHR/claims/...),
   see the health profile's `routinely-collected-data.md`.

@@ -11,5 +11,7 @@ Protect the data from silent corruption between `data/raw` and analysis.
   multiplication from a bad key is a top source of invisible error.
 - **Control types explicitly.** Set factor levels deliberately; parse dates with
   an explicit format (`clock` / `lubridate`). Never rely on silent coercion.
-- **Range & key checks.** Validate plausible bounds and allowed levels on key
-  variables, and uniqueness of keys assumed unique, before analysis.
+- **Range, key, temporal & cross-field checks.** Before analysis, validate plausible
+  bounds and allowed levels; uniqueness of keys assumed unique; **temporal plausibility**
+  (no events before birth / after death; start ≤ end); and **cross-field logic** (e.g.,
+  sex-specific values, dose–route consistency).

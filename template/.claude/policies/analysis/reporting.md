@@ -9,10 +9,13 @@ What reaches the reader is paper-ready and honest about uncertainty.
   labels. What prints is legible paper labels, **never code/variable names**.
 - **Always report uncertainty.** Estimates with confidence intervals — not bare
   point estimates or p-values alone.
-- **No p-values in group-comparison tables** (descriptive "Table 1" of the whole
-  population, or a "Table 2" comparing groups) — STROBE-aligned — **unless you
-  explicitly ask** for them.
-- **SMD only for causal-inference balance** in observational studies (e.g., after
-  matching/weighting), not as a routine descriptive statistic.
+- **No p-values in baseline/comparison tables** unless you ask. In **RCTs** this is
+  required (CONSORT 2025 — testing chance imbalance after randomization is incoherent);
+  in **observational** tables prefer **standardized differences (SMD)**. This is
+  methodological consensus, **not** a STROBE rule.
+- **Use SMD for balance** in any baseline/comparison table (RCT or observational;
+  especially after matching/weighting) — not a p-value.
+- **No bare "(non-)significant" dichotomies.** Report the estimate + CI and the exact
+  p-value; interpret the magnitude, not a 0.05 threshold (ASA 2019).
 - **Consistent rounding / significant figures** across the whole report; record
   the rule once and apply it everywhere.
