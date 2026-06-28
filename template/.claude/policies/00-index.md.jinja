@@ -106,4 +106,37 @@ Precedence: `data-protection` and data integrity still lead; `code-mapping` →
 analysis methodology group; these clinical-reporting policies sit alongside the analysis
 reporting group; the constitution, `anti-hallucination`, and `numeric-computation` still outrank.
 {% endif %}
+## Conditional routing (signal → next policy)
+
+> **Invariant 0 — routing is additive, never subtractive.** These signals *suggest*
+> the next policy; they never hide or forbid reading any policy. This index is the
+> hub and is always reachable, so no path dead-ends — if a predicate is false the edge
+> is simply **bypassed**, not closed. A `block` applies only to a load-bearing *write*
+> (e.g. writing phenotype code before its timeline exists), never to *consulting* a
+> policy. When unsure whether a relevant policy sits off the obvious path, run
+> `/coverage`. The machine-readable mirror of this table is
+> `.claude/policy/routing.yml` (read by the `policy_router` hook).
+
+Read each edge as: **at** the *From* policy, **if** the *Signal* holds, **go to** the
+*Next* policy; otherwise bypass.
+
+| From | Signal (predicate) | → Next | Bypass when |
+|------|--------------------|--------|-------------|
+| `analysis/data-onboarding.md` | repeated-measures / longitudinal structure | `analysis/longitudinal-data.md` | cross-sectional (one row per subject) |
+| `analysis/initial-data-analysis.md` | ready to model | `analysis/regression-modeling.md`, `analysis/model-assumptions.md` | description-only |
+| `analysis/regression-modeling.md` | clustered / repeated dependence | `analysis/correlated-data.md` | independent observations |
+| `analysis/correlated-data.md` | estimand subject-specific **or** MAR-dropout continuous | `analysis/longitudinal-data.md` (MMRM) | estimand marginal/population-average → GLS/GEE here |
+| `analysis/longitudinal-data.md` | MAR dropout to handle | `analysis/missingness.md` (MMRM / MI) | MCAR + negligible loss → complete-case |
+| `analysis/pseudocode-first.md` | complex multi-step logic | `analysis/incremental-functions.md` → `analysis/code-style.md` | trivial one-liner → inline |
+{% if 'causal' in modules %}| `analysis/data-onboarding.md` | observational, **non-routine** design (primary cohort/RCT) | `docs/analysis/modules/causal.md` | routinely-collected/EHR source → use the health chain below, **not** causal-from-scratch |
+{% endif %}{% if project_profile == 'health-data' %}
+**Health-data edges** (clinical codes / EHR / claims):
+
+| From | Signal (predicate) | → Next | Bypass when |
+|------|--------------------|--------|-------------|
+| `analysis/data-onboarding.md`, `health/secondary-data.md` | clinical codes present (ICD / SNOMED / RxNorm / ATC / CPT / LOINC) | `health/code-mapping.md` | no coded clinical fields → stay in the analysis layer |
+| `health/code-mapping.md` | codes define a condition / phenotype | `health/phenotyping.md` | codes are the endpoint (labs, meds) not grouped → analysis layer |
+| `health/phenotyping.md` | EHR/claims source **and** time windows / episodes | `health/routinely-collected-data.md` | static single-timepoint label → skip |
+| `health/phenotyping.md` | **writing** phenotype pseudocode/code | **`block`** — ASCII timeline + decision diagram (`docs/health/`) must exist first | (write-gate only; never blocks reading) |
+{% endif %}
 {% endif %}
