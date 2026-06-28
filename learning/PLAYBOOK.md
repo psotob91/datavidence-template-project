@@ -37,6 +37,14 @@ it short; if a line stops being true, fix it and log the correction in
   at the factory level (it will start checking your writes immediately).
 - `template/llms.txt` is the CHILD's index; the factory has its own root
   `llms.txt`. Regenerate the child's with `make reindex` inside a render.
+- **Copier renders the latest git TAG by default, not HEAD.** We develop on `main`
+  without per-change release tags, so any `copier copy` without `--vcs-ref=HEAD`
+  renders the stale `v0.1.0` snapshot. `new-study.ps1` and CI now pass
+  `--vcs-ref=HEAD` (CI: `fetch-depth: 0`). When wiring/reading any render: decide
+  tag-vs-HEAD explicitly, check copier's `Copying from template version X` line
+  (an old tag, not `…dev…+<sha>`, means stale), and don't trust a green render —
+  it can pass against the wrong version. If you ever want plain `copier copy` /
+  `copier update` to track reality, start tagging releases.
 
 ## Optimal disclosure (read order for a new session)
 
