@@ -77,3 +77,15 @@ jobs:
 
       - name: Check placeholders (R + health-data + modules)
         run: python /tmp/out-hd/scripts/check_placeholders.py /tmp/out-hd
+
+      - name: Check routing not drifted (R stack)
+        run: python /tmp/out-r/scripts/check_routing.py --root /tmp/out-r
+
+      - name: Check routing not drifted (Python stack)
+        run: python /tmp/out-python/scripts/check_routing.py --root /tmp/out-python
+
+      - name: Check routing not drifted (none stack)
+        run: python /tmp/out-none/scripts/check_routing.py --root /tmp/out-none
+
+      - name: Check routing not drifted (R + health-data + modules)
+        run: python /tmp/out-hd/scripts/check_routing.py --root /tmp/out-hd
