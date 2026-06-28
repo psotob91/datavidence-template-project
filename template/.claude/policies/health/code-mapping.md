@@ -4,6 +4,9 @@ Mapping and grouping clinical codes (ICD, SNOMED, RxNorm/ATC, CPT/PCS, LOINC) is
 processing that silently decides what every downstream count means. Treat code sets as
 **versioned, validated inputs**, not constants typed into a script.
 
+> **Prerequisite:** `health/secondary-data.md` — RECORD code-list reporting frames this.
+> **Next-if:** codes define a condition/state → `health/phenotyping.md` (comprehension gate before code).
+
 ## Rules
 
 - **Provenance & versioning.** Every code set carries its **source + version + extraction

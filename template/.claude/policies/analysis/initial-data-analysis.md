@@ -3,6 +3,9 @@
 Check the data is fit for purpose before modeling — without peeking at the
 exposure–outcome association.
 
+> **Prerequisite:** `analysis/data-contracts.md` — data must pass its contracts.
+> **Next-if:** repeated-measures → `analysis/longitudinal-data.md`; ready to model → `analysis/regression-modeling.md` then `analysis/model-assumptions.md`.
+
 ## Rules
 
 - **Run the STRATOS 6-phase IDA** before modeling: metadata setup → data cleaning →

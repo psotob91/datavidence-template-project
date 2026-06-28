@@ -3,6 +3,9 @@
 IDA and analysis for repeated-measures / longitudinal data. Basis: STRATOS
 longitudinal IDA (Lusa et al., STRATOS TG3, PLOS ONE 2024, `pone.0295726`).
 
+> **Prerequisite:** `analysis/initial-data-analysis.md` — IDA (repeated-measures branch) precedes this.
+> **Next-if:** estimand is marginal/population-average → `analysis/correlated-data.md` (GLS/GEE choice); MAR dropout in continuous endpoints or dynamic-vs-fixed-time prediction → `analysis/missingness.md`.
+
 ## Initial data analysis — 5 domains, BEFORE any outcome association
 
 - **Participation profile**: timing, number of measurements per subject, planned vs
@@ -18,10 +21,12 @@ longitudinal IDA (Lusa et al., STRATOS TG3, PLOS ONE 2024, `pone.0295726`).
 
 ## Analysis
 
-- Use a method that respects the correlation structure, matched to the task;
-  **pre-specify** it and **declare the missingness mechanism** (MCAR/MAR/MNAR). For
-  **continuous endpoints, MMRM** handles MAR dropout without explicit imputation; GEE for
-  population-average (binary/count) targets. See `missingness.md`.
+- Use a method that respects the correlation structure, matched to the task and the
+  **estimand**; **pre-specify** it and **declare the missingness mechanism**
+  (MCAR/MAR/MNAR). **Mixed / MMRM** fits **subject-specific** targets or **MAR-dropout
+  continuous endpoints** (MMRM handles MAR dropout without explicit imputation). When the
+  estimand is **marginal / population-average**, prefer **GLS** (continuous, serial
+  outcome — see `correlated-data.md`) or **GEE** (binary/count). See `missingness.md`.
 - Keep reshaping/derivation (long↔wide, windows) in `R/`+`targets`, reproducible (see
   `regenerables.md`). For routinely-collected longitudinal sources (EHR/claims/...),
   see the health profile's `routinely-collected-data.md`.

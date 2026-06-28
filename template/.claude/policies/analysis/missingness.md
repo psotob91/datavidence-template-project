@@ -2,6 +2,8 @@
 
 Missingness is a finding, not a nuisance to silently drop.
 
+> **Next-if:** longitudinal continuous endpoint with MAR dropout (MMRM), or dynamic-vs-fixed-time prediction (immortal-time) → `analysis/longitudinal-data.md`.
+
 ## Rules
 
 - **Account for every row.** Report N at each pipeline stage and explain every

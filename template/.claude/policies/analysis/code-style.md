@@ -2,6 +2,8 @@
 
 Analysis code is read by humans first. Optimize for understanding.
 
+> **Prerequisite:** `analysis/incremental-functions.md` — abstract via the gate before styling.
+
 ## Rules
 
 - **Tutorial style.** Analysis code reads step by step, like a teaching notebook —

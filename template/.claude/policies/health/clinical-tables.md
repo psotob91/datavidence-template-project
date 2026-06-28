@@ -2,6 +2,8 @@
 
 Health-paper tables that honor the base reporting policy (`analysis/reporting.md`).
 
+> **Next-if:** tables assembled for the manuscript → `health/reporting-standards.md` (map to the EQUATOR checklist).
+
 ## Rules
 
 - Build with **`gtsummary`** (regression tables via `tbl_regression`), **labels-first**

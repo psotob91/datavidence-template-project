@@ -5,6 +5,10 @@ Harrell & Huebner, *Regression without regrets — initial data analysis is a pr
 for multivariable regression* (BMC Med Res Methodol 2024;24:178, STRATOS TG2/TG3), plus
 TG2 guidance on variable & functional-form selection.
 
+> **Prerequisite:** `analysis/initial-data-analysis.md` — IDA precedes multivariable regression.
+> **Next-if:** correlated/clustered or repeated observations → `analysis/correlated-data.md`; collinearity question raised (confounders are NOT a collinearity problem) → `analysis/collinearity.md`; fit obtained → `analysis/model-assumptions.md`.
+> **See also:** `analysis/outliers.md` — influential points / few events per cell drive the sparse-data & separation remedies below.
+
 ## Rules
 
 - **Do not dichotomize / categorize continuous predictors** to "simplify" — it discards

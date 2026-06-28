@@ -4,6 +4,8 @@ For studies using routinely-collected health data (EHR, claims, registries,
 surveillance), report per **RECORD** (an extension of STROBE; pharmacoepidemiology:
 **RECORD-PE**).
 
+> **Next-if:** variables defined by clinical codes (ICD/SNOMED/RxNorm/…) → `health/code-mapping.md`; target-trial emulation → `health/reporting-standards.md` (TARGET).
+
 ## Report (RECORD essentials)
 
 - **Data source(s)**: each database, its **version**, the **extraction date**, coverage,

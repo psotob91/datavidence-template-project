@@ -3,6 +3,10 @@
 How source data and its documentation enter the project. Pairs with `data/`,
 `config.example.yml`, and the `/datavidence-healthanalysis:onboard-data` skill.
 
+> **Next-if:** dataset onboarded → `analysis/data-contracts.md` (validate at the gates).
+> **See also (observational/non-routine design):** `docs/analysis/modules/causal.md` for the causal-design fork.
+> **See also (health-data profile):** `health/code-mapping.md` when sources carry clinical codes (ICD/SNOMED/RxNorm/…).
+
 ## Rules
 
 - **Copy light, connect heavy/private.** Small datasets → copy into `data/raw/`

@@ -6,6 +6,9 @@ equator-network.org (download the official checklist; **do not copy copyrighted 
 reference item numbers). Reporting guidelines, risk-of-bias tools, and methodological
 frameworks are **distinct** — keep them straight.
 
+> **Prerequisite:** `health/secondary-data.md` — RECORD reporting feeds the guideline choice.
+> **See also (always):** `analysis/pre-specification.md` — TARGET pairs with the pre-specified causal estimand for target-trial emulation.
+
 ## Reporting guidelines (by design)
 
 - **Observational** (cohort / case-control / cross-sectional): **STROBE** (general
