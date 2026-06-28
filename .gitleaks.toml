@@ -1,0 +1,15 @@
+# gitleaks configuration (factory repo) — extends the bundled default rule set.
+# Docs: https://github.com/gitleaks/gitleaks#configuration
+title = "gitleaks config (datavidence factory)"
+
+[extend]
+# Inherit all of gitleaks' built-in rules, then layer the allowlist below.
+useDefault = true
+
+[allowlist]
+description = "Factory-level allowlist"
+paths = [
+  # Example/placeholder configs ship illustrative values on purpose.
+  '''\.env\.example$''',
+  '''\.example\.ya?ml$''',
+]

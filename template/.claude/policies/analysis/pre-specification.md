@@ -5,6 +5,8 @@ reduces researcher degrees of freedom, but its **binding force and form differ b
 study type** — strongest for trials, a structured-template norm (not a registration
 mandate) for observational work.
 
+> **See also (health-data profile):** `health/reporting-standards.md` — the TARGET guideline when the estimand is causal from observational (target-trial emulation).
+
 ## Rules
 
 - **Specify first.** Define the **estimand** — population, outcome, treatment/exposure

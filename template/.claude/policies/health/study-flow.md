@@ -2,6 +2,9 @@
 
 A reproducible participant/selection flow, generated from data, with reconciled counts.
 
+> **Prerequisite:** `health/secondary-data.md` — the selection-from-database flow traces RECORD steps.
+> **Next-if:** flow finalized → `health/reporting-standards.md` (map each box to the EQUATOR checklist).
+
 ## By design
 
 - **RCT**: CONSORT 2025 flow (per-timepoint counts; analysis populations) — `consort` / `flowchart`.

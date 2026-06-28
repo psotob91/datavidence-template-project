@@ -1,0 +1,82 @@
+# Conditional policy routing — machine-readable mirror of the "Conditional routing"
+# table in `.claude/policies/00-index.md` (the human hub).
+#
+# Read by the psotobverse-utils `policy_router` hook. OPT-IN: if this file is absent
+# the hook no-ops. ADDITIVE ONLY — a rule may `remind` (surface the next policy as
+# non-blocking context) or, for a load-bearing WRITE, `ask` (mode: block). It never
+# blocks *reading* a policy (Invariant 0). Keep in sync with the index table; CI
+# validates the edge set via `scripts/check_routing.py`.
+#
+# Rule fields:
+#   id            unique slug
+#   signal        match conditions — prompt: [keywords] (UserPromptSubmit) and/or
+#                 path_glob: [globs] (PreToolUse on Write|Edit)
+#   next_policy   the policy to surface
+#   bypass_if     human-readable predicate-false condition (the hook surfaces it so
+#                 the agent can self-bypass; never auto-suppresses silently)
+#   requires_first (optional) sibling-path globs that must already exist before the
+#                 matched write is allowed (comprehension gate); used with mode: block
+#   mode          remind (default) | block
+version: 1
+rules:
+{% if analysis_stack == 'r' %}
+  - id: ida-to-longitudinal
+    signal:
+      prompt: ["repeated measures", "longitudinal", "follow-up over time", "panel data", "time series per subject"]
+    next_policy: "analysis/longitudinal-data.md"
+    bypass_if: "cross-sectional — one row per subject"
+    mode: remind
+  - id: regression-to-correlated
+    signal:
+      prompt: ["clustered", "repeated measures", "random effect", "nested", "multilevel"]
+    next_policy: "analysis/correlated-data.md"
+    bypass_if: "independent observations (no clustering / repeat)"
+    mode: remind
+  - id: longitudinal-to-missingness
+    signal:
+      prompt: ["dropout", "missing at random", "MAR", "MMRM", "loss to follow-up"]
+    next_policy: "analysis/missingness.md"
+    bypass_if: "MCAR with negligible loss — complete-case acceptable"
+    mode: remind
+  - id: pseudocode-to-code-workflow
+    signal:
+      prompt: ["write a function", "abstract this", "refactor into functions", "multi-step pipeline"]
+    next_policy: "analysis/incremental-functions.md"
+    bypass_if: "trivial one-liner — keep inline"
+    mode: remind
+{% if 'causal' in modules %}
+  - id: nonroutine-to-causal
+    signal:
+      prompt: ["causal effect", "target trial", "confounding", "primary cohort", "RCT analysis"]
+    next_policy: "docs/analysis/modules/causal.md"
+    bypass_if: "routinely-collected / EHR source — use the health definition chain instead"
+    mode: remind
+{% endif %}
+{% endif %}
+{% if project_profile == 'health-data' %}
+  - id: codes-to-code-mapping
+    signal:
+      prompt: ["ICD", "SNOMED", "RxNorm", "ATC", "CPT", "LOINC", "diagnosis code", "code list", "crosswalk"]
+    next_policy: "health/code-mapping.md"
+    bypass_if: "no coded clinical fields — stay in the analysis layer"
+    mode: remind
+  - id: codes-to-phenotyping
+    signal:
+      prompt: ["phenotype", "case definition", "computable phenotype", "define cases", "algorithm to identify"]
+    next_policy: "health/phenotyping.md"
+    bypass_if: "codes are the endpoint (labs, meds) — not grouped into a condition"
+    mode: remind
+  - id: phenotype-to-routinely-collected
+    signal:
+      prompt: ["incidence", "prevalence", "denominator", "person-time", "episode", "washout", "lookback window"]
+    next_policy: "health/routinely-collected-data.md"
+    bypass_if: "static single-timepoint label — no time windows"
+    mode: remind
+  - id: phenotype-timeline-gate
+    signal:
+      path_glob: ["**/*phenotype*.R", "**/*phenotype*.py", "**/*phenotype*.qmd", "**/*phenotype*.sql"]
+    requires_first: ["*timeline*", "*decision*", "*comprehension*"]
+    next_policy: "health/phenotyping.md"
+    bypass_if: "static single-code 'ever' definition with no time logic"
+    mode: block
+{% endif %}

@@ -1,0 +1,59 @@
+# Trigger lexicon — which words fire which capability
+
+A **reference index, not a policy.** It tells you (and the agent) the phrasings that
+reliably invoke each skill, when *not* to invoke it, and which capabilities are
+**commands** you must call explicitly. Skills auto-fire from their `description`;
+commands do not — you type them.
+
+## The reliability rule
+
+> If a capability cannot be triggered **reliably** from written context — because its
+> trigger words collide with another skill, or because it fans out subagents (a
+> non-obvious, expensive action a description rarely fires on its own) — it is a
+> **command**, invoked explicitly, not a description-triggered skill.
+
+The fan-outs (`coverage`, `cross-examine`) and the comprehension gate (`comprehend`) are
+commands for exactly this reason: you decide when the cost is worth it; the model does
+not guess.
+
+## Generic capabilities (the `psotobverse-utils` plugin — always available)
+
+| Capability | Kind | Reliable triggers | When NOT |
+|---|---|---|---|
+| `deliberate` | skill | "design this", "how should I approach", "architecture", "refactor deeply", "this is delicate", "tackle this weird bug" | trivial / mechanical one-liners |
+| `goal` | skill | "work toward / track this objective", multi-step execution with a backlog | a single self-contained step |
+| `index` | skill | "organize / index the repo", "split this oversize doc", "find loose files" | a content-coherence question (use `reconcile`) |
+| `reconcile` | skill | "audit coherence", "docs-vs-code drift", "find contradictions / redundancies" | a file-placement mess (use `tidy`/`index`) |
+| `tidy` | skill | "relocate / move misplaced files", "where should this live" | rewriting content (not a move) |
+| `reflect` | command | at a checkpoint / session end; "capture the lesson", "close the learning loop" | mid-task with nothing learned yet |
+| `audit-report` | command | "structure this multi-agent audit output" | a small finding that fits inline |
+| `sync-cowork` | command | "refresh the Cowork instructions" | — |
+| **`comprehend`** | **command** | "explain what you understood first", "restate the request", "take an exam before planning" | a trivial, unambiguous ask |
+| **`coverage`** | **command** | "make sure you didn't miss a relevant policy", "what policies apply here", "sweep for anything off-path" | when `comprehend` already ran it this session |
+| **`cross-examine`** | **command** | "review this thoroughly", "adversarial / red-team check", "fan out reviewers", "cross-examine the findings" | a quick single-pass look |
+
+### Automatic (hooks — no trigger words; they fire on events)
+
+| Hook | Fires on | Effect (always **additive**, never blocks reading) |
+|---|---|---|
+| `policy_router` | prompt / file write matching a `routing.yml` signal | surfaces the next relevant policy (remind), or asks before a load-bearing *write* |
+| `comprehension_gate` | first write to a configured path | asks for the comprehension artifact (restate + diagram) first |
+| `coverage_sentinel` | a substantive task with no coverage run yet | nudges you to run `/coverage` or `/comprehend` |
+{% if analysis_stack == 'r' %}
+## Data-analysis routing (R stack)
+
+For *which policy* a data task pulls in, the authoritative map is the conditional
+routing table in `policies/00-index.md` + each policy's `Prerequisite` / `Next-if`
+header. Use `coverage` whenever you suspect a relevant policy sits off the obvious path.
+{% if project_profile == 'health-data' %}
+## Domain capabilities (the `datavidence-healthanalysis` plugin — health-data profile)
+
+_Install separately; call explicitly with `/datavidence-healthanalysis:<name>`. The
+project still works without it (the step is then done by hand)._
+
+| Capability | Kind | Reliable triggers | When NOT |
+|---|---|---|---|
+| `phenotype-scaffold` | skill | "define / operationalize a phenotype", "computable case definition" | a static one-code label with no time logic |
+| `code-list-validate` | skill | "validate this code list / mapping", "check ICD/SNOMED/RxNorm provenance" | codes are the endpoint, not grouped |
+| `indicator-review` | skill | "review this denominator / numerator / window / episode design" | no cohort/indicator construction involved |
+{% endif %}{% endif %}

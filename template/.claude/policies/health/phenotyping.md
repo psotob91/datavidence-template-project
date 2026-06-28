@@ -5,6 +5,10 @@ condition. Getting it wrong silently corrupts every count, model, and conclusion
 so the agent must **prove it understands the algorithm before writing any code**. This policy
 extends `analysis/pseudocode-first.md` with a clinical comprehension gate that runs **first**.
 
+> **Prerequisite:** `health/code-mapping.md` — codes feed phenotypes.
+> **Next-if:** EHR/claims + time windows build prevalence/incidence indicators → `health/routinely-collected-data.md`.
+> **See also (always):** `analysis/pseudocode-first.md` — this gate runs *before* pseudocode; then code + tests.
+
 ## The comprehension gate (mandatory, in order)
 
 Do all of these and get **human sign-off** before pseudocode or code. No exceptions — even a

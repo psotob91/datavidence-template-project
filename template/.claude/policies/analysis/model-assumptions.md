@@ -4,6 +4,8 @@ Diagnose every model's assumptions, prefer graphics over tests, and explain the
 verdict — including when a violation does not actually matter. Pairs with the
 `/datavidence-healthanalysis:validate-assumptions` skill.
 
+> **Prerequisite:** `analysis/regression-modeling.md` — diagnose the fit obtained there.
+
 ## Rules
 
 - **Graphics over tests.** Prefer diagnostic plots to formal tests. If a test is

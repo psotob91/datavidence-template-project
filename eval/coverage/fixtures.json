@@ -1,0 +1,246 @@
+[
+  {
+    "id": "claims-incidence-prevalence",
+    "task": "Using our insurance claims extract, estimate the annual incidence and point prevalence of type 2 diabetes for 2019-2023, with appropriate denominators.",
+    "ground_truth": [
+      "health/code-mapping.md",
+      "health/phenotyping.md",
+      "health/routinely-collected-data.md",
+      "health/secondary-data.md",
+      "health/study-flow.md",
+      "analysis/sensitivity-analysis.md"
+    ],
+    "off_path_positives": [
+      "health/code-mapping.md",
+      "health/phenotyping.md",
+      "health/secondary-data.md",
+      "health/study-flow.md",
+      "analysis/sensitivity-analysis.md"
+    ],
+    "rationale": {
+      "health/code-mapping.md": "Diabetes defined from versioned diagnosis code lists",
+      "health/phenotyping.md": "Codes grouped into a case definition for the condition",
+      "health/routinely-collected-data.md": "Incidence/prevalence need denominators, person-time, windows",
+      "health/secondary-data.md": "RECORD data-source table and code-list reporting for claims",
+      "health/study-flow.md": "Selection-from-database flow with counts for the cohort",
+      "analysis/sensitivity-analysis.md": "Probe robustness to denominator and lookback choices"
+    }
+  },
+  {
+    "id": "cox-time-varying-treatment",
+    "task": "Fit a Cox model for mortality where the exposure is a medication that patients start and stop over follow-up, accounting for the time-varying nature of treatment.",
+    "ground_truth": [
+      "analysis/regression-modeling.md",
+      "analysis/longitudinal-data.md",
+      "analysis/correlated-data.md",
+      "analysis/model-assumptions.md",
+      "health/routinely-collected-data.md",
+      "analysis/sensitivity-analysis.md"
+    ],
+    "off_path_positives": [
+      "analysis/regression-modeling.md",
+      "analysis/longitudinal-data.md",
+      "analysis/correlated-data.md",
+      "analysis/model-assumptions.md",
+      "health/routinely-collected-data.md",
+      "analysis/sensitivity-analysis.md"
+    ],
+    "rationale": {
+      "analysis/regression-modeling.md": "Survival regression modeling choices, splines, no dichotomizing",
+      "analysis/longitudinal-data.md": "Repeated/time-updated covariate structure over follow-up",
+      "analysis/correlated-data.md": "Within-subject dependence from repeated treatment records",
+      "analysis/model-assumptions.md": "Proportional-hazards and residual checks for Cox",
+      "health/routinely-collected-data.md": "Time-varying treatment risks immortal time; windows/episodes",
+      "analysis/sensitivity-analysis.md": "Test robustness of the time-varying specification"
+    }
+  },
+  {
+    "id": "table-one-baseline",
+    "task": "Produce a baseline characteristics table comparing treated and untreated groups for the manuscript, with standardized differences.",
+    "ground_truth": [
+      "health/clinical-tables.md",
+      "analysis/reporting.md",
+      "analysis/missingness.md",
+      "health/reporting-standards.md"
+    ],
+    "off_path_positives": [
+      "health/clinical-tables.md",
+      "analysis/reporting.md",
+      "analysis/missingness.md",
+      "health/reporting-standards.md"
+    ],
+    "rationale": {
+      "health/clinical-tables.md": "Table 1 with gtsummary, SMD not p-values, missingness",
+      "analysis/reporting.md": "Labels-first, CIs, rounding underpin the table",
+      "analysis/missingness.md": "Per-variable missingness must be shown in Table 1",
+      "health/reporting-standards.md": "Table feeds the EQUATOR/STROBE manuscript checklist"
+    }
+  },
+  {
+    "id": "code-list-cleaning",
+    "task": "Clean and standardize the ICD-10 diagnosis codes in our raw extract, then map ICD-9 records from earlier years onto the same grouping.",
+    "ground_truth": [
+      "health/code-mapping.md",
+      "health/secondary-data.md",
+      "analysis/data-integrity.md",
+      "analysis/data-contracts.md",
+      "analysis/reproducibility.md"
+    ],
+    "off_path_positives": [
+      "health/secondary-data.md",
+      "analysis/data-integrity.md",
+      "analysis/data-contracts.md",
+      "analysis/reproducibility.md"
+    ],
+    "rationale": {
+      "health/code-mapping.md": "Code cleaning sequence, ICD-9 to ICD-10 crosswalk loss",
+      "health/secondary-data.md": "RECORD code-list provenance and reporting",
+      "analysis/data-integrity.md": "Explicit character types, range/validity checks on codes",
+      "analysis/data-contracts.md": "Gate on orphan/unmapped thresholds, block on failure",
+      "analysis/reproducibility.md": "Freeze code-set versions, pin packages, transformation log"
+    }
+  },
+  {
+    "id": "multiple-imputation-survey",
+    "task": "Several covariates in our cohort have missing values; set up a principled multiple-imputation workflow before we run the adjusted models.",
+    "ground_truth": [
+      "analysis/missingness.md",
+      "analysis/initial-data-analysis.md",
+      "analysis/regression-modeling.md",
+      "analysis/sensitivity-analysis.md",
+      "analysis/reproducibility.md"
+    ],
+    "off_path_positives": [
+      "analysis/missingness.md",
+      "analysis/initial-data-analysis.md",
+      "analysis/regression-modeling.md",
+      "analysis/sensitivity-analysis.md",
+      "analysis/reproducibility.md"
+    ],
+    "rationale": {
+      "analysis/missingness.md": "Mechanism-aware handling, no silent deletion, MI design",
+      "analysis/initial-data-analysis.md": "Profile missingness structure before modeling",
+      "analysis/regression-modeling.md": "Imputation model must match the analysis model",
+      "analysis/sensitivity-analysis.md": "Compare to complete-case; vary MAR assumption",
+      "analysis/reproducibility.md": "Seed the imputation for reproducible draws"
+    }
+  },
+  {
+    "id": "reshape-function-tests",
+    "task": "Write a reusable function to reshape our wide lab panel into long format and add unit tests for it.",
+    "ground_truth": [
+      "analysis/incremental-functions.md",
+      "analysis/pseudocode-first.md",
+      "analysis/code-style.md",
+      "analysis/data-integrity.md"
+    ],
+    "off_path_positives": [
+      "analysis/incremental-functions.md",
+      "analysis/pseudocode-first.md",
+      "analysis/code-style.md",
+      "analysis/data-integrity.md"
+    ],
+    "rationale": {
+      "analysis/incremental-functions.md": "Abstracting into a reusable function, STOP-and-confirm gate",
+      "analysis/pseudocode-first.md": "Pseudocode the reshape logic before coding",
+      "analysis/code-style.md": "Tutorial-readable code; tests kept apart",
+      "analysis/data-integrity.md": "Reshape must preserve row accounting and types"
+    }
+  },
+  {
+    "id": "manuscript-figures",
+    "task": "Prepare the main results figures for journal submission — a forest plot of adjusted estimates and a survival-curve panel.",
+    "ground_truth": [
+      "analysis/figures.md",
+      "analysis/reporting.md",
+      "analysis/results-writing.md",
+      "analysis/numeric-computation.md"
+    ],
+    "off_path_positives": [
+      "analysis/figures.md",
+      "analysis/reporting.md",
+      "analysis/results-writing.md",
+      "analysis/numeric-computation.md"
+    ],
+    "rationale": {
+      "analysis/figures.md": "Colorblind-safe, vector, >=300 dpi, journal sizes",
+      "analysis/reporting.md": "Estimates shown with CIs, consistent rounding",
+      "analysis/results-writing.md": "Figure values/captions tie to inline code",
+      "analysis/numeric-computation.md": "Plotted numbers computed by code, never by hand"
+    }
+  },
+  {
+    "id": "computable-phenotype-ckd",
+    "task": "Build a computable phenotype to identify patients with chronic kidney disease from EHR diagnoses, labs, and medications, then validate it.",
+    "ground_truth": [
+      "health/phenotyping.md",
+      "health/code-mapping.md",
+      "health/routinely-collected-data.md",
+      "analysis/pseudocode-first.md",
+      "analysis/diagrams.md",
+      "analysis/sensitivity-analysis.md"
+    ],
+    "off_path_positives": [
+      "health/code-mapping.md",
+      "health/routinely-collected-data.md",
+      "analysis/pseudocode-first.md",
+      "analysis/diagrams.md",
+      "analysis/sensitivity-analysis.md"
+    ],
+    "rationale": {
+      "health/phenotyping.md": "Comprehension gate and PPV validation for the case algorithm",
+      "health/code-mapping.md": "Diagnosis/lab/med codes are versioned inputs to the phenotype",
+      "health/routinely-collected-data.md": "EHR time windows and episodes feed the definition",
+      "analysis/pseudocode-first.md": "Phenotype logic pseudocoded before any code",
+      "analysis/diagrams.md": "ASCII/decision diagrams required for the algorithm",
+      "analysis/sensitivity-analysis.md": "Carry phenotype measurement error into sensitivity"
+    }
+  },
+  {
+    "id": "cross-sectional-prevalence-survey",
+    "task": "Analyze our one-time community health survey to estimate the prevalence of hypertension and describe how it varies by age and sex.",
+    "ground_truth": [
+      "analysis/statistical-reporting.md",
+      "analysis/initial-data-analysis.md",
+      "analysis/reporting.md",
+      "analysis/missingness.md",
+      "health/clinical-tables.md"
+    ],
+    "off_path_positives": [
+      "analysis/statistical-reporting.md",
+      "analysis/initial-data-analysis.md",
+      "analysis/reporting.md",
+      "analysis/missingness.md",
+      "health/clinical-tables.md"
+    ],
+    "rationale": {
+      "analysis/statistical-reporting.md": "Descriptive task sets methods + STROBE/descriptive framework",
+      "analysis/initial-data-analysis.md": "Structured IDA before describing the survey",
+      "analysis/reporting.md": "Prevalence reported with CIs, labels-first, no p in tables",
+      "analysis/missingness.md": "Account for survey non-response and item missingness",
+      "health/clinical-tables.md": "Descriptive table by age/sex strata"
+    }
+  },
+  {
+    "id": "sensitivity-analysis-plan",
+    "task": "Our primary effect estimate is in; now design a sensitivity analysis to check how robust it is to the outlier handling and the exposure-definition choices we made.",
+    "ground_truth": [
+      "analysis/sensitivity-analysis.md",
+      "analysis/outliers.md",
+      "analysis/pre-specification.md",
+      "analysis/reproducibility.md"
+    ],
+    "off_path_positives": [
+      "analysis/sensitivity-analysis.md",
+      "analysis/outliers.md",
+      "analysis/pre-specification.md",
+      "analysis/reproducibility.md"
+    ],
+    "rationale": {
+      "analysis/sensitivity-analysis.md": "Pre-specify, reuse the pipeline, report alongside primary",
+      "analysis/outliers.md": "Outlier handling is the variation being probed; document it",
+      "analysis/pre-specification.md": "Sensitivity analyses should be pre-specified, flag post-hoc",
+      "analysis/reproducibility.md": "Re-run the same seeded pipeline for each variant"
+    }
+  }
+]

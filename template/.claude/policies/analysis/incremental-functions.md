@@ -3,6 +3,9 @@
 A **strict** gate. Do not skip the steps. Reinforces the constitution's
 propose-then-confirm for any abstraction over data/analysis.
 
+> **Prerequisite:** `analysis/pseudocode-first.md` — agree the approach in words first.
+> **Next-if:** function abstracted and approved → `analysis/code-style.md`.
+
 ## Rules
 
 - **Abstract only when repetition warrants it** — never "just in case".

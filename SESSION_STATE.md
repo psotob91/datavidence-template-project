@@ -6,41 +6,44 @@
 > Durable history lives in `learning/sessions/` (handoffs) and `git log`.
 
 - **Updated:** 2026-06-28
-- **Branch (git local):** `main` — everything integrated **and pushed** to `origin/main`.
-- **Status:** Health-data policy expansion shipped (code-mapping, phenotyping, EHR/claims
-  indicators) + the prior expert-methodology corrections. All clean & pushed.
+- **Branch (git local):** `feat/routing-hardening` in **3 repos** — **committed, NOT pushed**
+  (awaiting Percy's push OK). Factory +9, `psotobverse-utils` +7, `datavidence-healthanalysis` +1.
+- **Status:** Routing-hardening + recall-safety-net + plugin-hardening effort **complete locally**.
+  Benchmark green (union recall 1.00, 46/46 off-route caught). Plan:
+  `~/.claude/plans/quizzical-roaming-sonnet.md`.
 
-## Done (this milestone)
-- **Three health-data policies** (commit `9490987`), gated by `project_profile=health-data`:
-  `health/code-mapping.md` (new), `health/phenotyping.md` (new — mandatory comprehension gate
-  before code), `health/routinely-collected-data.md` (stub completed). Shipped companion in
-  `template/docs/health/` (ascii-timelines, phenotyping-examples, indicator-scenarios,
-  checklists). Built from the `temporal-expansion-ideas/` sources + the Tsukuba EHR/claims kit
-  + deep research, then Sonnet adversarial peer-review (all MUST-FIX applied). Renders clean
-  for both profiles; gating + check_placeholders verified.
-- **Provenance + pending plugin spec** (factory root, not shipped):
-  `docs/research/health-data-policies-research.md`, `docs/plugins/datavidence-healthanalysis-blueprint.md`.
-- **Learning loop:** captured model-routing (Opus reason / Sonnet execute+peer-eval) and the
-  large-source-file extract→chunk→digest practice in PLAYBOOK + LEARNING_LOG + `[[model-routing]]`.
-- `temporal-expansion-ideas/` distilled and **gitignored** (large .mhtml kept local only).
-- Earlier this session: expert-methodology corrections to the analysis policies (commit `375807a`).
+## Done (this effort — all on `feat/routing-hardening`)
+- **Factory:** per-policy Prerequisite/Next-if headers + 7 reciprocal xrefs + GLS↔MMRM-by-estimand;
+  hub "Conditional routing" table + **Invariant 0** (additive-never-subtractive) + `routing.yml.jinja`
+  + `check_routing.py` (in CI); `trigger-lexicon.md.jinja`; full generic port to repo root
+  (`.claude/constitution.md`, `.claude/knowledge-map.md`, hygiene, `llms.txt`+reindex, `docs/adr/`);
+  `eval/coverage/` benchmark. Render matrix **green** (4 profiles).
+- **psotobverse-utils v1.7.0:** `/coverage` (recall panel) + `coverage_sentinel`; `/comprehend`;
+  `/cross-examine`; `policy_router` + `comprehension_gate` (+ `routing_util`) — all opt-in, fail-open,
+  Invariant-0-safe, tested; self-hardened (own `.claude/` governance, CI, safe-edit protocol).
+- **datavidence-healthanalysis:** remote wired, `temporal-expansion-ideas/` gitignored, self-hardened
+  (governance + CI + safe-edit). **Features still blueprint-only** (v0.0.1 skeleton).
+- **Blueprint** (`docs/plugins/...`) enriched: routing/comprehension/timeline/recall now generic;
+  domain surface shrunk to 3 skills + 3 hooks.
 
-## Needs Percy's eye (flagged, handled conservatively)
-- **Unverified dialysis citations:** "Lam et al. 2026 (Kidney Medicine)" and the "Tsunoda 2022"
-  state-machine framing could not be confirmed — marked **provisional** in the shipped example.
-  Confirm/replace DOIs before any formal use. (Gao et al. 2025 AJKD is confirmed.)
+## Next steps (pending Percy)
+1. **Push** the 3 `feat/routing-hardening` branches + merge to `main` (propose-then-confirm).
+2. After merge: `claude plugin update psotobverse-utils@psotobverse-utils` (restart) to activate the
+   new commands/hooks in live sessions (source edits are inert until update — by design).
+3. Build the 3 `datavidence-healthanalysis` domain skills + 3 hooks from the enriched blueprint
+   (still pending; routing/recall/comprehension are already generic — don't rebuild).
+4. **M4b done:** factory `.claude/policy/paths.allow.json` now activates the `nothing_loose` guard.
 
-## Next steps (pending)
-1. Build the `datavidence-healthanalysis` plugin from `docs/plugins/...-blueprint.md`
-   (skills + hooks; currently routed-to but not installed; `methods-documentation.md`'s
-   notation-check hook is marked pending until then).
-2. Root `llms.txt` for the factory; extend CI to render-and-validate (beyond check_placeholders).
-3. Review the remaining un-reviewed policies if desired (universal + the untouched analysis ones).
-4. Optional: factory `.claude/policy/paths.allow.json` to activate the `nothing_loose` write-guard.
-5. Optional: start tagging releases (e.g. `v0.2.0`) so plain `copier copy`/`update` track releases.
+## Needs Percy's eye
+- **Benchmark labels** (`eval/coverage/fixtures.json`): expert validation welcome — re-scoring is free
+  (nominations frozen in `results.json`).
+- **Unverified dialysis citations** (pre-existing): "Lam et al. 2026 (Kidney Medicine)" and the
+  "Tsunoda 2022" framing — confirm DOIs before formal use (Gao et al. 2025 AJKD confirmed).
 
 ## Uncommitted
-- None. Everything committed + pushed. (`temporal-expansion-ideas/` is gitignored, local-only.)
+- None (this file is the last factory commit alongside M4b).
 
 ## Machine note
-- Env cache (`~/.claude/environment.md`) on this PC reports `make` and `rg` **present**.
+- Plugin source repos on this PC: `C:\workspace\psotobverse-utils`,
+  `C:\workspace\datavidence-healthanalysis` (both git-backed). Env cache:
+  `~/.claude/environment.md` (`make`/`rg`/`copier`/`uv` present).

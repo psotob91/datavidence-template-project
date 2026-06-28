@@ -2,6 +2,8 @@
 
 Extreme values are inspected and decided on, never silently removed.
 
+> **Next-if:** few events per cell / influential points in a sparse-data or separation context → `analysis/regression-modeling.md` (penalization, Firth).
+
 ## Rules
 
 - **Pre-specify, then detect → inspect → handle, documenting each step.** Fix the

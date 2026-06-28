@@ -6,6 +6,9 @@ to get wrong here, and a wrong denominator or window silently changes every rate
 `secondary-data.md` (RECORD reporting) and `analysis/longitudinal-data.md` (repeated-measures
 analysis); worked scenarios in `docs/health/indicator-scenarios.md`.
 
+> **Prerequisite:** `health/phenotyping.md` — numerators tie to a validated phenotype.
+> **Next-if:** selection-from-database flow needed → `health/study-flow.md`; reporting the study → `health/reporting-standards.md` (RECORD/RECORD-PE).
+
 ## Rules
 
 - **Observability differs by source — never conflate.** Claims usually carry an

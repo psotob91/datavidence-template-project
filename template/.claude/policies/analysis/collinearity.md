@@ -8,6 +8,8 @@ Modeling Strategies* 2nd ed. (2015); Vatcheva et al., *Epidemiology (Sunnyvale)*
 2016; O'Brien, *Qual Quant* 2007; STRATOS (Sauerbrei, Heinze, Harrell et al.,
 *Diagn Progn Res* 2020).
 
+> **Prerequisite:** `analysis/regression-modeling.md` — raised during modeling (confounders are NOT a collinearity problem).
+
 ## Judge collinearity by the goal
 
 - **Causal / etiologic:** collinearity *among adjustment confounders* does **NOT**

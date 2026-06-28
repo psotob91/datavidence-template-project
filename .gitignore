@@ -12,3 +12,5 @@
 # integration drafts). Distilled into docs/research/health-data-policies-research.md and
 # template/docs/health/; kept local only — never commit the binaries.
 /temporal-expansion-ideas/
+# derived index — regenerate with: python scripts/reindex.py (recipe is committed)
+/llms.txt
