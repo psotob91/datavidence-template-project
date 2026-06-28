@@ -39,14 +39,18 @@ falls back to doing the step by hand._
 | Task type                                  | Consult / run                                               |
 |--------------------------------------------|-------------------------------------------------------------|
 | Onboard / connect raw data                 | run `/datavidence-healthanalysis:onboard-data` (`data/README.md`, `config.example.yml`) |
-| Data schema / validation / contract        | `contracts/`, then `/datavidence-healthanalysis:data-contract`  |
+| Data schema / validation / contract        | `contracts/`, then `/datavidence-healthanalysis:validate-data-contract` |
 | Numeric claim / percentages / table totals | run `/datavidence-healthanalysis:numeric-check`                  |
-| Missing data (detect / handle)             | run `/datavidence-healthanalysis:missingness-report`            |
-| Initial data analysis / EDA                | run `/datavidence-healthanalysis:eda`                            |
-| Model assumptions                          | run `/datavidence-healthanalysis:validate-assumptions`          |
+| Missing data (detect / handle)             | run `/datavidence-healthanalysis:assess-missingness`            |
+| Initial data analysis (IDA, pre-modelling) | run `/datavidence-healthanalysis:run-ida`                       |
+| Frame the study / SAP / estimand           | run `/datavidence-healthanalysis:frame-study`                   |
+| Regression model specification             | run `/datavidence-healthanalysis:specify-regression`            |
+| Model assumptions / diagnostics            | run `/datavidence-healthanalysis:validate-assumptions`          |
+| Outliers / implausible values              | run `/datavidence-healthanalysis:review-outliers`               |
+| Sensitivity / robustness plan              | run `/datavidence-healthanalysis:specify-sensitivity-plan`      |
 | Big / on-disk data                         | run `/datavidence-healthanalysis:big-data-triage`              |
-| Descriptive table (Table 1)                | run `/datavidence-healthanalysis:table1`                        |
-| Process / method diagram                   | run `/datavidence-healthanalysis:process-diagram`               |
+| Reporting table / Table 1 / flow diagram   | run `/datavidence-healthanalysis:scaffold-reporting`            |
+| Process / method diagram                   | run `/datavidence-healthanalysis:draft-diagram`                 |
 | Audit the analysis itself (methods, not results) | run `/datavidence-healthanalysis:method-audit`            |
 | Analysis pipeline (the flow)               | `analysis/` (ordered 01→05, run via `{targets}`)            |
 | Data taxonomy (input vs derived)           | `data/README.md`                                            |
@@ -54,7 +58,10 @@ falls back to doing the step by hand._
 | Methods notation (LaTeX)                   | `docs/analysis/notation.md`                                 |
 | Open items to verify / watchlist           | `learning/WATCHLIST.md`                                     |
 | Unfamiliar R package                       | consult docs / `r-btw` MCP / `/r-package-skill <pkg>`      |
-{% if project_profile == 'health-data' %}| Participant / cohort flow (CONSORT/STROBE) | run `/datavidence-healthanalysis:cohort-flow`                   |
+{% if project_profile == 'health-data' %}| Clinical code set (ICD/CIE-10, ATC, crosswalk, comorbidity) | run `/datavidence-healthanalysis:map-clinical-codes` |
+| Computable phenotype / case definition     | run `/datavidence-healthanalysis:phenotype-gate`                |
+| Incidence/prevalence indicator (denominator, person-time, washout) | run `/datavidence-healthanalysis:design-indicator` |
+| Participant / cohort flow (CONSORT/STROBE/PRISMA) | run `/datavidence-healthanalysis:scaffold-reporting`     |
 | Reporting checklist (EQUATOR)              | `docs/analysis/reporting-checklist.md`                     |
 {% endif %}{% if 'causal' in modules %}| Causal / target-trial emulation            | `docs/analysis/modules/causal.md` (+ `/datavidence-healthanalysis:dag-causal`) |
 {% endif %}{% if 'prediction' in modules %}| Prediction model (TRIPOD/PROBAST)          | `docs/analysis/modules/prediction.md` (+ `/datavidence-healthanalysis:prediction-validation`) |
