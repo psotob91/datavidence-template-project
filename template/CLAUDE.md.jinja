@@ -61,7 +61,7 @@ R/Quarto terminal idioms in [`docs/running-from-terminal.md`](docs/running-from-
 ## Meta-learner (the learning loop is a WRITE trigger, not just a read)
 
 This project captures lessons automatically and reviews them deliberately. The
-MECHANISM comes from the `psotobverse-utils` plugin (≥ v1.5.0); this project OPTS
+MECHANISM comes from the `psotobverse-utils` plugin (≥ v1.6.0); this project OPTS
 IN via `.claude/meta-learner.json` (its presence activates the plugin's session
 hooks here and carries this project's methodological signal patterns):
 
@@ -70,6 +70,12 @@ hooks here and carries this project's methodological signal patterns):
   **once-per-machine environment probe** (shell + available CLIs + OS quirks,
   cached at `~/.claude/environment.json`) so the agent knows what this machine has
   (and what to avoid, e.g. PowerShell `&&`) without re-checking each session.
+  **Desktop app caveat:** the hook *runs* there (signal capture, handoff and the
+  dirty-bit all work), but the desktop app does **not** inject the hook's output
+  into the model (Anthropic #47993). So when a session starts in the desktop app,
+  **read `SESSION_STATE.md` yourself** — this `CLAUDE.md` *is* injected there, the
+  hook's stdout is not. In the terminal the injection works and no manual read is
+  needed.
 - **`UserPromptSubmit`** appends **correction** and **methodological** signals to
   `learning/queue/signals.jsonl` (cheap, crash-safe, never blocks).
 - **`SessionEnd`** writes a forward-looking handoff to `learning/sessions/`.

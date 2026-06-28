@@ -12,9 +12,13 @@ audiences: this one is for **maintainers of the factory**; that one is for the
 
 The goal is to re-acquire context in seconds, not to re-read the repo:
 
-1. **`SESSION_STATE.md`** — where we are right now + the next steps. The
-   `SessionStart` hook already injects its head into your context (and warns if
-   the previous session ended uncleanly — see *Meta-learner* below).
+1. **`SESSION_STATE.md`** — where we are right now + the next steps. In the
+   **terminal**, the `SessionStart` hook injects its head into your context (and
+   warns if the previous session ended uncleanly — see *Meta-learner* below). In
+   the **desktop app** the hook runs but the app does **not** inject its output
+   (Anthropic #47993), so **read `SESSION_STATE.md` yourself at the start of the
+   session** — this `CLAUDE.md` *is* injected in the desktop app, the hook's stdout
+   is not.
 2. **`git log --oneline -8`** + `git status` — what landed and what's in flight.
 3. Pull detail **on demand** only: `CHANGELOG.md` `[Unreleased]`, the newest ADR
    in `template/docs/adr/`, and the relevant `learning/sessions/<date>.md` handoff.
@@ -39,7 +43,7 @@ re-render; the render matrix in `.github/workflows/template-ci.yml` guards it.
 
 ## Meta-learner (this factory dog-foods what it ships)
 
-The learning-loop MECHANISM lives in the `psotobverse-utils` plugin (≥ v1.5.0),
+The learning-loop MECHANISM lives in the `psotobverse-utils` plugin (≥ v1.6.0),
 versioned and DRY; this repo OPTS IN via [`.claude/meta-learner.json`](.claude/meta-learner.json)
 (its presence activates the plugin's session hooks here; absent ⇒ they no-op).
 That config also holds this repo's domain signal patterns (agent-building terms)
@@ -62,10 +66,14 @@ and routes durable consensus signals to `learning/STANDARDS_WATCH.md`.
 - **`/psotobverse-utils:audit-report`** — structures multi-agent audit output as a
   small indexed `docs/audits/<date>-<slug>/` instead of a context-blowing blob.
 
-> Requires the plugin at **≥ 1.5.0**. If only 1.3.x is installed, the session
-> hooks and these two skills are absent (the repo still works); update with
+> Requires the plugin at **≥ 1.6.0** (1.6.0 makes the hooks actually run in the
+> **desktop app** — earlier versions fired-but-no-op'd there because the desktop
+> doesn't set `CLAUDE_PLUGIN_ROOT`). If only 1.3.x is installed, the session hooks
+> and these two skills are absent (the repo still works); update with
 > `claude plugin marketplace update psotobverse-utils` then
 > `claude plugin update psotobverse-utils@psotobverse-utils` (restart to apply).
+> Note: even at ≥ 1.6.0 the desktop app runs the hooks but does **not** inject
+> `SessionStart` output — see the *Resuming a session* note above.
 
 ### Terminal tooling on this machine
 The `SessionStart` env probe caches this machine's shell + CLIs at
