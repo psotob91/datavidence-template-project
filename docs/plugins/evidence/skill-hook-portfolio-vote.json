@@ -1,0 +1,1082 @@
+{
+  "method": "7 Sonnet self-consistency replicas per policy (280 judges)",
+  "date": "2026-06-28",
+  "summary": {
+    "n_policies": 40,
+    "replicas": 7,
+    "counts": {
+      "skill": 17,
+      "hook": 2,
+      "policy-only": 21
+    },
+    "build_candidates": [
+      {
+        "policy": "analysis/data-contracts.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 1,
+        "names": {
+          "data-contract": 3,
+          "validate-data-contract": 4
+        }
+      },
+      {
+        "policy": "analysis/data-onboarding.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 1,
+        "names": {
+          "onboard-data": 7
+        }
+      },
+      {
+        "policy": "analysis/initial-data-analysis.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 1,
+        "names": {
+          "run-ida": 7
+        }
+      },
+      {
+        "policy": "analysis/longitudinal-data.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 1,
+        "names": {
+          "run-longitudinal-ida": 4,
+          "longitudinal-ida": 3
+        }
+      },
+      {
+        "policy": "analysis/statistical-reporting.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 1,
+        "names": {
+          "classify-analysis-task": 2,
+          "classify-analysis": 1,
+          "match-analysis-task": 1,
+          "frame-analysis": 1,
+          "map-analysis-task": 1,
+          "route-analysis-task": 1
+        }
+      },
+      {
+        "policy": "analysis/model-assumptions.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 1,
+        "names": {
+          "validate-assumptions": 7
+        }
+      },
+      {
+        "policy": "analysis/regression-modeling.md",
+        "verdict": "skill",
+        "priority": "optional",
+        "agreement": 0.86,
+        "names": {
+          "check-regression-spec": 1,
+          "specify-regression": 3,
+          "audit-regression-spec": 2
+        }
+      },
+      {
+        "policy": "health/reporting-standards.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.86,
+        "names": {
+          "select-equator-guideline": 3,
+          "select-reporting-guideline": 2,
+          "select-equator-checklist": 1,
+          "pick-reporting-guideline": 1
+        }
+      },
+      {
+        "policy": "health/secondary-data.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.86,
+        "names": {
+          "scaffold-record-secondary-data": 2,
+          "scaffold-record-metadata": 2,
+          "scaffold-record-datasource": 2
+        }
+      },
+      {
+        "policy": "health/routinely-collected-data.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.86,
+        "names": {
+          "design-indicator": 1,
+          "specify-indicator": 1,
+          "scaffold-rcd-indicator": 1,
+          "scaffold-indicator": 1,
+          "define-indicator-frame": 1,
+          "define-indicator-windows": 1
+        }
+      },
+      {
+        "policy": "health/clinical-tables.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.86,
+        "names": {
+          "scaffold-clinical-table": 1,
+          "check-clinical-table": 1,
+          "build-clinical-table": 4
+        }
+      },
+      {
+        "policy": "health/study-flow.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.86,
+        "names": {
+          "draft-study-flow": 5,
+          "scaffold-study-flow": 1,
+          "build-study-flow": 1
+        }
+      },
+      {
+        "policy": "analysis/pre-specification.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.71,
+        "names": {
+          "specify-estimand": 3,
+          "prespecify-estimand": 3,
+          "draft-analysis-plan": 1
+        }
+      },
+      {
+        "policy": "health/code-mapping.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.71,
+        "names": {
+          "scaffold-code-mapping": 1,
+          "map-clinical-codes": 3,
+          "map-codes": 1
+        }
+      },
+      {
+        "policy": "health/phenotyping.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.71,
+        "names": {
+          "phenotype-gate": 5,
+          "gate-phenotype": 2
+        }
+      },
+      {
+        "policy": "analysis/missingness.md",
+        "verdict": "skill",
+        "priority": "must",
+        "agreement": 0.57,
+        "names": {
+          "audit-missingness": 2,
+          "assess-missingness": 3,
+          "plan-missingness": 2
+        }
+      },
+      {
+        "policy": "analysis/sensitivity-analysis.md",
+        "verdict": "skill",
+        "priority": "optional",
+        "agreement": 0.57,
+        "names": {
+          "specify-sensitivity-plan": 2,
+          "plan-sensitivity": 1,
+          "run-sensitivity": 1
+        }
+      },
+      {
+        "policy": "analysis/data-protection.md",
+        "verdict": "hook",
+        "priority": "must",
+        "agreement": 0.86,
+        "names": {
+          "data-export-guard": 1,
+          "guard-data-egress": 1,
+          "guard-data-export": 5
+        }
+      },
+      {
+        "policy": "analysis/methods-documentation.md",
+        "verdict": "hook",
+        "priority": "optional",
+        "agreement": 0.71,
+        "names": {
+          "notation-check": 5,
+          "register-notation": 1,
+          "document-methods": 1
+        }
+      }
+    ],
+    "contested": [
+      {
+        "policy": "analysis/missingness.md",
+        "verdict": "skill",
+        "agreement": 0.57,
+        "verdict_votes": {
+          "skill+hook": 3,
+          "skill": 4
+        }
+      },
+      {
+        "policy": "analysis/sensitivity-analysis.md",
+        "verdict": "skill",
+        "agreement": 0.57,
+        "verdict_votes": {
+          "policy-only": 3,
+          "skill": 4
+        }
+      }
+    ]
+  },
+  "perPolicy": [
+    {
+      "policy": "analysis/data-contracts.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 7
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "data-contract": 3,
+        "validate-data-contract": 4
+      }
+    },
+    {
+      "policy": "analysis/data-onboarding.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 7
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "optional": 1,
+        "must": 6
+      },
+      "names": {
+        "onboard-data": 7
+      }
+    },
+    {
+      "policy": "analysis/initial-data-analysis.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 7
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "run-ida": 7
+      }
+    },
+    {
+      "policy": "analysis/longitudinal-data.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 7
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "run-longitudinal-ida": 4,
+        "longitudinal-ida": 3
+      }
+    },
+    {
+      "policy": "analysis/statistical-reporting.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 7
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 6,
+        "optional": 1
+      },
+      "names": {
+        "classify-analysis-task": 2,
+        "classify-analysis": 1,
+        "match-analysis-task": 1,
+        "frame-analysis": 1,
+        "map-analysis-task": 1,
+        "route-analysis-task": 1
+      }
+    },
+    {
+      "policy": "analysis/model-assumptions.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 7
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "validate-assumptions": 7
+      }
+    },
+    {
+      "policy": "analysis/regression-modeling.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 1,
+        "skill": 6
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 6
+      },
+      "priority": "optional",
+      "priority_votes": {
+        "no": 1,
+        "optional": 4,
+        "must": 2
+      },
+      "names": {
+        "check-regression-spec": 1,
+        "specify-regression": 3,
+        "audit-regression-spec": 2
+      }
+    },
+    {
+      "policy": "health/reporting-standards.md",
+      "layer": "health",
+      "verdict": "skill",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 6,
+        "skill+hook": 1
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "select-equator-guideline": 3,
+        "select-reporting-guideline": 2,
+        "select-equator-checklist": 1,
+        "pick-reporting-guideline": 1
+      }
+    },
+    {
+      "policy": "health/secondary-data.md",
+      "layer": "health",
+      "verdict": "skill",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 6,
+        "policy-only": 1
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 6
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 4,
+        "no": 1,
+        "optional": 2
+      },
+      "names": {
+        "scaffold-record-secondary-data": 2,
+        "scaffold-record-metadata": 2,
+        "scaffold-record-datasource": 2
+      }
+    },
+    {
+      "policy": "health/routinely-collected-data.md",
+      "layer": "health",
+      "verdict": "skill",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 6,
+        "policy-only": 1
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 6
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 6,
+        "no": 1
+      },
+      "names": {
+        "design-indicator": 1,
+        "specify-indicator": 1,
+        "scaffold-rcd-indicator": 1,
+        "scaffold-indicator": 1,
+        "define-indicator-frame": 1,
+        "define-indicator-windows": 1
+      }
+    },
+    {
+      "policy": "health/clinical-tables.md",
+      "layer": "health",
+      "verdict": "skill",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 6,
+        "policy-only": 1
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 6
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 4,
+        "optional": 2,
+        "no": 1
+      },
+      "names": {
+        "scaffold-clinical-table": 1,
+        "check-clinical-table": 1,
+        "build-clinical-table": 4
+      }
+    },
+    {
+      "policy": "health/study-flow.md",
+      "layer": "health",
+      "verdict": "skill",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "skill+hook": 1,
+        "skill": 6
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "draft-study-flow": 5,
+        "scaffold-study-flow": 1,
+        "build-study-flow": 1
+      }
+    },
+    {
+      "policy": "analysis/pre-specification.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 0.71,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 5,
+        "skill+hook": 2
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "specify-estimand": 3,
+        "prespecify-estimand": 3,
+        "draft-analysis-plan": 1
+      }
+    },
+    {
+      "policy": "health/code-mapping.md",
+      "layer": "health",
+      "verdict": "skill",
+      "agreement": 0.71,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 5,
+        "policy-only": 2
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 5
+      },
+      "priority": "must",
+      "priority_votes": {
+        "optional": 2,
+        "no": 2,
+        "must": 3
+      },
+      "names": {
+        "scaffold-code-mapping": 1,
+        "map-clinical-codes": 3,
+        "map-codes": 1
+      }
+    },
+    {
+      "policy": "health/phenotyping.md",
+      "layer": "health",
+      "verdict": "skill",
+      "agreement": 0.71,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 5,
+        "skill+hook": 2
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "phenotype-gate": 5,
+        "gate-phenotype": 2
+      }
+    },
+    {
+      "policy": "analysis/missingness.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 0.57,
+      "n": 7,
+      "verdict_votes": {
+        "skill+hook": 3,
+        "skill": 4
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "audit-missingness": 2,
+        "assess-missingness": 3,
+        "plan-missingness": 2
+      }
+    },
+    {
+      "policy": "analysis/sensitivity-analysis.md",
+      "layer": "analysis",
+      "verdict": "skill",
+      "agreement": 0.57,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 3,
+        "skill": 4
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 4
+      },
+      "priority": "optional",
+      "priority_votes": {
+        "no": 3,
+        "optional": 4
+      },
+      "names": {
+        "specify-sensitivity-plan": 2,
+        "plan-sensitivity": 1,
+        "run-sensitivity": 1
+      }
+    },
+    {
+      "policy": "analysis/data-protection.md",
+      "layer": "analysis",
+      "verdict": "hook",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "hook": 6,
+        "skill+hook": 1
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 6,
+        "psotobverse-utils": 1
+      },
+      "priority": "must",
+      "priority_votes": {
+        "must": 7
+      },
+      "names": {
+        "data-export-guard": 1,
+        "guard-data-egress": 1,
+        "guard-data-export": 5
+      }
+    },
+    {
+      "policy": "analysis/methods-documentation.md",
+      "layer": "analysis",
+      "verdict": "hook",
+      "agreement": 0.71,
+      "n": 7,
+      "verdict_votes": {
+        "hook": 5,
+        "skill+hook": 2
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 7
+      },
+      "priority": "optional",
+      "priority_votes": {
+        "must": 1,
+        "optional": 6
+      },
+      "names": {
+        "notation-check": 5,
+        "register-notation": 1,
+        "document-methods": 1
+      }
+    },
+    {
+      "policy": "anti-hallucination.md",
+      "layer": "universal",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "anti-bias.md",
+      "layer": "universal",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "anti-drift.md",
+      "layer": "universal",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "token-efficiency.md",
+      "layer": "universal",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "verification-effort.md",
+      "layer": "universal",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "writing-style.md",
+      "layer": "universal",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/numeric-computation.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/data-integrity.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/correlated-data.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/collinearity.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/reproducibility.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/regenerables.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/reporting.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/results-writing.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/figures.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/pseudocode-first.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/incremental-functions.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/code-style.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 1,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 7
+      },
+      "home": "n/a",
+      "home_votes": {},
+      "priority": "no",
+      "priority_votes": {
+        "no": 7
+      },
+      "names": {}
+    },
+    {
+      "policy": "analysis/outliers.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 0.86,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 6,
+        "skill": 1
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 1
+      },
+      "priority": "no",
+      "priority_votes": {
+        "no": 6,
+        "optional": 1
+      },
+      "names": {
+        "review-outliers": 1
+      }
+    },
+    {
+      "policy": "analysis/computational-efficiency.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 0.71,
+      "n": 7,
+      "verdict_votes": {
+        "policy-only": 5,
+        "skill": 2
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 2
+      },
+      "priority": "no",
+      "priority_votes": {
+        "no": 5,
+        "optional": 2
+      },
+      "names": {
+        "big-data-triage": 2
+      }
+    },
+    {
+      "policy": "analysis/diagrams.md",
+      "layer": "analysis",
+      "verdict": "policy-only",
+      "agreement": 0.71,
+      "n": 7,
+      "verdict_votes": {
+        "skill": 2,
+        "policy-only": 5
+      },
+      "home": "datavidence-healthanalysis",
+      "home_votes": {
+        "datavidence-healthanalysis": 2
+      },
+      "priority": "no",
+      "priority_votes": {
+        "optional": 2,
+        "no": 5
+      },
+      "names": {
+        "draft-diagram": 1,
+        "scaffold-diagram": 1
+      }
+    }
+  ]
+}
