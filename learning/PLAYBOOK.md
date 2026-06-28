@@ -26,6 +26,19 @@ it short; if a line stops being true, fix it and log the correction in
   (`UserPromptSubmit`), a deterministic skeleton on `SessionEnd`, and a
   **human-gated** `/reflect` for synthesis. Never let a hook silently edit a
   learning file.
+- **Model routing (Percy's standing rule):** hard reasoning / planning / authoring
+  nuanced methodology → **Opus**; code-execution / mechanical → **Sonnet**;
+  peer-evaluation / adversarial review → **Sonnet** (generator ≠ auditor). In the main
+  session keep authoring on Opus and spawn Sonnet agents (`model: sonnet`, e.g.
+  `psotobverse-utils:executor`) for extraction/render/git and for review passes.
+- **Big source files (mhtml/pdf/transcripts/dumps): extract narrow → chunk → digest
+  off-context.** An MHTML "Save page" export is ~95% base64 images + CSS; the real
+  content is the FIRST `text/html` quoted-printable part (in a Gemini export ≈lines
+  13–12326 of ~41k). Pull only that part with Python's `email` parser, decode QP, strip
+  `<script>/<style>/<tags>` + `data:` URIs → clean ~60–100 KB text in scratchpad. Then
+  hand the chunks to a Sonnet subagent that returns a STRUCTURED digest, so the raw
+  never enters the Opus context. If the main session must read, use `Read` offset/limit
+  ranges — never the whole file. (This is `token-efficiency.md` applied to binaries.)
 
 ## Gotchas
 

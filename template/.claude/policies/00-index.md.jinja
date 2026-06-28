@@ -91,12 +91,19 @@ open only the one the task needs.
 |----------------------------------------|---------------------------------------------------------------------|
 | `health/reporting-standards.md`        | Pick the EQUATOR guideline by design/task; fill its checklist        |
 | `health/secondary-data.md`             | RECORD: data-source table, code lists, selection-from-DB flow        |
-| `health/routinely-collected-data.md`   | Safe/efficient EHR/claims/registry handling + indicators (windows, num/den) |
+| `health/code-mapping.md`               | Codes are versioned inputs: provenance, one grouping, crosswalk loss, no archived `icd` |
+| `health/phenotyping.md`                | Comprehension gate (explain-back + examples + ASCII) before code; validate (PPV) |
+| `health/routinely-collected-data.md`   | EHR vs claims observability; denominator-before-numerator; windows/episodes; immortal-time |
 | `health/clinical-tables.md`            | Table 1/2 with gtsummary; no p in comparisons; SMD; missingness      |
 | `health/study-flow.md`                 | CONSORT / cohort / RECORD / PRISMA flow; sketch-first                |
 
-Precedence: `data-protection` and data integrity still lead; these clinical-reporting
-policies sit alongside the analysis reporting group; `numeric-computation` and the
-constitution still outrank.
+Worked examples, the shared ASCII timeline notation, and agent-runnable checklists for
+`code-mapping.md`, `phenotyping.md`, and `routinely-collected-data.md` live in `docs/health/`
+(companion, same profile).
+
+Precedence: `data-protection` and data integrity still lead; `code-mapping` →
+`phenotyping` → `routinely-collected-data` form a definition→indicator chain that feeds the
+analysis methodology group; these clinical-reporting policies sit alongside the analysis
+reporting group; the constitution, `anti-hallucination`, and `numeric-computation` still outrank.
 {% endif %}
 {% endif %}

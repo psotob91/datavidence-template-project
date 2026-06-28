@@ -26,3 +26,6 @@ Harmonized, readable diagrams for methods and results.
   timelines (ISO 21500/21502 cover PM *process*, not chart notation) — follow the
   convention: one clearly-labeled, monotonic time axis; **tasks as bars, milestones as
   diamonds, dependencies as arrows**; **ISO 8601 dates** (YYYY-MM-DD).
+- **Clinical time-based logic (health-data profile).** For phenotype/indicator timelines and
+  decision diagrams, use the shared plain-text notation in `docs/health/ascii-timelines.md`
+  (it is the comprehension gate for time logic — see `health/phenotyping.md`).

@@ -39,6 +39,7 @@ _exclude:
   - "{% if analysis_stack != 'r' %}config.example.yml{% endif %}"
   # --- health-data profile (only when project_profile == 'health-data') ---
   - "{% if project_profile != 'health-data' %}.claude/policies/health{% endif %}"
+  - "{% if project_profile != 'health-data' %}docs/health{% endif %}"
   - "{% if project_profile != 'health-data' %}docs/analysis/reporting-checklist.md{% endif %}"
   # --- opt-in task modules (only the selected ones) ---
   - "{% if 'causal' not in modules %}docs/analysis/modules/causal.md{% endif %}"

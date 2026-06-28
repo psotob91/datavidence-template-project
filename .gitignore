@@ -8,3 +8,7 @@
 # (durable handoffs in learning/sessions/ and the learning/*.md files ARE committed)
 /.claude/state/
 /learning/queue/
+# raw source material for health-data policies (large .mhtml Gemini exports + prior
+# integration drafts). Distilled into docs/research/health-data-policies-research.md and
+# template/docs/health/; kept local only — never commit the binaries.
+/temporal-expansion-ideas/

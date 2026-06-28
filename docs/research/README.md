@@ -7,3 +7,7 @@ projects.
 - `investigacion-repo-reusable.md` — the 2026 research review (template-repo vs
   plugin, Cowork bridging, copier vs bootstrap, governance/anti-drift, RAG) that
   informed the architecture. The resulting decisions live in `template/docs/adr/`.
+- `health-data-policies-research.md` — provenance + verified facts (package status,
+  frameworks, the foundational papers) behind the `health/` policies on clinical
+  **code mapping**, **phenotyping**, and **EHR/claims indicators**. The pending plugin
+  spec it points to lives in `docs/plugins/`.
