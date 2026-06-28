@@ -21,6 +21,7 @@ _Plugin skills auto-invoke by description; to call one explicitly use
 | Resume / where are we                       | `SESSION_STATE.md`, then `git log --oneline -8`              |
 | Understand a request before acting          | run `/comprehend`                                            |
 | Make sure no relevant policy/file is missed | run `/coverage`                                              |
+| Adversarially review a change / finding     | run `/cross-examine`                                         |
 | Design a risky change                       | run `/deliberate`                                            |
 | Audit coherence across the repo             | run `/reconcile`                                             |
 | Organize / split oversize docs / loose files| run `/index` or `/tidy`                                      |

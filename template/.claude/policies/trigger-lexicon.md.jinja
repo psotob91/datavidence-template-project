@@ -12,7 +12,7 @@ commands do not — you type them.
 > non-obvious, expensive action a description rarely fires on its own) — it is a
 > **command**, invoked explicitly, not a description-triggered skill.
 
-The fan-outs (`coverage`, `review`) and the comprehension gate (`comprehend`) are
+The fan-outs (`coverage`, `cross-examine`) and the comprehension gate (`comprehend`) are
 commands for exactly this reason: you decide when the cost is worth it; the model does
 not guess.
 
@@ -30,7 +30,7 @@ not guess.
 | `sync-cowork` | command | "refresh the Cowork instructions" | — |
 | **`comprehend`** | **command** | "explain what you understood first", "restate the request", "take an exam before planning" | a trivial, unambiguous ask |
 | **`coverage`** | **command** | "make sure you didn't miss a relevant policy", "what policies apply here", "sweep for anything off-path" | when `comprehend` already ran it this session |
-| **`review`** | **command** | "review this thoroughly", "adversarial / red-team check", "fan out reviewers", "cross-examine the findings" | a quick single-pass look |
+| **`cross-examine`** | **command** | "review this thoroughly", "adversarial / red-team check", "fan out reviewers", "cross-examine the findings" | a quick single-pass look |
 
 ### Automatic (hooks — no trigger words; they fire on events)
 
