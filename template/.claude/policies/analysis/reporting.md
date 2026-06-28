@@ -7,8 +7,17 @@ What reaches the reader is paper-ready and honest about uncertainty.
 - **Labels first.** Build a human-readable label layer (`labelled::var_label`,
   factor labels) **before** tables/figures; `gtsummary`/`gt`/`flextable` honor
   labels. What prints is legible paper labels, **never code/variable names**.
-- **Always report uncertainty.** Estimates with confidence intervals — not bare
-  point estimates or p-values alone.
+- **Match uncertainty to the quantity, by reporting task.** Report **confidence
+  intervals for the estimands of interest** (effects, associations, predictions) —
+  never bare point estimates or p-values alone. A **descriptive baseline /
+  comparison table characterizes the study SAMPLE** and does not need inferential
+  CIs or p-values for that purpose (it is describing who was studied, not estimating
+  a population parameter).
+  - **Exception — descriptive epidemiology:** when a descriptive quantity *is* the
+    estimand and is meant to **generalize to a target population** (a prevalence /
+    incidence), it carries sampling uncertainty → **report its CI** (Lesko, Fox &
+    Edwards, *Am J Epidemiol* 2022). The rule is "match uncertainty to
+    sample-description vs population-estimand", not "tables never get CIs".
 - **No p-values in baseline/comparison tables** unless you ask. In **RCTs** this is
   required (CONSORT 2025 — testing chance imbalance after randomization is incoherent);
   in **observational** tables prefer **standardized differences (SMD)**. This is

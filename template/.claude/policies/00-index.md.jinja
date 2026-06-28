@@ -41,8 +41,10 @@ Open only the one the task needs.
 | `analysis/pre-specification.md`       | Define estimand/outcome before seeing results; flag post-hoc        |
 | `analysis/initial-data-analysis.md`   | Structured IDA before modeling (STRATOS); distinct from EDA         |
 | `analysis/longitudinal-data.md`       | STRATOS longitudinal IDA (5 domains) + repeated-measures analysis   |
+| `analysis/correlated-data.md`         | Don't ignore dependence; pick by estimand (GLS/GEE vs mixed); serial-first |
 | `analysis/statistical-reporting.md`   | Match methods+reporting to the TASK (SAMBR/CHAMP); general + by-task |
-| `analysis/regression-modeling.md`     | No dichotomizing; splines for non-linearity; no stepwise (STRATOS)  |
+| `analysis/regression-modeling.md`     | No dichotomizing; splines for non-linearity; no stepwise; sparse-data/separation → penalize |
+| `analysis/collinearity.md`            | Matters by goal, not in the abstract; never delete a confounder for VIF; VIF is a flag |
 | `analysis/missingness.md`             | Account for every row; mechanism-aware handling; no silent deletion |
 | `analysis/outliers.md`                | Detect→inspect→document; never silent removal; sensitivity          |
 | `analysis/model-assumptions.md`       | Graphics over tests; right residual per model; a violation ≠ invalid           |
@@ -67,7 +69,8 @@ everything below:
 ```
 numeric-computation  >  data-protection  >  data-integrity / data-contracts / data-onboarding
   >  (methodology: pre-specification, initial-data-analysis, longitudinal-data, missingness,
-      outliers, model-assumptions, regression-modeling, sensitivity-analysis)
+      outliers, model-assumptions, regression-modeling, collinearity, correlated-data,
+      sensitivity-analysis)
   >  reproducibility / regenerables / computational-efficiency
   >  (reporting: statistical-reporting, reporting, results-writing, figures, diagrams)
   >  (workflow: methods-documentation, pseudocode-first, incremental-functions, code-style)

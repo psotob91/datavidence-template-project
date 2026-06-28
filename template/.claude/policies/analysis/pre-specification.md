@@ -1,6 +1,9 @@
 # Pre-specification
 
-Decide the analysis before seeing the outcome results.
+Decide the analysis before seeing the outcome–exposure association. Pre-specification
+reduces researcher degrees of freedom, but its **binding force and form differ by
+study type** — strongest for trials, a structured-template norm (not a registration
+mandate) for observational work.
 
 ## Rules
 
@@ -12,3 +15,23 @@ Decide the analysis before seeing the outcome results.
 - **Document deviations.** Post-hoc changes are allowed but must be flagged as
   such — no HARKing, no silent p-hacking.
 - **Label analyses** as pre-specified vs. exploratory/post-hoc in reporting.
+
+## Form by study type
+
+The estimand-first rule above is universal; *how* you pre-specify is task-specific.
+
+- **Trials (strongest):** trial registration + a dated **SAP** under the **ICH
+  E9(R1)** estimand framework; protocol per **SPIRIT 2013**.
+- **Observational:** pre-specify a protocol / analysis plan via a structured template
+  — **HARPER** (Wang et al., 2022) or **STaRT-RWE** (Wang et al., *BMJ* 2021) — and
+  report per **STROBE / RECORD**. Trial-style *registration* is **contested**, not
+  mandatory (*Epidemiology* editors, 2010) — do not present it as required; the
+  durable requirement is a pre-specified plan + honest pre-specified-vs-exploratory
+  labels.
+- **Prediction models:** pre-specify predictors and outcome, and **justify the
+  sample size** (Riley et al., *Stat Med* 2019); report per **TRIPOD+AI** (Collins
+  et al., *BMJ* 2024).
+- **Causal (target-trial emulation):** write the **target-trial protocol first**
+  (eligibility, treatment strategies, assignment, follow-up, outcome, estimand,
+  analysis) before estimating from observational data (Hernán & Robins, *Am J
+  Epidemiol* 2016).

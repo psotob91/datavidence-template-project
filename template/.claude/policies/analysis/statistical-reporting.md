@@ -35,6 +35,16 @@ in common study types (design-specific methods are SAMBR Part C):
   bias with **QUADAS-2**.
 - **Evidence synthesis**: report with **PRISMA**; appraise with **AMSTAR-2** (methodological
   quality) / **ROBIS** (risk of bias). *(module `synthesis`)*
+- **Exploratory / hypothesis-generating** (data-driven variable or adjustment-set
+  selection): **low reliability** — selection instability, overfitting, invalid
+  post-selection CIs / p-values. **Minimize it**; prefer pre-specified,
+  subject-matter-driven models. Justified only when prior knowledge is genuinely
+  scarce (e.g., novel / emerging diseases) and results are **labeled exploratory**.
+  When unavoidable, use the least-bad method: **penalized regression (LASSO /
+  elastic net, CV)** for prediction; if backward elimination, **α ≈ 0.157
+  (AIC-equivalent)**, not 0.05; **bootstrap the *whole* selection** and report
+  inclusion frequencies — never present post-selection estimates as if
+  pre-specified. Basis: Heinze, Wallisch & Dunkler, *Biom J* 2018; STRATOS.
 
 ## Self-appraisal lens
 
