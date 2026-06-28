@@ -7,22 +7,40 @@
 
 - **Updated:** 2026-06-28
 - **Branch (git local):** `main` — everything integrated **and pushed** to `origin/main`.
-- **Status:** Desktop-hooks fix shipped (plugin **v1.6.0**) + stale-render-tag fix shipped. All clean & pushed. **Restart the desktop app if it isn't already on v1.6.0.**
+- **Status:** Health-data policy expansion shipped (code-mapping, phenotyping, EHR/claims
+  indicators) + the prior expert-methodology corrections. All clean & pushed.
 
 ## Done (this milestone)
-- **Meta-learner now works in the desktop app.** Root cause: desktop fires plugin hooks but does NOT set `CLAUDE_PLUGIN_ROOT` (old bootstrapper fired-but-no-op'd). Fix = self-discovering bootstrapper in `psotobverse-utils` **v1.6.0** (pushed + `marketplace/plugin update` done; verified). Layer-2 limit (desktop doesn't inject `SessionStart` stdout, Anthropic #47993) worked around by a "read `SESSION_STATE.md` yourself" directive in `CLAUDE.md` + `template/CLAUDE.md.jinja` — **verified live**: a fresh desktop session read it on its own. Side-effecting hooks (signals, handoff, dirty-bit) run in desktop. See [[desktop-hooks-clauderoot]].
-- **Fixed the stale render tag.** `new-study.ps1` + `template-ci.yml` now pass `--vcs-ref=HEAD` (CI also `fetch-depth: 0`) — Copier was defaulting to the old `v0.1.0` tag. All 4 profiles render from HEAD and pass `check_placeholders`.
-- Factory `main` pushed to GitHub (the whole R-rigor + meta-learner body + these fixes).
+- **Three health-data policies** (commit `9490987`), gated by `project_profile=health-data`:
+  `health/code-mapping.md` (new), `health/phenotyping.md` (new — mandatory comprehension gate
+  before code), `health/routinely-collected-data.md` (stub completed). Shipped companion in
+  `template/docs/health/` (ascii-timelines, phenotyping-examples, indicator-scenarios,
+  checklists). Built from the `temporal-expansion-ideas/` sources + the Tsukuba EHR/claims kit
+  + deep research, then Sonnet adversarial peer-review (all MUST-FIX applied). Renders clean
+  for both profiles; gating + check_placeholders verified.
+- **Provenance + pending plugin spec** (factory root, not shipped):
+  `docs/research/health-data-policies-research.md`, `docs/plugins/datavidence-healthanalysis-blueprint.md`.
+- **Learning loop:** captured model-routing (Opus reason / Sonnet execute+peer-eval) and the
+  large-source-file extract→chunk→digest practice in PLAYBOOK + LEARNING_LOG + `[[model-routing]]`.
+- `temporal-expansion-ideas/` distilled and **gitignored** (large .mhtml kept local only).
+- Earlier this session: expert-methodology corrections to the analysis policies (commit `375807a`).
+
+## Needs Percy's eye (flagged, handled conservatively)
+- **Unverified dialysis citations:** "Lam et al. 2026 (Kidney Medicine)" and the "Tsunoda 2022"
+  state-machine framing could not be confirmed — marked **provisional** in the shipped example.
+  Confirm/replace DOIs before any formal use. (Gao et al. 2025 AJKD is confirmed.)
 
 ## Next steps (pending)
-1. Resolve `temporal-expansion-ideas/` (untracked, superseded): prose-ify into `docs/research/` or archive + `.gitignore`; finish `routinely-collected-data.md` stub.
-2. Fix the `datavidence-healthanalysis` plugin reference (routed to but not installed): ship / repoint / mark planned.
-3. Root `llms.txt` for the factory; extend CI to render-and-validate (beyond check_placeholders).
+1. Build the `datavidence-healthanalysis` plugin from `docs/plugins/...-blueprint.md`
+   (skills + hooks; currently routed-to but not installed; `methods-documentation.md`'s
+   notation-check hook is marked pending until then).
+2. Root `llms.txt` for the factory; extend CI to render-and-validate (beyond check_placeholders).
+3. Review the remaining un-reviewed policies if desired (universal + the untouched analysis ones).
 4. Optional: factory `.claude/policy/paths.allow.json` to activate the `nothing_loose` write-guard.
-5. Optional: start tagging releases (e.g. `v0.2.0`) so plain `copier copy` / `copier update` track releases (the `--vcs-ref=HEAD` fix covers our own script + CI for now).
+5. Optional: start tagging releases (e.g. `v0.2.0`) so plain `copier copy`/`update` track releases.
 
 ## Uncommitted
-- `temporal-expansion-ideas/` (untracked roadmap — see step 1). Everything else committed + pushed.
+- None. Everything committed + pushed. (`temporal-expansion-ideas/` is gitignored, local-only.)
 
 ## Machine note
-- Env cache (`~/.claude/environment.md`) on this PC reports `make` and `rg` **present** (earlier "missing make+rg" notes are stale).
+- Env cache (`~/.claude/environment.md`) on this PC reports `make` and `rg` **present**.
