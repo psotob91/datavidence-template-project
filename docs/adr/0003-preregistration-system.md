@@ -92,15 +92,31 @@ lists confirmed / pending / blocked; **human sign-off** locks that objective ind
 - **Shared base.** Writes to shared data cleaning / base-dataset derivation
   (`analysis/shared/…`, data-onboarding scripts) gate on `shared/shared.lock.yaml`. Each
   objective builds its own cohort on top of that shared base.
-- **Locking** (per file) requires: members present, no *blocking* PENDING (or explicit
-  `accepted_pending`), human sign-off → writes `status: locked` + checksums + git commit.
-- **`sap-lock`** (PreToolUse, opt-in via `routing.yml`/config, fail-open): if the relevant
-  lock is not `locked` → **ask** (Invariant 0: additive to reads; only gates writes; asks,
-  never hard-denies). File-existence + status — the most reliable pattern in tsukuba
-  (`data_lock.json`).
-- **Three gate levels:** `shared.lock` (before shared cleaning) → per-objective
-  `preregistration.lock` (before that objective's analysis) → the existing `data_lock`
-  (before modeling). Independent per objective.
+- **Graduated strictness — a non-negotiable minimum (hard deny) vs refinable (ask).** Each
+  field in `objective.yaml`/`eligibility.yaml`/`variables.yaml` is tagged `tier: core` or
+  `tier: refinable`.
+  - **`core` (hard `deny`):** the analytical anchor — **exposure/treatment, outcome,
+    estimand + contrast, and the target-population frame**. If any core field is `PENDING`,
+    writes to that objective's cleaning/analysis paths are **denied** (not merely asked). You
+    cannot touch data for an objective whose exposure/outcome aren't fixed (prevents
+    outcome-dependent drift).
+  - **`refinable` (warn/`ask`):** covariates/adjustment set, data-dependent windows, tuning —
+    may stay `PENDING` and **iterate during data handling**; surfaced as a reminder, not a
+    block.
+- **Two-phase gate per objective:**
+  1. **Before data handling / cleaning** (`analysis/<id>/…` writes): `sap-lock` requires the
+     **core minimum** non-PENDING → else **deny**. Refinable PENDINGs allowed (iterate).
+  2. **Before formal analysis / modeling** (the `data_lock` step): the objective's
+     `preregistration.lock` must be `locked` — i.e. **everything** resolved (core +
+     refinable) or explicitly `accepted_pending` with justification → else **deny**. "Before
+     formal analysis, all of it must be well-defined."
+- **Locking** (per file) requires: members present, **no `core` PENDING**, refinable either
+  resolved or `accepted_pending`, human sign-off → writes `status: locked` + checksums +
+  commit.
+- **Gate levels (independent per objective):** `shared.lock` (shared cleaning) → per-objective
+  core-minimum (data handling) → per-objective full `preregistration.lock` (formal analysis) →
+  `data_lock` (modeling run). Fail-open + opt-in; reads never gated (Invariant 0 — the gate is
+  on *writes*, with `deny` reserved for the core-minimum and the locked-before-modeling rules).
 
 ### 5. Selection-criteria → flow → cascade wiring (per objective, captured from the start)
 
@@ -130,8 +146,9 @@ lists confirmed / pending / blocked; **human sign-off** locks that objective ind
 
 - **Mandatory, auditable pre-registration** with a single machine-checkable gate; human
   appendix stays clean; flow/cascade/variable spine captured from the start; portable.
-- **Cost:** friction before analysis — mitigated by `PENDING` markers and *ask* (not deny),
-  and by `frame-study` doing the heavy lifting from arbitrary inputs.
+- **Cost:** friction before analysis — mitigated by the **graduated gate** (hard `deny` only
+  on the core minimum — exposure/outcome/estimand/population; `ask` on refinable fields that
+  iterate with the data) and by `frame-study` doing the heavy lifting from arbitrary inputs.
 - **Stage 2 ready:** `deviations.md` + the lock + `sap.md` map cleanly to an open registry
   later; not built now.
 - Supersedes the distributed tsukuba approach; the modular files mirror what tsukuba already
