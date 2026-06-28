@@ -20,28 +20,45 @@ but **not contaminated** by agent-only comprehension artifacts, and it must carr
 
 ## Decision
 
-Ship a **modular `analysis-plan/` folder gated by a single `preregistration.lock.yaml`**,
-filled by the `frame-study` skill and enforced by a `sap-lock` hook. The folder is
-**human-canonical** (paper-ready); agent comprehension artifacts live separately under
-`context/`. Renders only when `analysis_stack == 'r'` (health-data adds eligibility/
-phenotype nuance).
+Ship a **per-objective modular `analysis-plan/`**: a small **shared** layer plus one folder
+**per objective**, each objective carrying its **own SAP and its own lock**. The gate is
+**per objective** — a locked objective advances even while another is still draft (one never
+blocks the other). Filled by the `frame-study` skill, enforced by a `sap-lock` hook. The
+folder is **human-canonical** (paper-ready); agent comprehension artifacts live under
+`context/`. Renders when `analysis_stack == 'r'` (health-data adds eligibility/phenotype
+nuance).
 
 ### 1. Folder structure (`template/analysis-plan/`, rendered into the child)
 
-| File | Holds | Layer |
-|---|---|---|
-| `preregistration.lock.yaml` | **The gate.** `status: draft\|locked`, version, `locked_at/by`, `git_commit`, member-file checksums, completeness summary (counts of `PENDING`). | machine |
-| `estimand.yaml` | Target population, contrast, outcome, adjustment set, **estimand type** (descriptive / causal / predictive), explicit non-causal declaration when applicable. | human |
-| `objectives.yaml` | Primary + secondary objectives, each tied to an estimand. | human |
-| `eligibility.yaml` | **Selection criteria** — each inclusion/exclusion with `id`, text, `excludes_target_population` (bool), `criterion_ref` (links to the attrition log + flow node). *The spine.* | human |
-| `population-cascade.yaml` | target → accessible → sampled → study, each level **defined** + a slot for the **count** (filled at runtime from the attrition log). | human |
-| `variables.yaml` | Variable spec catalog: `variable_id, analytic_role, source_table, source_column_or_code_set, grain, derivation, qc_rule, status, provenance`. *Variable definitions from the start.* | human |
-| `sap.md` | The narrative SAP (methods-appendix-ready prose). | human |
-| `sensitivity.yaml` | Pre-specified sensitivity analyses (with source refs). | human |
-| `deviations.md` | Append-only deviations log (Stage-2-ready). | human |
+Primary and secondary objectives have **different** analysis plans, and their **selection
+criteria may be shared or vary** (both supported). A shared layer holds the study-level
+common parts; each objective overrides/extends as needed and owns its lock.
 
-All files allow `PENDING` / `PENDING_LOCAL_DECISION` sentinels (mandatory to *pass through*,
-not mandatory to have everything — but blocking PENDINGs prevent locking).
+```
+analysis-plan/
+  shared/                          # study-level, common to all objectives
+    study.yaml                     # data source, design, target-population frame
+    eligibility.shared.yaml        # shared selection criteria (optional; objectives may inherit)
+    variables.yaml                 # shared variable spec catalog
+    shared.lock.yaml               # gate for SHARED data cleaning / base-dataset derivation
+  objectives/
+    <objective-id>/                # e.g. primary, secondary-process-outcome, ...
+      objective.yaml               # question + estimand (type: descriptive | causal | predictive)
+      eligibility.yaml             # `inherits: shared` and/or this objective's own criteria
+      sap.md                       # THIS objective's SAP (methods-appendix-ready)
+      sensitivity.yaml
+      population-cascade.yaml       # this objective's target->accessible->sampled->study (own counts)
+      deviations.md
+      preregistration.lock.yaml    # THIS objective's gate
+```
+
+Per-file roles: each `*.lock.yaml` carries `status: draft|locked`, version, `locked_at/by`,
+`git_commit`, member checksums, and a completeness summary (counts of `PENDING`). `*.yaml`
+spec files mirror the previous schema (estimand fields in `objective.yaml`; selection
+criteria in `eligibility*.yaml` with `id` + `excludes_target_population` + `criterion_ref`;
+variable catalog fields in `variables.yaml`). All allow `PENDING` /
+`PENDING_LOCAL_DECISION` sentinels (mandatory to *pass through*, not to have everything —
+but blocking PENDINGs prevent locking that objective).
 
 ### 2. Human / agent separation (no contamination)
 
@@ -58,34 +75,48 @@ not mandatory to have everything — but blocking PENDINGs prevent locking).
 
 ### 3. Fill-from-arbitrary-inputs (`frame-study` skill)
 
-Drop a protocol / annexes / any inputs → `frame-study` extracts and **harmonizes** them into
-the modular files, **marking unknowns `PENDING`** and emitting an `unresolved-questions`
-list. It **never invents** (the tsukuba `<<PENDING_CONFIRMATION_Qn>>` discipline). A
-completeness report lists confirmed / pending / blocked; **human sign-off** advances status.
+Drop a protocol / annexes / any inputs → `frame-study` extracts and **harmonizes** them: once
+into the `shared/` layer, then **once per objective** into `objectives/<id>/` (each objective
+gets its own estimand + SAP + eligibility, inheriting or overriding shared). It **marks
+unknowns `PENDING`** and emits a per-target `unresolved-questions` list; it **never invents**
+(the tsukuba `<<PENDING_CONFIRMATION_Qn>>` discipline). A completeness report per objective
+lists confirmed / pending / blocked; **human sign-off** locks that objective independently.
 
-### 4. The lock + `sap-lock` hook (the mandatory gate)
+### 4. The locks + `sap-lock` hook (mandatory, PER OBJECTIVE)
 
-- **Locking** requires: all member files present, no *blocking* PENDING (or explicitly
+- **Per-objective gating.** Analysis work for an objective lives under a namespaced path
+  (`analysis/<objective-id>/…`, outputs `outputs/<objective-id>/…`). The `sap-lock` hook maps
+  the write path → objective → checks **that objective's** `preregistration.lock.yaml` is
+  `locked`. So a **locked primary advances even while the secondary is draft** — one
+  objective never blocks another.
+- **Shared base.** Writes to shared data cleaning / base-dataset derivation
+  (`analysis/shared/…`, data-onboarding scripts) gate on `shared/shared.lock.yaml`. Each
+  objective builds its own cohort on top of that shared base.
+- **Locking** (per file) requires: members present, no *blocking* PENDING (or explicit
   `accepted_pending`), human sign-off → writes `status: locked` + checksums + git commit.
-- **`sap-lock`** (PreToolUse, opt-in via `routing.yml`/config, fail-open): on writes to
-  cleaning/analysis paths (`analysis/**`, `R/**`, data-derivation scripts), if the lock is
-  not `locked` → **ask** (Invariant 0: additive to reads; only gates writes; asks, never
-  hard-denies). File-existence + status check — the most reliable pattern in tsukuba
+- **`sap-lock`** (PreToolUse, opt-in via `routing.yml`/config, fail-open): if the relevant
+  lock is not `locked` → **ask** (Invariant 0: additive to reads; only gates writes; asks,
+  never hard-denies). File-existence + status — the most reliable pattern in tsukuba
   (`data_lock.json`).
-- **Two distinct gates:** `preregistration.lock` (before cleaning/analysis) and the existing
-  `data_lock` (before modeling).
+- **Three gate levels:** `shared.lock` (before shared cleaning) → per-objective
+  `preregistration.lock` (before that objective's analysis) → the existing `data_lock`
+  (before modeling). Independent per objective.
 
-### 5. Selection-criteria → flow → cascade wiring (captured from the start)
+### 5. Selection-criteria → flow → cascade wiring (per objective, captured from the start)
 
-- `eligibility.yaml` criteria carry `id` + `excludes_target_population` + `criterion_ref`.
-- The attrition log (`analysis/records/attrition_log.csv`) accumulates `(step, criterion_ref,
-  n_in, n_out, n_removed, excludes_target_population, reason)` — enforced by the
-  **`attrition-log` hook** (a filtering script that doesn't log is flagged).
-- `population-cascade.yaml` ties each level's count to the criteria; the **flow diagram**
-  (`scaffold-reporting` / `draft-study-flow`) renders from the attrition log. So flow inputs
-  are built *during cleaning*, not reconstructed after.
+- Each objective's `eligibility.yaml` either `inherits: shared` and/or adds its own
+  criteria; each criterion carries `id` + `excludes_target_population` + `criterion_ref`.
+  Because criteria may vary by objective, **cohort, cascade and flow are per objective** on
+  top of the shared base.
+- A **per-objective attrition log** (`analysis/<objective-id>/records/attrition_log.csv`)
+  accumulates `(step, criterion_ref, n_in, n_out, n_removed, excludes_target_population,
+  reason)` — enforced by the **`attrition-log` hook** (a filtering script that doesn't log
+  is flagged).
+- That objective's `population-cascade.yaml` ties each level's count to its criteria; its
+  **flow diagram** (`scaffold-reporting` / `draft-study-flow`) renders from its attrition
+  log. Flow inputs are built *during cleaning*, not reconstructed after.
 - **`variable-catalog-gate` hook:** a productive script referencing a `status: unknown`
-  variable in `variables.yaml` is blocked (asks).
+  variable (shared `variables.yaml` or the objective's) is gated (asks).
 
 ### 6. Mapping to the decided portfolio
 
