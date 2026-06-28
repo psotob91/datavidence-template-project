@@ -58,7 +58,11 @@ Require-Cmd copier "Install with: pipx install copier  (or: uv tool install copi
 Require-Cmd git    "Install Git for Windows: https://git-scm.com/download/win"
 
 Write-Host "==> Generating '$Name' ($Stack stack, knowledge=$Knowledge) into $Dest" -ForegroundColor Cyan
-copier copy --defaults `
+# --vcs-ref=HEAD: render the committed tip, NOT the latest git tag. Copier defaults
+# to the newest tag; this factory ships from `main` without per-change release tags,
+# so the default would render a stale snapshot (e.g. the old v0.1.0). HEAD renders
+# the current template for both the gh: source and a local path.
+copier copy --defaults --vcs-ref=HEAD `
   --data project_name="$Name" `
   --data analysis_stack=$Stack `
   --data knowledge_retrieval=$Knowledge `

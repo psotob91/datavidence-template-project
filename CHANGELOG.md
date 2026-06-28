@@ -6,6 +6,21 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning: [S
 
 ## [Unreleased]
 
+### Fixed
+- **Meta-learner now works in the Claude Desktop app.** The desktop app fires
+  plugin hooks but does not set `CLAUDE_PLUGIN_ROOT`, so the old bootstrapper
+  fired-but-no-op'd there. Fixed in `psotobverse-utils` **v1.6.0** (self-discovering
+  bootstrapper); the factory + template `CLAUDE.md` now require ≥ v1.6.0 and add a
+  "read `SESSION_STATE.md` yourself at session start in the desktop app" directive
+  (the desktop injects `CLAUDE.md` but not the `SessionStart` hook's stdout —
+  Anthropic #47993; side-effecting hooks do run).
+- **Render the current template, not a stale tag.** `scripts/new-study.ps1` and the
+  `template-ci.yml` render matrix now pass `--vcs-ref=HEAD` (CI also fetches full
+  history). Copier defaults to the newest git tag; this factory ships from `main`
+  without per-change release tags, so the default was rendering the old `v0.1.0`
+  snapshot (pre-meta-learner). All four profiles render from HEAD and pass
+  `check_placeholders`.
+
 ### Added
 - **Meta-learner + maintainer `CLAUDE.md`** (the master/builder repo now dog-foods
   what it ships). The learning-loop MECHANISM was hoisted into the

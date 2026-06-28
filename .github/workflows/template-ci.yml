@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # full history so Copier's --vcs-ref=HEAD renders the tip, not the stale latest tag
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v8.2.0
@@ -40,21 +42,21 @@ jobs:
 
       - name: Render R stack
         run: >-
-          copier copy --defaults
+          copier copy --defaults --vcs-ref=HEAD
           --data project_name=Smoke
           --data analysis_stack=r
           . /tmp/out-r
 
       - name: Render Python stack
         run: >-
-          copier copy --defaults
+          copier copy --defaults --vcs-ref=HEAD
           --data project_name=Smoke
           --data analysis_stack=python
           . /tmp/out-python
 
       - name: Render none stack
         run: >-
-          copier copy --defaults
+          copier copy --defaults --vcs-ref=HEAD
           --data project_name=Smoke
           --data analysis_stack=none
           . /tmp/out-none
@@ -62,7 +64,7 @@ jobs:
       - name: Render R + health-data profile + all modules
         run: |
           printf 'project_name: Smoke HD\nanalysis_stack: r\nproject_profile: health-data\nmodules: [causal, prediction, survey, spatial, synthesis]\n' > /tmp/hd.yml
-          copier copy --defaults --data-file /tmp/hd.yml . /tmp/out-hd
+          copier copy --defaults --vcs-ref=HEAD --data-file /tmp/hd.yml . /tmp/out-hd
 
       - name: Check placeholders (R stack)
         run: python /tmp/out-r/scripts/check_placeholders.py /tmp/out-r
