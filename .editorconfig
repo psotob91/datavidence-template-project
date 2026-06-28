@@ -1,0 +1,30 @@
+# EditorConfig — https://editorconfig.org
+# Top-most EditorConfig file for the FACTORY repo (the child ships its own in template/).
+root = true
+
+# Defaults for every file.
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Markup / config: 2-space indent.
+[*.{yml,yaml,json,toml,md,jinja}]
+indent_style = space
+indent_size = 2
+
+# Python (PEP 8): 4-space indent.
+[*.py]
+indent_style = space
+indent_size = 4
+
+# PowerShell scripts ship to Windows users.
+[*.ps1]
+end_of_line = crlf
+
+# Markdown: keep hard line breaks (two trailing spaces) intact.
+[*.md]
+trim_trailing_whitespace = false
