@@ -111,3 +111,42 @@ hooks**. So steps 1–2 below are largely done; start at 3.
 4. Add `notation-check` (optional hook) and wire `methods-documentation.md` to it; consider
    `specify-regression` (optional skill).
 5. Version, changelog, marketplace; update `template/CLAUDE.md.jinja`'s plugin notes.
+
+## Backlog — enforcement & structure (from the tsukuba audit, 2026-06-28)
+
+Source: `docs/audits/2026-06-28-tsukuba-audit/`. The portfolio above is *policies→skills*;
+this is the **enforcement layer** (the owner's "mandatory pre-registration" paradigm) + the
+**human/agent + metadata structure**. Spec only — not built.
+
+### New hooks (enforcement — the "mandatory" gates)
+| Hook (event) | Does | Pattern |
+|---|---|---|
+| `sap-lock` (PreToolUse on cleaning/analysis writes) | Block/ask if the canonical pre-registration is not `status: locked` (no `validation/logs/sap_lock.json`). The owner's core requirement. | File-existence gate (like their reliable `data_lock.json`). Additive to reads; only gates writes. |
+| `attrition-log` (PostToolUse on filtering scripts) | Flag a script that drops rows but doesn't call `log_attrition(step, n_in, n_out, excludes_target_population, reason)`. | Makes flow-diagram inputs accumulate **from the start**. |
+| `variable-catalog-gate` (PreToolUse on productive scripts) | Block a script that references a variable whose `variable_spec_catalog.yaml` `status: unknown`. | Their `<<PENDING_CONFIRMATION_Qn>>` would correctly block. |
+
+### New artifacts (the pre-registration paradigm — next design block)
+- **One canonical, lockable pre-registration artifact** (a single file aggregating the
+  mandatory fields: population/estimand, index date, exposures, outcomes, objectives,
+  model, pre-specified adjustments, sensitivity list, **deviations log**), fillable from
+  arbitrary inputs (drop protocol/annexes → harmonize) with **PENDING markers** allowed.
+  Becomes the methods appendix; `status: locked` is the gate.
+- **`population_cascade.yaml`** (target → accessible → sampled → study, counts per level)
+  + the standardized **`excludes_target_population`** boolean in the attrition log.
+- (Deferred — Stage 2) publish pre-registration + SAP + modifications + deviations to an
+  open registry (track/justify deviations).
+
+### New generic skill
+- **`rescue-manifest`** (likely `psotobverse-utils` — migration is domain-agnostic):
+  harmonize an arbitrary source repo into the template layout (KEEP/DROP/REGENERATE/
+  KEEP-EXTERNAL), with the archivist test + regenerability test + hard-coded-path audit +
+  size gate. Rehearsed example: `docs/audits/2026-06-28-tsukuba-audit/rescue-manifest.md`.
+
+### Template structure changes (factory backlog, not this plugin)
+- **Human/agent separation:** human-canonical `source/`; agent-derived under `context/`
+  (regenerable, gitignored); routing sends human-only on request, human+AI by default.
+- **Metadata two-taxonomy:** `metadata/` = practice (archivist test); `context/` = agent.
+- **`.gitignore` for regenerables** (`~$*`, `**/derived/**` extractions, `*.jsonl` indexes,
+  large `**/worklists/*.csv`) + a named gitignored scratch dir for private profiling notes.
+- **Drop the `server_payload/` pattern:** transfer script + `config/paths.local.yml` +
+  symlink/junction to the data root + one `docs/server_setup.md`.
