@@ -28,6 +28,9 @@ Each item MUST name an explicit **TRIGGER**.
   next child render.
 
 ## Optional — nice to have, no urgency
+- The R-stack scaffold prints `tar_source() ... Ignoring non-R files: R/.gitkeep` on every
+  `tar_make` until `R/` has real functions -- cosmetic. **TRIGGER:** next time touching the
+  R-stack `_targets.R` / R scaffold, guard `tar_source()` or drop the `.gitkeep` placeholder.
 
 - A root `llms.txt` validation in CI (links resolve, structure matches llmstxt.org).
 
