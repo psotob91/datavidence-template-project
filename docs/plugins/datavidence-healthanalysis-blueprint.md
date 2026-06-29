@@ -257,9 +257,22 @@ Source: `docs/audits/2026-06-28-tsukuba-audit/`. The portfolio above is *policie
 - **`rescue-manifest`** — harmonize an arbitrary source repo into the template layout
   (KEEP/DROP/REGENERATE/KEEP-EXTERNAL), with the archivist test + regenerability test + hard-coded-path
   audit + size gate. Rehearsed: `docs/audits/2026-06-28-tsukuba-audit/rescue-manifest.md`.
+  **SHIPPED:** psotobverse-utils v1.8.0 (`/rescue-manifest`), 2026-06-29.
 
-### Template structure changes (factory backlog, not this plugin)
-- Human/agent separation (human-canonical `source/`; agent-derived `context/`, regenerable, gitignored).
-- Metadata two-taxonomy (`metadata/` = practice; `context/` = agent). `.gitignore` for regenerables.
-- Drop the `server_payload/` pattern: transfer script + `config/paths.local.yml` + junction + one
-  `docs/server_setup.md`.
+### Template structure changes (factory backlog) -- RESOLVED-BY-EXISTING-DESIGN (2026-06-29)
+The template already implements the human/agent separation, the two-taxonomy, and KEEP-EXTERNAL
+under its own (better-integrated) naming. We deliberately do NOT adopt the tsukuba `source/` +
+`context/`-as-agent naming -- it would conflict with the template's `context/` = human inputs and
+be a regression. Mapping:
+
+| tsukuba-audit concept | template realization |
+|---|---|
+| human-canonical `source/` | `context/` (read-only human inputs: protocols, priors, papers) + `docs/` (human-authored methods) |
+| agent-derived `context/` | `_agent_cache/` + `_agent_private/` + `.rag/` + `data/derived/` (gitignored) |
+| metadata = practice | `metadata/` (data_dictionary.csv, data_sources.yml, indices) |
+| KEEP-EXTERNAL (path + env + junction) | `config.yml` (gitignored) + the connected-data pattern in `data/README.md` |
+| drop `server_payload/` | never existed in the template; deliverables use `outputs/<slug>/` |
+
+Only real gap closed: added `~$*` (Office/Word lock files) to `template/.gitignore`. A dedicated
+server-deploy transfer-script + `docs/server_setup.md` stays deferred (the `config.yml` connect
+pattern already covers connected data; revisit only on a real server hand-off).

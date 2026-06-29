@@ -66,3 +66,6 @@ llms.txt
 # --- Node / Quarto / misc tooling ------------------------------------------
 node_modules/
 .quarto/
+
+# --- Office / editor lock files (e.g. ~$report.docx) ------------------------
+~$*
