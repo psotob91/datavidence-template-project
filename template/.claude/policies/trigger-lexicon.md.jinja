@@ -48,12 +48,15 @@ header. Use `coverage` whenever you suspect a relevant policy sits off the obvio
 {% if project_profile == 'health-data' %}
 ## Domain capabilities (the `datavidence-healthanalysis` plugin — health-data profile)
 
-_Install separately; call explicitly with `/datavidence-healthanalysis:<name>`. The
-project still works without it (the step is then done by hand)._
+_Install separately (`claude plugin marketplace add psotob91/datavidence-healthanalysis`,
+then `claude plugin install datavidence-healthanalysis@datavidence-healthanalysis`); call
+explicitly with `/datavidence-healthanalysis:<name>`. The project still works without it
+(the step is then done by hand)._
 
 | Capability | Kind | Reliable triggers | When NOT |
 |---|---|---|---|
 | `phenotype-gate` | skill | "define / operationalize a phenotype", "computable case definition" | a static one-code label with no time logic |
 | `map-clinical-codes` | skill | "build / validate this code list / mapping", "check ICD/SNOMED/RxNorm provenance / crosswalk" | codes are the endpoint, not grouped |
 | `design-indicator` | skill | "design / review this denominator / numerator / window / episode design" | no cohort/indicator construction involved |
+| `preregister` | skill | "lock / freeze the SAP / analysis plan", "pre-register the study", "record a deviation" | drafting the estimand/SAP (use frame-study) or adding sensitivity analyses (use specify-sensitivity-plan) |
 {% endif %}{% endif %}
