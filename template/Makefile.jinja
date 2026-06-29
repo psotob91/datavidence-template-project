@@ -2,7 +2,7 @@
 # Portable developer entry points. Recipes use real tabs (Make requirement).
 
 .DEFAULT_GOAL := help
-.PHONY: help setup lint test all reset reindex placeholders check
+.PHONY: help setup lint test all reset reindex placeholders check bundle verify-data
 
 help: ## Show this help.
 	@echo "Targets:"
@@ -14,6 +14,8 @@ help: ## Show this help.
 	@echo "  reindex      Rebuild context indices (scripts/reindex.py)"
 	@echo "  placeholders Scan for unfilled template placeholders"
 	@echo "  check        lint + test + placeholders"
+	@echo "  bundle       Build a clean transfer bundle (dist/*.tar.gz)"
+	@echo "  verify-data  Check config.yml data paths exist (pre-run)"
 
 {% if analysis_stack == 'r' %}
 setup: ## Restore the renv library (initialize if needed).
@@ -68,3 +70,9 @@ placeholders: ## Fail if any unfilled template placeholders remain.
 	python scripts/check_placeholders.py
 
 check: lint test placeholders ## Run all checks (lint + test + placeholders).
+
+bundle: ## Build a clean transfer bundle for offline server transfer (scripts/bundle.py).
+	python scripts/bundle.py
+
+verify-data: ## Verify config.yml data-source paths exist before a run.
+	python scripts/bundle.py --verify
