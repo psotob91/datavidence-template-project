@@ -6,11 +6,11 @@ Methods are written alongside the analysis, not reconstructed at the end.
 
 - **Write as you go**, linked to the pseudocode-first flow.
 - **Notation registry.** Keep `docs/analysis/notation.md` with the mathematical
-  notation in **LaTeX**; do not break it. The `notation-check` hook (planned for the
-  `datavidence-healthanalysis` plugin — **not yet shipped**; treat as aspirational until it
-  installs) will flag methods text whose symbols are absent from the registry — keep the
-  registry current regardless, and once the hook exists, add the symbol rather than dropping
-  the check.
+  notation in **LaTeX**; do not break it. When the `datavidence-healthanalysis`
+  plugin is installed, its PostToolUse `notation-check` hook flags methods text whose
+  symbols are absent from the registry — but that hook is advisory and only runs with the
+  plugin present, so keep the registry current regardless; when it flags a symbol, add it
+  to the registry rather than dropping the check.
 - **Validate the math, not just the rendering.** Distinguish **LaTeX-syntax** validity
   (KaTeX / MathJax error on malformed markup) from **mathematical correctness** (algebra,
   derivations, dimensional consistency). The latter needs a **free symbolic-algebra

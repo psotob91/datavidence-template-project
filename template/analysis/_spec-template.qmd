@@ -1,0 +1,96 @@
+---
+title: "__SPEC_TITLE__"
+subtitle: "Comprehension gate · computable phenotype"
+date: today
+format:
+  html:
+    theme: spec-theme.scss
+    toc: true
+    toc-depth: 2
+    toc-title: "Contenido"
+    embed-resources: true
+    number-sections: false
+    code-tools: false
+execute:
+  eval: false
+---
+
+<!--
+  Spec render template (datavidence). The skill COPIES this file to
+  <spec-dir>/index.qmd with spec-theme.scss and the section files, fills every
+  __PLACEHOLDER__ and the executive summary, then: quarto render index.qmd
+
+  HEADING RULE (critical — avoids the tabset collision):
+    * This file owns the structure: `##` = chapter, `###` = a short tab name.
+    * Every INCLUDED section file uses `####`+ ONLY (never #, ##, ###) — its long
+      descriptive title is a `####` line in its own body. A `##`/`###` inside an
+      include would become a stray extra tab.
+  (Plain .qmd, not .jinja: Quarto {{< include >}} must survive copier verbatim.)
+-->
+
+::: {.exec-summary}
+## Resumen ejecutivo  <span class="status-badge __STATUS_CLASS__">__STATUS_LABEL__</span>
+
+__ONE_PARAGRAPH_RESTATEMENT__
+
+**Decisión (resumen):**
+
+```
+__DECISION_DIAGRAM_ASCII__
+```
+
+**Decisiones locales abiertas — bloquean el código:**
+
+::: {.pending-list}
+- [ ] `PENDING_LOCAL_DECISION` — __open_decision_1__
+- [ ] `PENDING_LOCAL_DECISION` — __open_decision_2__
+:::
+
+> El código ejecutable (R/SQL) se **retiene** hasta sign-off humano explícito; el
+> pseudocódigo agnóstico de la pestaña *Pseudocódigo* es parte del diseño revisable.
+:::
+
+## Comprensión
+
+::: {.panel-tabset}
+
+### Restatement
+{{< include comprehension/01-restatement.md >}}
+
+### Ejemplos
+{{< include comprehension/02-worked-examples.md >}}
+
+### Contraejemplos
+{{< include comprehension/03-counter-examples.md >}}
+
+### Decisión
+{{< include comprehension/04-decision-diagram.md >}}
+
+### Tiempo
+{{< include comprehension/05-timelines.md >}}
+
+### Estados
+{{< include comprehension/06-granularity-states.md >}}
+
+:::
+
+## Hacia el código
+
+::: {.panel-tabset}
+
+### Variables
+{{< include build/variables.md >}}
+
+### Pseudocódigo
+{{< include build/pseudocode.md >}}
+
+### Pendientes
+{{< include build/pending-decisions.md >}}
+
+:::
+
+## Validación
+{{< include validation/validation-plan.md >}}
+
+<!-- After human sign-off: append a `code/` tab (the real R/SQL) + tests/, and
+     flip the status badge to LOCKED. -->
