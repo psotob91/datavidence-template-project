@@ -69,3 +69,6 @@ node_modules/
 
 # --- Office / editor lock files (e.g. ~$report.docx) ------------------------
 ~$*
+
+# --- Transfer bundles (scripts/bundle.py output) ---------------------------
+dist/

@@ -273,6 +273,7 @@ be a regression. Mapping:
 | KEEP-EXTERNAL (path + env + junction) | `config.yml` (gitignored) + the connected-data pattern in `data/README.md` |
 | drop `server_payload/` | never existed in the template; deliverables use `outputs/<slug>/` |
 
-Only real gap closed: added `~$*` (Office/Word lock files) to `template/.gitignore`. A dedicated
-server-deploy transfer-script + `docs/server_setup.md` stays deferred (the `config.yml` connect
-pattern already covers connected data; revisit only on a real server hand-off).
+Only real gap closed: added `~$*` (Office/Word lock files) to `template/.gitignore`. The server-deploy story is now SHIPPED (2026-06-29): `docs/server_setup.md.jinja` (clone /
+offline-bundle / external-data junction / pre-run verify) + `scripts/bundle.py` (`git archive`
+clean bundle + `--verify` of config.yml data paths) + `make bundle` / `make verify-data`. The
+blueprint backlog is fully closed.

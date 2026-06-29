@@ -1,0 +1,72 @@
+# Deploying {{ project_name }} to a server or another machine
+
+The single source of truth for standing this project up somewhere new (a lab server, a
+collaborator's PC, an offline analysis box). Code + inputs travel through git; **two things
+are machine-specific and never committed** — set them up here:
+
+- **`config.yml`** — where the connected/external data lives on *this* machine (a copy of
+  `config.example.yml`).
+- **`.env`** — secrets / API keys (a copy of `.env.example`).
+
+Everything under `data/derived/`, `_targets/`, and the agent caches is **regenerable** — it
+is rebuilt from inputs + code, never transferred.
+
+## Option A — clone (the target has git + network)
+
+```bash
+git clone <repo-url> {{ project_slug }}
+cd {{ project_slug }}
+cp config.example.yml config.yml     # then edit: point each data_sources[*].path at this machine
+cp .env.example .env                 # then edit: fill in any API keys / secrets
+```
+{% if analysis_stack != 'none' %}
+Connect the external data (junction recipe below), then build:
+
+```bash
+python scripts/bundle.py --verify    # check every config.yml data path exists
+make setup && make all               # restore the environment + run the full pipeline
+make check                           # lint + tests + placeholder scan
+```
+{% endif %}
+## Option B — offline bundle (the target has no git/internet)
+
+On a machine that already has the repo, build a clean snapshot and copy it over:
+
+```bash
+python scripts/bundle.py             # or: make bundle
+# -> writes dist/{{ project_slug }}-<shortsha>.tar.gz (committed tree only; config.yml,
+#    .env, data/derived/, _targets/ and caches are all excluded automatically)
+```
+
+Transfer the tarball, then on the target:
+
+```bash
+mkdir {{ project_slug }} && tar -xzf <bundle>.tar.gz -C {{ project_slug }} && cd {{ project_slug }}
+cp config.example.yml config.yml && cp .env.example .env   # then edit both
+```
+{% if analysis_stack != 'none' %}
+Connect the data (below) and `make setup && make all`, exactly as in Option A.
+
+## Connect the external data (junction / symlink)
+
+`config.yml` points at a data root that is **not** copied into the repo. Link it so paths
+resolve without hard-coding absolutes in code:
+
+- **Windows (cmd):** `mklink /J data\external "D:\path\to\data-root"`
+- **Windows (PowerShell):** `New-Item -ItemType Junction -Path data\external -Target "D:\path\to\data-root"`
+- **Linux / macOS:** `ln -s /path/to/data-root data/external`
+
+Point each `config.yml` `data_sources[*].path` at a location under `data/external/` (or the
+mount directly), then re-run `python scripts/bundle.py --verify` until every source is `OK`.
+{% endif %}
+## What NOT to commit
+
+`config.yml` and `.env` are git-ignored on purpose — they differ on every machine. Never
+commit them; never hard-code an absolute path in code (read it from `config.yml`).
+
+## See also
+
+- `docs/running-from-terminal.md` — the `make` targets and their make-less equivalents.
+- `data/README.md` — the copied-vs-connected data rule.
+{% if analysis_stack != 'none' %}- `metadata/data_sources.yml` — per-source checksums + provenance (verify integrity there).
+{% endif %}
