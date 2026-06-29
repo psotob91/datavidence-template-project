@@ -13,6 +13,10 @@ archive; this file is the *open* set. Distinct from `LEARNING_LOG.md`
 ## Anomalies / red flags
 - [ ] `nothing_loose` write-guard fails open at the factory root (no
       `.claude/policy/paths.allow.json`). Acceptable for now; revisit (see REFLECTOR).
+- [ ] `capture_signal.py` captures `<task-notification>` blocks (async-agent completion
+      messages) as learning signals -- 5/5 queued on 2026-06-29 were these false positives.
+      The hook should skip system-injected content (`<task-notification>`, `<system-reminder>`,
+      tool-result echoes). FIX LIVES IN psotobverse-utils (hooks/capture_signal.py), not here.
 
 ## Later / don't forget
 - [ ] Add a root `llms.txt` for the factory (only `template/llms.txt`, the child
