@@ -53,7 +53,7 @@ project still works without it (the step is then done by hand)._
 
 | Capability | Kind | Reliable triggers | When NOT |
 |---|---|---|---|
-| `phenotype-scaffold` | skill | "define / operationalize a phenotype", "computable case definition" | a static one-code label with no time logic |
-| `code-list-validate` | skill | "validate this code list / mapping", "check ICD/SNOMED/RxNorm provenance" | codes are the endpoint, not grouped |
-| `indicator-review` | skill | "review this denominator / numerator / window / episode design" | no cohort/indicator construction involved |
+| `phenotype-gate` | skill | "define / operationalize a phenotype", "computable case definition" | a static one-code label with no time logic |
+| `map-clinical-codes` | skill | "build / validate this code list / mapping", "check ICD/SNOMED/RxNorm provenance / crosswalk" | codes are the endpoint, not grouped |
+| `design-indicator` | skill | "design / review this denominator / numerator / window / episode design" | no cohort/indicator construction involved |
 {% endif %}{% endif %}
