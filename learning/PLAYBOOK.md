@@ -59,6 +59,18 @@ it short; if a line stops being true, fix it and log the correction in
   it can pass against the wrong version. If you ever want plain `copier copy` /
   `copier update` to track reality, start tagging releases.
 
+- **Scripted regex rewrites: no DOTALL on bounded matches; verify with `git diff --stat`.**
+  A `(?s)`/DOTALL flag makes `.*` cross newlines and run to EOF -- a bounded "frontmatter
+  block" rewrite ate whole files. Match line-bounded blocks WITHOUT DOTALL; for
+  whitespace-flexible text, tokenize and join with `\s+` (`re.escape` escapes spaces, so
+  `.replace(' ', r'\s+')` is wrong). After any scripted multi-file rewrite, read
+  `git diff --stat` BEFORE committing -- a wildly asymmetric insert/delete count (e.g. 26/465)
+  is the tell that the regex over-matched.
+- **One heredoc per Bash call on this machine.** Git Bash here fails to parse a single command
+  containing multiple heredocs ("unexpected EOF"); write one file per call. Cross-repo/plugin
+  writes go via Bash/python (the factory `nothing_loose` guard blocks Edit/Write outside the
+  project root).
+
 ## Optimal disclosure (read order for a new session)
 
 1. Root `CLAUDE.md` → 2. `SESSION_STATE.md` (current state) →

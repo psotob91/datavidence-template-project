@@ -10,9 +10,9 @@ Review this board at the end of a work session (or when `/reflect` runs).
 
 ## Now — act on this session
 
-- Fix the `datavidence-healthanalysis` plugin reference: it is routed to from
-  `template/.claude/policies/analysis/data-onboarding.md` and module docs but is
-  not installed — children are told to call skills that do not exist.
+- `datavidence-healthanalysis` skills now EXIST (built + merged, v0.2.0; template skill
+  names aligned, Codex review addressed). Remaining: confirm the plugin is installed/
+  published so children can actually invoke them -- TRIGGER: before the next real child build.
 - Resolve `temporal-expansion-ideas/`: prose-ify the two Gemini briefs into
   `docs/research/` (or archive under `docs/research/archive/` + gitignore) and
   remove the dangling forward-reference from the `routinely-collected-data.md` stub.
@@ -23,6 +23,9 @@ Each item MUST name an explicit **TRIGGER**.
 
 - Add a factory `.claude/policy/paths.allow.json` to activate the `nothing_loose`
   write-guard — **TRIGGER:** when loose files start landing in the factory root.
+- Wire `preregister` into the template `knowledge-map.md.jinja` / trigger-lexicon
+  (factory<->template parity) -- **TRIGGER:** next template-repo session / before the
+  next child render.
 
 ## Optional — nice to have, no urgency
 

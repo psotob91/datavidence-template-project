@@ -38,6 +38,7 @@ falsifiable**, so drift is visible.
 |---|---|---|---|---|
 | AGENTS.md ecosystem | Cross-agent `AGENTS.md` gaining adoption; Claude Code still reads only `CLAUDE.md` | 2026-06-28 | If children must support multiple agents, bridge (import/symlink) rather than duplicate | Re-check whether Claude Code reads AGENTS.md natively |
 | RAG retrieval | Hybrid (BM25 + dense + rerank) is the safe default; GraphRAG/LazyGraphRAG only if multi-hop is proven (ADR-0003) | 2026-06-28 | The companion retrieval MCP is in active dev | Re-verify before committing to a graph approach |
+| Cowork plugin delivery | Server-side marketplace sync is broken (serves stale versions; GH #39400/#38008/#39274/#40600). DECISION: deprecate Cowork for our plugins; develop+run in Claude Code (terminal) only. | 2026-06-29 | Cowork could silently run an old plugin version | Re-check GH #39400 before re-targeting Cowork |
 
 ## Contested / be measured (no single right answer)
 
